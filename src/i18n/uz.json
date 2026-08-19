@@ -10,6 +10,7 @@
     "process": "Jarayon",
     "portfolio": "Loyihalar",
     "tech": "Texnologiyalar",
+    "audit": "Bepul audit",
     "contact": "Bog'lanish"
   },
   "common": {
@@ -133,9 +134,18 @@
     "subtitle": "Barqaror, tez va uzoq muddat qo'llab-quvvatlanadigan stack"
   },
   "certificates": {
-    "eyebrow": "Hamkorlar",
-    "title": "Texnologiya hamkorlari",
-    "subtitle": "Sertifikatlangan platformalar va ekotizimlar"
+    "eyebrow": "Mijozlarimiz",
+    "title": "Biz bilan ishlaydigan firmalar",
+    "subtitle": "Har bir loyiha alohida muvaffaqiyatli hamkorlik natijasidir"
+  },
+  "partners": {
+    "autoteacher": "Avtomaktab platformasi",
+    "fasgo": "Yetkazib berish xizmati",
+    "jrtechno": "Fintex va IT xizmatlari",
+    "yubomarket": "E-commerce platformasi",
+    "onefin": "Fintex ilovasi",
+    "yagumarket": "Onlayn bozor platformasi",
+    "yaqintv": "Media va striming"
   },
   "contact": {
     "eyebrow": "Bog'lanish",
@@ -160,14 +170,14 @@
     },
     "placeholders": {
       "phone": "+998 93 361 57 75",
-      "email": "info@turoncore.uz",
+      "email": "turoncore@gmail.com",
       "telegram": "@muhammadrasultg",
       "instagram": "@turoncore",
       "address": "Toshkent, O'zbekiston"
     }
   },
   "footer": {
-    "tagline": "40+ loyiha. 100% yetkazilgan. Toshkentda yaratilgan.",
+    "tagline": "7+ loyiha. 100% yetkazilgan. Toshkentda yaratilgan.",
     "rights": "Barcha huquqlar himoyalangan.",
     "links": "Havolalar",
     "cta": "Loyihangizni boshlaymizmi?",
@@ -178,13 +188,49 @@
     "privacy": "Maxfiylik",
     "terms": "Shartlar",
     "createdIn": "Toshkentda yaratilgan",
-    "telegram": "@unical_uz",
-    "phone": "+998 93 3893700",
-    "email": "hello@unical.uz",
+    "telegram": "@muhammadrasultg",
+    "phone": "+998 93 361 57 75",
+    "email": "turoncore@gmail.com",
     "solutions": "Yechimlar",
     "works": "Ishlarimiz",
     "fields": "Sohalar",
     "process": "Jarayon",
     "about": "Biz haqimizda"
+  },
+  "audit": {
+    "eyebrow": "Bepul tahlil",
+    "title": "Saytingizni bepul tekshirib beramiz — 5 ta muammoni topib beramiz",
+    "subtitle": "Biznesingiz sayti mijozlarni yo'qotyaptimi? Saytingizni tezlik, qulaylik, SEO xatolari va xavfsizlik bo'yicha bepul tahlil qilib beramiz.",
+    "cta": "Bepul auditga yozilish",
+    "features": [
+      {
+        "title": "Yuklanish tezligi",
+        "desc": "Saytning sekin ishlashi mijozlarni qochiradi. Biz tezlikni tahlil qilamiz."
+      },
+      {
+        "title": "Mobil moslashuvchanlik",
+        "desc": "Telefonlarda sayt to'g'ri ko'rinishi va qulay ishlashini tekshiramiz."
+      },
+      {
+        "title": "SEO va qidiruv tizimlari",
+        "desc": "Google va Yandex qidiruv tizimlarida saytingiz topilishini tahlil qilamiz."
+      },
+      {
+        "title": "UX/UI qulaylik",
+        "desc": "Foydalanuvchilar saytda adashib qolmasligi va oson buyurtma berishini tekshiramiz."
+      },
+      {
+        "title": "Xavfsizlik",
+        "desc": "Sayt xavfsizligi va SSL sertifikati to'g'ri sozlanganligini tekshiramiz."
+      }
+    ],
+    "form": {
+      "website": "Veb-saytingiz manzili",
+      "websitePlaceholder": "example.com",
+      "phone": "Telefon raqamingiz",
+      "phonePlaceholder": "+998 (90) 123-45-67",
+      "submit": "Auditga buyurtma berish",
+      "success": "Arizangiz qabul qilindi! Saytingizni tahlil qilib, tez orada bog'lanamiz."
+    }
   }
 }

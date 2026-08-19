@@ -49,13 +49,21 @@ const palettes = [
                 class="relative aspect-[16/10] overflow-hidden rounded-[calc(var(--r-lg)-0.55rem)]"
                 style={`background:${palettes[i % palettes.length]}`}
               >
+                {project.data.image ? (
+                  <img
+                    src={project.data.image}
+                    alt={project.data.title}
+                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+                  />
+                ) : (
+                  <div
+                    class="absolute inset-0 opacity-30 transition-transform duration-[1.2s] group-hover:scale-110"
+                    style="background-image:radial-gradient(rgba(255,255,255,.35) 1px, transparent 1px);background-size:22px 22px"
+                    aria-hidden="true"
+                  />
+                )}
                 <div
-                  class="absolute inset-0 opacity-30 transition-transform duration-[1.2s] group-hover:scale-110"
-                  style="background-image:radial-gradient(rgba(255,255,255,.35) 1px, transparent 1px);background-size:22px 22px"
-                  aria-hidden="true"
-                />
-                <div
-                  class="absolute inset-0 bg-linear-to-t from-black/45 via-transparent to-transparent"
+                  class="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent"
                   aria-hidden="true"
                 />
 

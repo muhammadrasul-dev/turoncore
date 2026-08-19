@@ -10,6 +10,7 @@
     "process": "Process",
     "portfolio": "Projects",
     "tech": "Technologies",
+    "audit": "Free Audit",
     "contact": "Contact"
   },
   "common": {
@@ -133,9 +134,18 @@
     "subtitle": "A stable, fast, and maintainable stack"
   },
   "certificates": {
-    "eyebrow": "Partners",
-    "title": "Technology partners",
-    "subtitle": "Certified platforms and ecosystems"
+    "eyebrow": "Our Clients",
+    "title": "Companies we work with",
+    "subtitle": "Each project represents a unique and successful partnership"
+  },
+  "partners": {
+    "autoteacher": "Driving School Platform",
+    "fasgo": "Delivery Service",
+    "jrtechno": "Fintech & IT Services",
+    "yubomarket": "E-Commerce Platform",
+    "onefin": "Fintech Application",
+    "yagumarket": "Online Marketplace",
+    "yaqintv": "Media & Streaming"
   },
   "contact": {
     "eyebrow": "Contact",
@@ -160,14 +170,14 @@
     },
     "placeholders": {
       "phone": "+998 93 361 57 75",
-      "email": "info@turoncore.uz",
+      "email": "turoncore@gmail.com",
       "telegram": "@muhammadrasultg",
       "instagram": "@turoncore",
       "address": "Tashkent, Uzbekistan"
     }
   },
   "footer": {
-    "tagline": "40+ projects. 100% delivered. Created in Tashkent.",
+    "tagline": "7+ projects. 100% delivered. Created in Tashkent.",
     "rights": "All rights reserved.",
     "links": "Links",
     "cta": "Ready to start your project?",
@@ -178,13 +188,49 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "createdIn": "Created in Tashkent",
-    "telegram": "@unical_uz",
-    "phone": "+998 93 3893700",
-    "email": "hello@unical.uz",
+    "telegram": "@muhammadrasultg",
+    "phone": "+998 93 361 57 75",
+    "email": "turoncore@gmail.com",
     "solutions": "Solutions",
     "works": "Our work",
     "fields": "Sectors",
     "process": "Process",
     "about": "About us"
+  },
+  "audit": {
+    "eyebrow": "Free Audit",
+    "title": "We will audit your site for free — we will find 5 problems",
+    "subtitle": "Is your website losing clients? We will analyze your site for speed, user experience, SEO errors, and security for free.",
+    "cta": "Request Free Audit",
+    "features": [
+      {
+        "title": "Loading Speed",
+        "desc": "Slow websites drive customers away. We will analyze your loading performance."
+      },
+      {
+        "title": "Mobile Responsiveness",
+        "desc": "We check how correctly and smoothly your site works on mobile devices."
+      },
+      {
+        "title": "SEO & Search Engines",
+        "desc": "We analyze your site's visibility and ranking factors on Google and Yandex."
+      },
+      {
+        "title": "UX/UI Usability",
+        "desc": "We verify if users can easily navigate your site and complete actions."
+      },
+      {
+        "title": "Security",
+        "desc": "We check your website's security status and SSL certificate configuration."
+      }
+    ],
+    "form": {
+      "website": "Your Website URL",
+      "websitePlaceholder": "example.com",
+      "phone": "Your Phone Number",
+      "phonePlaceholder": "+998 (90) 123-45-67",
+      "submit": "Request Audit",
+      "success": "Your request has been received! We will analyze your site and contact you soon."
+    }
   }
 }

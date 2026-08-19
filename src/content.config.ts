@@ -22,6 +22,7 @@ const portfolio = defineCollection({
     locale: z.enum(['uz', 'ru', 'en']),
     order: z.number(),
     link: z.string().optional(),
+    image: z.string().optional(),
   }),
 });
 

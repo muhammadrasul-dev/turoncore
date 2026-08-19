@@ -46,6 +46,55 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
   <body class="min-h-screen bg-bg text-ink">
+    <!-- Premium Layout Preloader Overlay -->
+    <div
+      id="page-preloader"
+      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#05070b] transition-all duration-[800ms] cubic-bezier(0.16, 1, 0.3, 1)"
+    >
+      <div class="relative flex flex-col items-center">
+        <!-- Circular spinner with premium glows -->
+        <div class="relative h-14 w-14">
+          <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-blue-500 animate-spin"></div>
+          <div class="absolute inset-2 rounded-full border-b-2 border-l-2 border-blue-400 animate-spin" style="animation-direction: reverse; animation-duration: 0.8s"></div>
+        </div>
+        <!-- Soft, clean loading text -->
+        <div class="mt-6 font-display text-[0.85rem] font-bold uppercase tracking-[0.2em] text-[#64748b]">
+          Turon<span class="text-white">Core</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preloader controller script -->
+    <script is:inline>
+      (function () {
+        // Prevent scroll on html tag while preloader is active
+        document.documentElement.classList.add('lenis-stopped');
+
+        // On complete page load (DOM + all images, styles, and assets)
+        window.addEventListener('load', function () {
+          const preloader = document.getElementById('page-preloader');
+          if (preloader) {
+            // Elegant exit transitions
+            preloader.style.opacity = '0';
+            preloader.style.visibility = 'hidden';
+            preloader.style.transform = 'translateY(-24px)';
+
+            // Clean up and unlock scroll
+            setTimeout(function () {
+              preloader.remove();
+              document.documentElement.classList.remove('lenis-stopped');
+              
+              // Trigger Hero visual elements cascade load animations immediately
+              const heroReveals = document.querySelectorAll('#hero .reveal, #hero .reveal-scale');
+              heroReveals.forEach(function (el) {
+                el.classList.add('visible');
+              });
+            }, 850);
+          }
+        });
+      })();
+    </script>
+
     <div id="scroll-progress"></div>
 
     <a
@@ -70,6 +119,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       import '../scripts/reveal.ts';
       import '../scripts/header.ts';
       import '../scripts/spotlight.ts';
+      import '../scripts/scroll.ts';
     </script>
   </body>
 </html>

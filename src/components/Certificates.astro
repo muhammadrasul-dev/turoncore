@@ -10,24 +10,16 @@ const { t } = Astro.props;
 
 const partners = [
   {
-    name: 'AWS Cloud',
-    label: 'Certified Partner',
-    path: 'M7.4 18.5h9.1a3.6 3.6 0 0 0 .4-7.2A5.1 5.1 0 0 0 7.5 9.7a4 4 0 0 0-.1 8.8Z',
+    name: 'Fasgo',
+    label: t.partners.fasgo,
   },
   {
-    name: 'Google Cloud',
-    label: 'Technology Partner',
-    path: 'M12 3.5 5.6 6.3v5.4c0 3.9 2.6 7.5 6.4 8.8 3.8-1.3 6.4-4.9 6.4-8.8V6.3L12 3.5Zm-2.4 8.7 1.9 1.9 3.3-3.5',
+    name: 'Jr Techno',
+    label: t.partners.jrtechno,
   },
   {
-    name: 'Microsoft Azure',
-    label: 'Verified Partner',
-    path: 'm12 3.6 8.2 4.6-8.2 4.6-8.2-4.6 8.2-4.6ZM3.8 12.6l8.2 4.6 8.2-4.6M3.8 16.6l8.2 4.6 8.2-4.6',
-  },
-  {
-    name: 'Flutter',
-    label: 'Expert Developers',
-    path: 'm9 7.5-4.5 4.6L9 16.7M15 7.5l4.5 4.6L15 16.7',
+    name: 'YaqinTV',
+    label: t.partners.yaqintv,
   },
 ];
 ---
@@ -42,25 +34,15 @@ const partners = [
       class="mb-12 md:mb-16"
     />
 
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5">
       {
         partners.map((partner, i) => (
           <div
             class="group surface spot js-spot lift reveal flex flex-col items-center gap-4 p-7 text-center"
             style={`--rd:${i * 90}ms`}
           >
-            <span class="tile h-12 w-12">
-              <svg
-                class="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d={partner.path} />
-              </svg>
+            <span class="tile h-12 w-12 font-display text-lg font-bold">
+              {partner.name.charAt(0)}
             </span>
             <span>
               <span class="block font-semibold text-ink">{partner.name}</span>
