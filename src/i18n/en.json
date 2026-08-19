@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "TuronCore — Mobile Apps & Web Development",
+    "description": "TuronCore — mobile applications, websites, and B2B IT services. Grow your business with modern technologies."
+  },
+  "nav": {
+    "services": "Services",
+    "about": "About",
+    "process": "Process",
+    "portfolio": "Projects",
+    "tech": "Technologies",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "IT Company",
+    "title": "Take your digital products",
+    "titleHighlight": "to the next level",
+    "subtitle": "Mobile apps, web platforms, and B2B IT partnerships — fast, quality, and reliable solutions built with modern technologies.",
+    "ctaPrimary": "Get in Touch",
+    "ctaSecondary": "Services"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Complete IT solutions for your business"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "TuronCore — your trusted IT partner",
+    "mission": {
+      "title": "Our Mission",
+      "text": "To help businesses in Uzbekistan and internationally create modern digital products. Quality, speed, and transparency are our core principles in every project."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "text": "To become one of the most trusted IT companies in the region. Leading our clients' digital transformation through innovative solutions."
+    },
+    "stats": {
+      "projects": "Projects",
+      "clients": "Clients",
+      "years": "Years of Experience",
+      "team": "Specialists"
+    }
+  },
+  "process": {
+    "title": "Our Process",
+    "subtitle": "We deliver your project in 4 steps",
+    "steps": [
+      {
+        "title": "Discovery",
+        "description": "We learn your needs and define goals and requirements."
+      },
+      {
+        "title": "Design",
+        "description": "We create UI/UX design, prototypes, and technical architecture."
+      },
+      {
+        "title": "Development",
+        "description": "Iterative development and testing using Agile methodology."
+      },
+      {
+        "title": "Support",
+        "description": "Launch, monitoring, and ongoing technical support."
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Projects",
+    "subtitle": "Samples from our recent work",
+    "comingSoon": "Coming Soon"
+  },
+  "tech": {
+    "title": "Technologies",
+    "subtitle": "The modern stack we work with"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Let's discuss your project",
+    "form": {
+      "name": "Your Name",
+      "email": "Email",
+      "message": "Your Message",
+      "submit": "Send",
+      "success": "Your message has been received! We'll get back to you soon."
+    },
+    "info": {
+      "phone": "Phone",
+      "email": "Email",
+      "telegram": "Telegram",
+      "address": "Address"
+    },
+    "placeholders": {
+      "phone": "+998 XX XXX XX XX",
+      "email": "info@turoncore.uz",
+      "telegram": "@turoncore",
+      "address": "Tashkent, Uzbekistan"
+    }
+  },
+  "footer": {
+    "tagline": "Mobile apps and websites — professional IT solutions.",
+    "rights": "All rights reserved.",
+    "links": "Links"
+  }
+}

@@ -1,0 +1,34 @@
+---
+import type { Translations } from '../i18n/ui';
+import SectionHeading from './ui/SectionHeading.astro';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+const technologies = [
+  'Flutter', 'Dart', 'React', 'TypeScript', 'Astro',
+  'Node.js', 'Tailwind CSS', 'Firebase', 'PostgreSQL', 'Docker',
+  'Git', 'Figma', 'Kotlin', 'Swift',
+];
+---
+
+<section id="tech" class="py-20 md:py-28">
+  <div class="mx-auto max-w-7xl px-4 md:px-6">
+    <div class="reveal">
+      <SectionHeading title={t.tech.title} subtitle={t.tech.subtitle} />
+    </div>
+
+    <div class="reveal reveal-delay-1 flex flex-wrap justify-center gap-3 md:gap-4 max-w-4xl mx-auto">
+      {
+        technologies.map((tech) => (
+          <span class="px-4 py-2 rounded-xl border border-navy/10 dark:border-white/10 bg-white/60 dark:bg-white/5 text-sm font-medium text-navy/70 dark:text-white/70 hover:border-emerald/30 hover:text-emerald transition-all duration-300 cursor-default">
+            {tech}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>

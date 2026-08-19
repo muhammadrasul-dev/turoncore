@@ -1,0 +1,76 @@
+---
+import type { Lang, Translations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+const year = new Date().getFullYear();
+
+const footerLinks = [
+  { href: '#services', label: t.nav.services },
+  { href: '#about', label: t.nav.about },
+  { href: '#portfolio', label: t.nav.portfolio },
+  { href: '#contact', label: t.nav.contact },
+];
+---
+
+<footer class="border-t border-navy/10 dark:border-white/10 bg-navy dark:bg-black/40">
+  <div class="mx-auto max-w-7xl px-4 py-12 md:px-6">
+    <div class="grid gap-8 md:grid-cols-3">
+      <div>
+        <img
+          src="/logos/logo-white.png"
+          alt="TuronCore"
+          class="h-8 w-auto mb-4"
+          width="140"
+          height="36"
+        />
+        <p class="text-sm text-white/60 leading-relaxed max-w-xs">
+          {t.footer.tagline}
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-4">{t.footer.links}</h3>
+        <ul class="space-y-2">
+          {
+            footerLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-white/60 hover:text-emerald transition-colors"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-4">{t.nav.contact}</h3>
+        <ul class="space-y-2 text-sm text-white/60">
+          <li>
+            <a href={`mailto:${t.contact.placeholders.email}`} class="hover:text-emerald transition-colors">
+              {t.contact.placeholders.email}
+            </a>
+          </li>
+          <li>
+            <a href="https://t.me/turoncore" target="_blank" rel="noopener noreferrer" class="hover:text-emerald transition-colors">
+              {t.contact.placeholders.telegram}
+            </a>
+          </li>
+          <li>{t.contact.placeholders.address}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-white/10 text-center text-sm text-white/40">
+      &copy; {year} TuronCore. {t.footer.rights}
+    </div>
+  </div>
+</footer>

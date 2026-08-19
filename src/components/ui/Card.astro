@@ -1,0 +1,18 @@
+---
+interface Props {
+  class?: string;
+  hover?: boolean;
+}
+
+const { class: className = '', hover = true } = Astro.props;
+---
+
+<div
+  class:list={[
+    'rounded-2xl border border-navy/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm p-6 transition-all duration-300',
+    hover && 'hover:border-emerald/30 hover:shadow-lg hover:shadow-emerald/5 hover:-translate-y-1',
+    className,
+  ]}
+>
+  <slot />
+</div>

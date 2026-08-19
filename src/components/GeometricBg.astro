@@ -1,0 +1,22 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['pointer-events-none absolute inset-0 overflow-hidden', className]} aria-hidden="true">
+  <svg
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] text-navy dark:text-white animate-spin-slow opacity-[0.04] dark:opacity-[0.06]"
+    viewBox="0 0 200 200"
+    fill="none"
+  >
+    <rect x="40" y="40" width="120" height="120" class="geometric-line" />
+    <rect x="40" y="40" width="120" height="120" class="geometric-line" transform="rotate(45 100 100)" />
+    <polygon points="100,70 126,85 126,115 100,130 74,115 74,85" fill="#10B981" opacity="0.15" />
+  </svg>
+
+  <div class="absolute top-20 right-[10%] h-32 w-32 rounded-full bg-emerald/5 blur-3xl animate-float" />
+  <div class="absolute bottom-20 left-[10%] h-40 w-40 rounded-full bg-emerald/5 blur-3xl animate-float" style="animation-delay: -4s" />
+</div>

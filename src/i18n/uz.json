@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "TuronCore — Mobil ilova va Web saytlar",
+    "description": "TuronCore — mobil ilovalar, web saytlar va B2B IT xizmatlari. Zamonaviy texnologiyalar bilan biznesingizni rivojlantiring."
+  },
+  "nav": {
+    "services": "Xizmatlar",
+    "about": "Biz haqimizda",
+    "process": "Jarayon",
+    "portfolio": "Loyihalar",
+    "tech": "Texnologiyalar",
+    "contact": "Bog'lanish"
+  },
+  "hero": {
+    "badge": "IT kompaniya",
+    "title": "Raqamli mahsulotlaringizni",
+    "titleHighlight": "keyingi bosqichga olib chiqing",
+    "subtitle": "Mobil ilovalar, web platformalar va B2B IT hamkorlik — zamonaviy texnologiyalar bilan tez, sifatli va ishonchli yechimlar.",
+    "ctaPrimary": "Bog'lanish",
+    "ctaSecondary": "Xizmatlar"
+  },
+  "services": {
+    "title": "Xizmatlarimiz",
+    "subtitle": "Biznesingiz uchun to'liq IT yechimlar"
+  },
+  "about": {
+    "title": "Biz haqimizda",
+    "subtitle": "TuronCore — ishonchli IT hamkoringiz",
+    "mission": {
+      "title": "Missiyamiz",
+      "text": "O'zbekiston va xalqaro bozorda bizneslarga zamonaviy raqamli mahsulotlar yaratishda yordam berish. Har bir loyihada sifat, tezlik va shaffoflik — bizning ustuvor tamoyillarimiz."
+    },
+    "vision": {
+      "title": "Vizyonimiz",
+      "text": "Mintaqadagi eng ishonchli IT kompaniyalardan biri bo'lish. Innovatsion yechimlar orqali mijozlarimizning raqamli transformatsiyasiga yetakchilik qilish."
+    },
+    "stats": {
+      "projects": "Loyihalar",
+      "clients": "Mijozlar",
+      "years": "Yillik tajriba",
+      "team": "Mutaxassislar"
+    }
+  },
+  "process": {
+    "title": "Ish jarayoni",
+    "subtitle": "Loyihangizni 4 bosqichda amalga oshiramiz",
+    "steps": [
+      {
+        "title": "Muloqot",
+        "description": "Ehtiyojlaringizni o'rganamiz, maqsad va talablarni aniqlaymiz."
+      },
+      {
+        "title": "Dizayn",
+        "description": "UI/UX dizayn, prototip va texnik arxitektura ishlab chiqamiz."
+      },
+      {
+        "title": "Ishlab chiqish",
+        "description": "Agile metodologiya bilan iterativ rivojlantirish va testlash."
+      },
+      {
+        "title": "Qo'llab-quvvatlash",
+        "description": "Ishga tushirish, monitoring va doimiy texnik yordam."
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Loyihalar",
+    "subtitle": "So'nggi ishlarimizdan namunalar",
+    "comingSoon": "Tez orada"
+  },
+  "tech": {
+    "title": "Texnologiyalar",
+    "subtitle": "Ishlatadigan zamonaviy stack"
+  },
+  "contact": {
+    "title": "Bog'lanish",
+    "subtitle": "Loyihangiz haqida gaplashamiz",
+    "form": {
+      "name": "Ismingiz",
+      "email": "Email",
+      "message": "Xabaringiz",
+      "submit": "Yuborish",
+      "success": "Xabaringiz qabul qilindi! Tez orada bog'lanamiz."
+    },
+    "info": {
+      "phone": "Telefon",
+      "email": "Email",
+      "telegram": "Telegram",
+      "address": "Manzil"
+    },
+    "placeholders": {
+      "phone": "+998 XX XXX XX XX",
+      "email": "info@turoncore.uz",
+      "telegram": "@turoncore",
+      "address": "Toshkent, O'zbekiston"
+    }
+  },
+  "footer": {
+    "tagline": "Mobil ilova va web saytlar — professional IT yechimlar.",
+    "rights": "Barcha huquqlar himoyalangan.",
+    "links": "Havolalar"
+  }
+}

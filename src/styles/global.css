@@ -1,0 +1,108 @@
+@import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-navy: #0b192e;
+  --color-navy-light: #001a3d;
+  --color-emerald: #10b981;
+  --color-emerald-dark: #2a9d6a;
+  --color-surface-dark: #0a0a0a;
+  --color-surface-light: #f5f7f8;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  @apply bg-surface-light text-navy antialiased;
+}
+
+.dark body {
+  @apply bg-surface-dark text-white;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 {
+  transition-delay: 60ms;
+}
+.reveal-delay-2 {
+  transition-delay: 120ms;
+}
+.reveal-delay-3 {
+  transition-delay: 180ms;
+}
+.reveal-delay-4 {
+  transition-delay: 240ms;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(3deg);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+
+.geometric-line {
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
+  opacity: 0.15;
+}
+
+.dark .geometric-line {
+  opacity: 0.2;
+}

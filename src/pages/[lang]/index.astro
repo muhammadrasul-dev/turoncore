@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Services from '../../components/Services.astro';
+import About from '../../components/About.astro';
+import Process from '../../components/Process.astro';
+import Portfolio from '../../components/Portfolio.astro';
+import TechStack from '../../components/TechStack.astro';
+import Contact from '../../components/Contact.astro';
+import { getTranslations, type Lang } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'uz' } },
+    { params: { lang: 'ru' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = getTranslations(lang);
+---
+
+<BaseLayout lang={lang} t={t}>
+  <Hero t={t} />
+  <Services lang={lang} t={t} />
+  <About t={t} />
+  <Process t={t} />
+  <Portfolio lang={lang} t={t} />
+  <TechStack t={t} />
+  <Contact t={t} />
+</BaseLayout>
