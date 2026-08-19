@@ -1,0 +1,68 @@
+---
+import type { Lang, Translations } from '../i18n/ui';
+import { getCollection } from 'astro:content';
+import SectionHeading from './ui/SectionHeading.astro';
+import Card from './ui/Card.astro';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+
+const allTestimonials = await getCollection('testimonials');
+const testimonials = allTestimonials
+  .filter((review) => review.data.locale === lang)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="testimonials" class="py-20 md:py-28">
+  <div class="mx-auto max-w-7xl px-4 md:px-6">
+    <div class="reveal">
+      <SectionHeading
+        title={lang === 'uz' ? 'Mijozlarimiz fikri' : lang === 'ru' ? 'Отзывы клиентов' : 'Client Testimonials'}
+        subtitle={lang === 'uz'
+          ? 'Biz bilan ishlash tajribasi haqida'
+          : lang === 'ru'
+            ? 'Об опыте работы с нами'
+            : 'About working with us'}
+      />
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        testimonials.map((testimonial, i) => (
+          <div class:list={['reveal', `reveal-delay-${i + 1}`]}>
+            <Card class="h-full">
+              <div class="flex flex-col h-full">
+                <div class="flex-1 mb-6">
+                  <p class="text-navy/70 dark:text-white/70 italic leading-relaxed">
+                    "{testimonial.body}"
+                  </p>
+                </div>
+                <div class="flex items-center gap-3 pt-4 border-t border-navy/10 dark:border-white/10">
+                  <div class="flex-shrink-0 h-12 w-12 rounded-full bg-gradient-to-br from-emerald/20 to-navy/20 flex items-center justify-center text-emerald font-bold text-lg">
+                    {testimonial.data.author
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')
+                      .toUpperCase()}
+                  </div>
+                  <div>
+                    <div class="font-semibold text-navy dark:text-white">
+                      {testimonial.data.author}
+                    </div>
+                    <div class="text-sm text-navy/60 dark:text-white/60">
+                      {testimonial.data.position}, {testimonial.data.company}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

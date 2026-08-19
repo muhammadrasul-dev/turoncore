@@ -23,8 +23,11 @@ const icons: Record<string, string> = {
 };
 ---
 
-<section id="services" class="py-20 md:py-28">
-  <div class="mx-auto max-w-7xl px-4 md:px-6">
+<section id="services" class="py-20 md:py-28 relative overflow-hidden">
+  <!-- Background gradient -->
+  <div class="absolute inset-0 bg-gradient-radial opacity-30" />
+
+  <div class="mx-auto max-w-7xl px-4 md:px-6 relative">
     <div class="reveal">
       <SectionHeading title={t.services.title} subtitle={t.services.subtitle} />
     </div>
@@ -32,19 +35,44 @@ const icons: Record<string, string> = {
     <div class="grid gap-6 md:grid-cols-3">
       {
         services.map((service, i) => (
-          <div class:list={['reveal', `reveal-delay-${i + 1}`]}>
+          <div class:list={['reveal card-3d', `reveal-delay-${i + 1}`]}>
             <Card>
-              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald/10 text-emerald mb-5">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d={icons[service.data.icon]} />
-                </svg>
+              <div class="relative">
+                <!-- Order number -->
+                <div class="absolute -top-2 -right-2 h-8 w-8 rounded-full bg-gradient-to-br from-emerald/20 to-emerald/5 flex items-center justify-center text-emerald text-sm font-bold">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+
+                <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-emerald/10 to-navy/5 text-emerald mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <svg
+                    class="h-7 w-7"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d={icons[service.data.icon]} />
+                  </svg>
+                </div>
+
+                <h3 class="text-xl font-semibold text-navy dark:text-white mb-2 group-hover:text-emerald transition-colors">
+                  {service.data.title}
+                </h3>
+
+                <p class="text-navy/60 dark:text-white/60 leading-relaxed mb-4">
+                  {service.data.description}
+                </p>
+
+                <a
+                  href="#contact"
+                  class="inline-flex items-center gap-1 text-sm font-medium text-emerald hover:gap-2 transition-all"
+                >
+                  {lang === 'uz' ? 'Batafsil' : lang === 'ru' ? 'Подробнее' : 'Learn more'}
+                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
               </div>
-              <h3 class="text-xl font-semibold text-navy dark:text-white mb-2">
-                {service.data.title}
-              </h3>
-              <p class="text-navy/60 dark:text-white/60 leading-relaxed">
-                {service.data.description}
-              </p>
             </Card>
           </div>
         ))

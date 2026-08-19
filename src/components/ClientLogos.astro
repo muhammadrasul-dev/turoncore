@@ -1,0 +1,72 @@
+---
+import type { Translations } from '../i18n/ui';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+const clients = [
+  { name: 'Registon', logo: '/clients/client-1.svg' },
+  { name: 'TechCorp', logo: '/clients/client-2.svg' },
+  { name: 'BizSoft', logo: '/clients/client-3.svg' },
+  { name: 'InnoLab', logo: '/clients/client-4.svg' },
+  { name: 'DataHub', logo: '/clients/client-5.svg' },
+  { name: 'CloudPro', logo: '/clients/client-6.svg' },
+  { name: 'SmartSys', logo: '/clients/client-7.svg' },
+  { name: 'CodeBase', logo: '/clients/client-8.svg' },
+];
+---
+
+<section class="py-16 md:py-20 border-t border-navy/5 dark:border-white/5 overflow-hidden">
+  <div class="mx-auto max-w-7xl px-4 md:px-6 mb-12">
+    <div class="text-center">
+      <span class="inline-flex items-center gap-2 text-sm text-navy/50 dark:text-white/50 mb-2">
+        <span class="h-1.5 w-1.5 rounded-full bg-emerald animate-pulse" />
+        Ishonch bildirgan mijozlar
+      </span>
+      <h2 class="text-2xl md:text-3xl font-bold text-navy dark:text-white">
+        {t.about.stats.clients} dan ortiq kompaniya
+      </h2>
+    </div>
+  </div>
+
+  <div class="relative">
+    <!-- Gradient fade edges -->
+    <div
+      class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-surface-light dark:from-surface-dark to-transparent z-10 pointer-events-none"
+    />
+    <div
+      class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-surface-light dark:from-surface-dark to-transparent z-10 pointer-events-none"
+    />
+
+    <!-- Marquee container -->
+    <div class="flex">
+      <!-- First set -->
+      <div class="flex animate-marquee space-x-12 md:space-x-16">
+        {
+          clients.map((client) => (
+            <div class="flex items-center justify-center min-w-[120px] md:min-w-[140px] h-20 glass rounded-xl p-4 transition-all duration-300 hover:scale-105 hover:glow-emerald group">
+              <div class="text-2xl font-bold text-navy/30 dark:text-white/30 group-hover:text-emerald transition-colors">
+                {client.name}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <!-- Duplicate set for seamless loop -->
+      <div class="flex animate-marquee space-x-12 md:space-x-16" aria-hidden="true">
+        {
+          clients.map((client) => (
+            <div class="flex items-center justify-center min-w-[120px] md:min-w-[140px] h-20 glass rounded-xl p-4 transition-all duration-300 hover:scale-105 hover:glow-emerald group">
+              <div class="text-2xl font-bold text-navy/30 dark:text-white/30 group-hover:text-emerald transition-colors">
+                {client.name}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

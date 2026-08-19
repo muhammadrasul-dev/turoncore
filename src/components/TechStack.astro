@@ -9,14 +9,28 @@ interface Props {
 const { t } = Astro.props;
 
 const technologies = [
-  'Flutter', 'Dart', 'React', 'TypeScript', 'Astro',
-  'Node.js', 'Tailwind CSS', 'Firebase', 'PostgreSQL', 'Docker',
-  'Git', 'Figma', 'Kotlin', 'Swift',
+  'Flutter',
+  'Dart',
+  'React',
+  'TypeScript',
+  'Astro',
+  'Node.js',
+  'Tailwind CSS',
+  'Firebase',
+  'PostgreSQL',
+  'Docker',
+  'Git',
+  'Figma',
+  'Kotlin',
+  'Swift',
 ];
 ---
 
-<section id="tech" class="py-20 md:py-28">
-  <div class="mx-auto max-w-7xl px-4 md:px-6">
+<section id="tech" class="py-20 md:py-28 relative overflow-hidden">
+  <!-- Background gradient -->
+  <div class="absolute inset-0 bg-gradient-radial opacity-30" />
+
+  <div class="mx-auto max-w-7xl px-4 md:px-6 relative">
     <div class="reveal">
       <SectionHeading title={t.tech.title} subtitle={t.tech.subtitle} />
     </div>
@@ -24,8 +38,9 @@ const technologies = [
     <div class="reveal reveal-delay-1 flex flex-wrap justify-center gap-3 md:gap-4 max-w-4xl mx-auto">
       {
         technologies.map((tech) => (
-          <span class="px-4 py-2 rounded-xl border border-navy/10 dark:border-white/10 bg-white/60 dark:bg-white/5 text-sm font-medium text-navy/70 dark:text-white/70 hover:border-emerald/30 hover:text-emerald transition-all duration-300 cursor-default">
-            {tech}
+          <span class="group relative px-5 py-2.5 rounded-xl glass text-sm font-medium text-navy/70 dark:text-white/70 hover:text-emerald transition-all duration-300 cursor-default hover:scale-105 hover:glow-emerald">
+            <span class="relative z-10">{tech}</span>
+            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald/5 to-navy/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </span>
         ))
       }

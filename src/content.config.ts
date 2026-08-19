@@ -24,4 +24,16 @@ const portfolio = defineCollection({
   }),
 });
 
-export const collections = { services, portfolio };
+const testimonials = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/testimonials' }),
+  schema: z.object({
+    author: z.string(),
+    position: z.string(),
+    company: z.string(),
+    avatar: z.string().optional(),
+    locale: z.enum(['uz', 'ru', 'en']),
+    order: z.number(),
+  }),
+});
+
+export const collections = { services, portfolio, testimonials };

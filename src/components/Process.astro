@@ -9,22 +9,29 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section id="process" class="py-20 md:py-28">
-  <div class="mx-auto max-w-7xl px-4 md:px-6">
+<section id="process" class="py-20 md:py-28 relative overflow-hidden">
+  <!-- Background gradient -->
+  <div class="absolute inset-0 bg-gradient-radial opacity-30" />
+
+  <div class="mx-auto max-w-7xl px-4 md:px-6 relative">
     <div class="reveal">
       <SectionHeading title={t.process.title} subtitle={t.process.subtitle} />
     </div>
 
     <div class="grid gap-8 md:grid-cols-4 relative">
-      <div class="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-emerald/30 to-transparent" />
+      <div
+        class="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-emerald/30 to-transparent"
+      />
 
       {
         t.process.steps.map((step, i) => (
-          <div class:list={['reveal relative text-center', `reveal-delay-${i + 1}`]}>
-            <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald/10 border border-emerald/20 text-emerald font-bold text-xl relative z-10">
-              {String(i + 1).padStart(2, '0')}
+          <div class:list={['reveal relative text-center group', `reveal-delay-${i + 1}`]}>
+            <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl glass border border-emerald/20 text-emerald font-bold text-2xl relative z-10 group-hover:scale-110 group-hover:glow-emerald transition-all duration-300">
+              <span class="text-gradient">{String(i + 1).padStart(2, '0')}</span>
             </div>
-            <h3 class="text-lg font-semibold text-navy dark:text-white mb-2">{step.title}</h3>
+            <h3 class="text-lg font-semibold text-navy dark:text-white mb-2 group-hover:text-emerald transition-colors">
+              {step.title}
+            </h3>
             <p class="text-sm text-navy/60 dark:text-white/60 leading-relaxed">{step.description}</p>
           </div>
         ))

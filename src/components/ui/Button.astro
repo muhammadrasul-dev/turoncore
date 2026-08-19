@@ -14,14 +14,14 @@ const {
 } = Astro.props;
 
 const base =
-  'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-dark';
+  'relative inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-dark overflow-hidden group';
 
 const variants = {
   primary:
-    'bg-emerald text-white hover:bg-emerald-dark shadow-lg shadow-emerald/20 hover:shadow-emerald/30 hover:-translate-y-0.5',
+    'bg-gradient-to-r from-emerald to-emerald-dark text-white shadow-lg shadow-emerald/20 hover:shadow-emerald/40 hover:shadow-xl hover:-translate-y-0.5',
   secondary:
-    'border border-navy/20 dark:border-white/20 text-navy dark:text-white hover:border-emerald hover:text-emerald dark:hover:text-emerald',
-  ghost: 'text-navy/70 dark:text-white/70 hover:text-emerald',
+    'glass border-emerald/20 text-navy dark:text-white hover:border-emerald/40 hover:glow-emerald',
+  ghost: 'text-navy/70 dark:text-white/70 hover:text-emerald hover:bg-emerald/5',
 };
 
 const sizes = {
@@ -33,12 +33,24 @@ const sizes = {
 const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
 ---
 
-{href ? (
-  <a href={href} class={classes}>
-    <slot />
-  </a>
-) : (
-  <button type="button" class={classes}>
-    <slot />
-  </button>
-)}
+{
+  href ? (
+    <a href={href} class={classes}>
+      <span class="relative z-10 flex items-center gap-2">
+        <slot />
+      </span>
+      {variant === 'primary' && (
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+      )}
+    </a>
+  ) : (
+    <button type="button" class={classes}>
+      <span class="relative z-10 flex items-center gap-2">
+        <slot />
+      </span>
+      {variant === 'primary' && (
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+      )}
+    </button>
+  )
+}
