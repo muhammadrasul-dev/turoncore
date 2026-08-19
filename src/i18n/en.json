@@ -5,6 +5,7 @@
   },
   "nav": {
     "services": "Services",
+    "sectors": "Sectors",
     "about": "About",
     "process": "Process",
     "portfolio": "Projects",
@@ -33,6 +34,45 @@
     "eyebrow": "Services",
     "title": "Complete solutions for your business",
     "subtitle": "From idea to launch — one team, one point of accountability."
+  },
+  "sectors": {
+    "eyebrow": "Sectors",
+    "title": "Sectors we work with",
+    "subtitle": "We know the specific needs of each industry from the inside.",
+    "items": [
+      {
+        "title": "Warehouse & Logistics",
+        "description": "ERP, route and warehouse automation"
+      },
+      {
+        "title": "Finance",
+        "description": "Workflow, audit, and security"
+      },
+      {
+        "title": "School / Education",
+        "description": "LMS and management systems"
+      },
+      {
+        "title": "Healthcare / Medicine",
+        "description": "Clinic and patient management"
+      },
+      {
+        "title": "Retail & E-commerce",
+        "description": "POS, warehouse, and e-commerce"
+      },
+      {
+        "title": "Manufacturing",
+        "description": "Resource planning and production schedules"
+      },
+      {
+        "title": "Restaurant / F&B",
+        "description": "Ordering, kitchen operations, and delivery"
+      },
+      {
+        "title": "Construction",
+        "description": "Project and estimate management"
+      }
+    ]
   },
   "about": {
     "eyebrow": "About us",
@@ -127,9 +167,24 @@
     }
   },
   "footer": {
-    "tagline": "Mobile apps and websites — professional IT solutions.",
+    "tagline": "40+ projects. 100% delivered. Created in Tashkent.",
     "rights": "All rights reserved.",
     "links": "Links",
-    "cta": "Ready to start your project?"
+    "cta": "Ready to start your project?",
+    "navigation": "NAVIGATION",
+    "contact": "CONTACT",
+    "contactText": "Tell us your task — we will reply within an hour during working hours.",
+    "ctaButton": "Get a consultation",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "createdIn": "Created in Tashkent",
+    "telegram": "@unical_uz",
+    "phone": "+998 93 3893700",
+    "email": "hello@unical.uz",
+    "solutions": "Solutions",
+    "works": "Our work",
+    "fields": "Sectors",
+    "process": "Process",
+    "about": "About us"
   }
 }

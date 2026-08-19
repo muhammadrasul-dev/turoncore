@@ -2,6 +2,7 @@
 import type { Lang, Translations } from '../i18n/ui';
 import { getCollection, render } from 'astro:content';
 import SectionHeading from './ui/SectionHeading.astro';
+import GeometricBg from './GeometricBg.astro';
 
 interface Props {
   lang: Lang;
@@ -30,7 +31,9 @@ const icons: Record<string, string> = {
 ---
 
 <section id="services" class="section relative overflow-hidden">
-  <div class="shell relative">
+  <GeometricBg grid={true} intensity="soft" />
+
+  <div class="shell relative z-10">
     <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
       <SectionHeading
         eyebrow={t.services.eyebrow}
@@ -62,11 +65,11 @@ const icons: Record<string, string> = {
       </a>
     </div>
 
-    <div class="mt-12 grid gap-5 md:mt-16 md:grid-cols-3 md:gap-6">
+    <div class="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 md:gap-8">
       {
         services.map((service, i) => (
           <article
-            class="group surface spot js-spot lift reveal relative flex flex-col overflow-hidden p-7 md:p-8"
+            class="group surface spot js-spot lift reveal relative flex flex-col overflow-hidden p-8 md:p-9 border border-hairline/30 hover:border-accent/30 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/5"
             style={`--rd:${i * 90}ms`}
           >
             <span
@@ -75,9 +78,9 @@ const icons: Record<string, string> = {
             />
 
             <div class="relative z-10 flex items-start justify-between">
-              <span class="tile h-14 w-14">
+              <span class="tile h-14 w-14 border border-accent/10 group-hover:border-accent/30 transition-colors duration-500">
                 <svg
-                  class="h-6 w-6"
+                  class="h-6 w-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -93,21 +96,29 @@ const icons: Record<string, string> = {
               </span>
             </div>
 
-            <h3 class="relative z-10 mt-7 text-[1.4rem] font-bold text-ink">{service.title}</h3>
+            <h3 class="relative z-10 mt-7 text-[1.4rem] font-bold text-ink group-hover:text-accent transition-colors duration-300">{service.title}</h3>
 
-            <p class="relative z-10 mt-3 leading-relaxed text-muted">{service.description}</p>
+            <p class="relative z-10 mt-3 leading-relaxed text-muted text-[0.95rem]">{service.description}</p>
 
-            <div class="relative z-10 mt-4 text-sm leading-relaxed text-faint [&>p]:m-0">
-              <service.Content />
+            <div class="relative z-10 mt-5 flex-1">
+              <div class="text-sm leading-relaxed text-faint 
+                [&>ul]:mt-4 [&>ul]:space-y-3 [&>ul]:list-none [&>ul]:p-0
+                [&>ul>li]:relative [&>ul>li]:pl-6 [&>ul>li]:text-muted [&>ul>li]:text-[0.925rem]
+                [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[4px]
+                [&>ul>li]:before:flex [&>ul>li]:before:h-4 [&>ul>li]:before:w-4 [&>ul>li]:before:items-center [&>ul>li]:before:justify-center
+                [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-accent/10 [&>ul>li]:before:text-accent
+                [&>ul>li]:before:content-['✓'] [&>ul>li]:before:font-bold [&>ul>li]:before:text-[10px]">
+                <service.Content />
+              </div>
             </div>
 
             <a
               href="#contact"
-              class="relative z-10 mt-7 inline-flex items-center gap-2 text-sm font-semibold text-accent"
+              class="relative z-10 mt-8 inline-flex items-center gap-2 text-sm font-semibold text-accent group-hover:text-accent-bright transition-colors duration-300"
             >
               {t.common.learnMore}
               <svg
-                class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"

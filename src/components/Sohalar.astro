@@ -1,0 +1,132 @@
+---
+import type { Translations } from '../i18n/ui';
+import SectionHeading from './ui/SectionHeading.astro';
+import GeometricBg from './GeometricBg.astro';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+// SVGs corresponding to each sector
+const icons = [
+  // 0: Warehouse & Logistics (Ombor & logistika)
+  `<svg class="h-6 w-6 text-accent transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1" y="3" width="15" height="13" rx="2" ry="2"></rect>
+    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+  </svg>`,
+  // 1: Finance (Moliya)
+  `<svg class="h-6 w-6 text-accent transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="3" y1="22" x2="21" y2="22"></line>
+    <line x1="6" y1="18" x2="6" y2="11"></line>
+    <line x1="10" y1="18" x2="10" y2="11"></line>
+    <line x1="14" y1="18" x2="14" y2="11"></line>
+    <line x1="18" y1="18" x2="18" y2="11"></line>
+    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+  </svg>`,
+  // 2: School / Education (Maktab / ta'lim)
+  `<svg class="h-6 w-6 text-accent transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+  </svg>`,
+  // 3: Healthcare / Medicine (Tibbiyot)
+  `<svg class="h-6 w-6 text-accent transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+    <path d="M12 7v6M10 9.5h4"></path>
+  </svg>`,
+  // 4: Retail & E-commerce (Savdo / retail)
+  `<svg class="h-6 w-6 text-accent transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 10h20M4 10V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6M3 10l1 5h16l1-5M4 15v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"></path>
+  </svg>`,
+  // 5: Manufacturing (Ishlab chiqarish)
+  `<svg class="h-6 w-6 text-accent transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 20V10l6 4V10l6 4V10l6 4v6H2z"></path>
+    <path d="M17 11h2M17 15h2"></path>
+  </svg>`,
+  // 6: Restaurant / F&B (Restoran)
+  `<svg class="h-6 w-6 text-accent transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+    <path d="M7 2v20M21 15V2v0a5 5 0 0 0-5 5v3c0 2.2 1.8 4 4 4h1Z"></path>
+    <path d="M17 22v-7"></path>
+  </svg>`,
+  // 7: Construction (Qurilish)
+  `<svg class="h-6 w-6 text-accent transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+    <line x1="9" y1="22" x2="9" y2="16"></line>
+    <line x1="15" y1="22" x2="15" y2="16"></line>
+    <line x1="9" y1="16" x2="15" y2="16"></line>
+    <path d="M8 6h.01M16 6h.01M8 11h.01M16 11h.01"></path>
+  </svg>`
+];
+---
+
+<section id="sectors" class="section relative overflow-hidden">
+  <GeometricBg grid={true} intensity="soft" />
+
+  <div class="shell relative z-10">
+    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <SectionHeading
+        eyebrow={t.sectors.eyebrow}
+        title={t.sectors.title}
+        subtitle={t.sectors.subtitle}
+      />
+      <a
+        href="#contact"
+        class="reveal group hidden shrink-0 items-center gap-2 pb-1 text-sm font-semibold text-accent md:inline-flex"
+        style="--rd:180ms"
+      >
+        {t.hero.ctaPrimary}
+        <span
+          class="tile h-8 w-8 transition-transform duration-500 group-hover:translate-x-1"
+          aria-hidden="true"
+        >
+          <svg
+            class="h-3.5 w-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h13M13 6l6 6-6 6"></path>
+          </svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 md:mt-16 md:gap-8">
+      {
+        t.sectors.items.map((sector, i) => (
+          <div
+            class="group surface spot js-spot lift reveal relative flex flex-col justify-between overflow-hidden p-6 md:p-8 border border-hairline/30 hover:border-accent/30 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/5"
+            style={`--rd:${i * 80}ms`}
+          >
+            <span
+              class="pointer-events-none absolute inset-x-8 top-0 h-px origin-left scale-x-0 bg-linear-to-r from-accent to-transparent transition-transform duration-700 group-hover:scale-x-100"
+              aria-hidden="true"
+            />
+
+            <div>
+              <div class="flex items-center gap-4">
+                <span class="tile h-12 w-12 border border-accent/10 group-hover:border-accent/30 transition-colors duration-500">
+                  <Fragment set:html={icons[i]} />
+                </span>
+                <h3 class="text-[1.2rem] font-bold text-ink group-hover:text-accent transition-colors duration-300">
+                  {sector.title}
+                </h3>
+              </div>
+
+              <p class="mt-4 leading-relaxed text-muted text-[0.9rem]">
+                {sector.description}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

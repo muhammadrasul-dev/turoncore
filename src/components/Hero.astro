@@ -10,9 +10,9 @@ interface Props {
 const { t } = Astro.props;
 
 const metrics = [
-  { value: '20+', label: t.about.stats.projects },
-  { value: '15+', label: t.about.stats.clients },
-  { value: '3+', label: t.about.stats.years },
+  { value: '5+', label: t.about.stats.projects },
+  { value: '7+', label: t.about.stats.clients },
+  { value: '2+', label: t.about.stats.years },
 ];
 
 const chips = [
@@ -22,7 +22,7 @@ const chips = [
 ];
 ---
 
-<section class="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-16 md:pt-32">
+<section id="hero" class="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-16 md:pt-32">
   <GeometricBg />
 
   <div class="shell relative">

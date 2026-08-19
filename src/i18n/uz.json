@@ -5,6 +5,7 @@
   },
   "nav": {
     "services": "Xizmatlar",
+    "sectors": "Sohalar",
     "about": "Biz haqimizda",
     "process": "Jarayon",
     "portfolio": "Loyihalar",
@@ -33,6 +34,45 @@
     "eyebrow": "Xizmatlar",
     "title": "Biznesingiz uchun to'liq yechimlar",
     "subtitle": "G'oyadan ishga tushirishgacha — bir jamoa, bitta mas'uliyat."
+  },
+  "sectors": {
+    "eyebrow": "Sohalar",
+    "title": "Qaysi sohalarda ishlaymiz",
+    "subtitle": "Har bir sohaning o'ziga xosligini ichidan bilamiz.",
+    "items": [
+      {
+        "title": "Ombor & logistika",
+        "description": "ERP, marshrut va ombor avtomatizatsiyasi"
+      },
+      {
+        "title": "Moliya",
+        "description": "Workflow, audit va xavfsizlik"
+      },
+      {
+        "title": "Maktab / ta'lim",
+        "description": "LMS va boshqaruv tizimlari"
+      },
+      {
+        "title": "Tibbiyot",
+        "description": "Klinika va bemor boshqaruvi"
+      },
+      {
+        "title": "Savdo / retail",
+        "description": "POS, ombor va e-commerce"
+      },
+      {
+        "title": "Ishlab chiqarish",
+        "description": "Resurs va ishlab chiqarish rejasi"
+      },
+      {
+        "title": "Restoran",
+        "description": "Buyurtma, oshxona va yetkazib berish"
+      },
+      {
+        "title": "Qurilish",
+        "description": "Loyiha va smeta boshqaruvi"
+      }
+    ]
   },
   "about": {
     "eyebrow": "Biz haqimizda",
@@ -127,9 +167,24 @@
     }
   },
   "footer": {
-    "tagline": "Mobil ilova va web saytlar — professional IT yechimlar.",
+    "tagline": "40+ loyiha. 100% yetkazilgan. Toshkentda yaratilgan.",
     "rights": "Barcha huquqlar himoyalangan.",
     "links": "Havolalar",
-    "cta": "Loyihangizni boshlaymizmi?"
+    "cta": "Loyihangizni boshlaymizmi?",
+    "navigation": "NAVIGATSIYA",
+    "contact": "BOG'LANISH",
+    "contactText": "Vazifangizni ayting — ish vaqtida bir soat ichida javob beramiz.",
+    "ctaButton": "Konsultatsiya olish",
+    "privacy": "Maxfiylik",
+    "terms": "Shartlar",
+    "createdIn": "Toshkentda yaratilgan",
+    "telegram": "@unical_uz",
+    "phone": "+998 93 3893700",
+    "email": "hello@unical.uz",
+    "solutions": "Yechimlar",
+    "works": "Ishlarimiz",
+    "fields": "Sohalar",
+    "process": "Jarayon",
+    "about": "Biz haqimizda"
   }
 }

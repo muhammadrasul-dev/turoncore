@@ -101,6 +101,16 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  @media (min-width: 1024px) {
+    html {
+      scroll-snap-type: y mandatory;
+    }
+    section[id], footer {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+  }
+
 body {
   font-family: var(--font-sans);
   font-feature-settings: "cv11", "ss01";
@@ -216,7 +226,7 @@ p {
   font-family: var(--font-display);
   font-weight: 800;
   letter-spacing: -0.045em;
-  line-height: 0.98;
+  line-height: 1.12;
   font-size: clamp(2.15rem, 1.15rem + 3.5vw, 3.9rem);
 }
 
@@ -256,6 +266,8 @@ p {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: hue-drift 9s ease-in-out infinite;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
 }
 
 @keyframes hue-drift {
@@ -632,6 +644,11 @@ p {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+    scroll-snap-type: none !important;
+  }
+
+  section, footer {
+    scroll-snap-align: none !important;
   }
 
   *,

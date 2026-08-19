@@ -9,13 +9,13 @@ interface Props {
 const { t } = Astro.props;
 
 const stats = [
-  { value: 20, suffix: '+', label: t.about.stats.projects },
-  { value: 15, suffix: '+', label: t.about.stats.clients },
-  { value: 3, suffix: '+', label: t.about.stats.years },
-  { value: 10, suffix: '+', label: t.about.stats.team },
+  { value: 5, suffix: '+', label: t.about.stats.projects },
+  { value: 7, suffix: '+', label: t.about.stats.clients },
+  { value: 2, suffix: '+', label: t.about.stats.years },
+  { value: 3, suffix: '+', label: t.about.stats.team },
 ];
 
-const pillars = [t.about.mission, t.about.vision];
+const pillars = [t.about.mission];
 ---
 
 <section id="about" class="section band feather-top feather-bottom relative overflow-hidden">
@@ -51,7 +51,7 @@ const pillars = [t.about.mission, t.about.vision];
         </div>
       </div>
 
-      <div class="flex flex-col gap-5">
+      <div class="flex flex-col gap-5 justify-center">
         {
           pillars.map((pillar, i) => (
             <article
