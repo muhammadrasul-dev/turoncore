@@ -18,6 +18,7 @@ const currentPath = Astro.url.pathname;
       return (
         <a
           href={href}
+          data-lang-switch
           class:list={[
             'rounded-full px-2.5 py-1 text-[0.7rem] font-semibold tracking-wide transition-all duration-300',
             isActive
@@ -32,3 +33,197 @@ const currentPath = Astro.url.pathname;
     })
   }
 </div>
+
+<script>
+  import { initMobileMenu, initHeaderScroll, initScrollProgress, initActiveSection } from '../scripts/header.ts';
+  import { initReveal } from '../scripts/reveal.ts';
+  import { initSpotlight } from '../scripts/spotlight.ts';
+  import { initSmoothScroll } from '../scripts/scroll.ts';
+  import { initTheme } from '../scripts/theme.ts';
+  import { initCounters } from '../scripts/counter.ts';
+
+  function rebindInteractiveElements() {
+    // 1. Audit Form Re-binding
+    const auditForm = document.getElementById('audit-form') as HTMLFormElement | null;
+    const auditSuccess = document.getElementById('audit-success');
+    let auditTimer: number | undefined;
+    auditForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!auditForm.checkValidity()) {
+        auditForm.reportValidity();
+        return;
+      }
+      auditSuccess?.classList.remove('opacity-0');
+      auditForm.reset();
+      window.clearTimeout(auditTimer);
+      auditTimer = window.setTimeout(() => auditSuccess?.classList.add('opacity-0'), 5000);
+    });
+
+    // 2. Contact Form Re-binding
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
+    const contactSuccess = document.getElementById('form-success');
+    let contactTimer: number | undefined;
+    contactForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+      contactSuccess?.classList.remove('opacity-0');
+      contactForm.reset();
+      window.clearTimeout(contactTimer);
+      contactTimer = window.setTimeout(() => contactSuccess?.classList.add('opacity-0'), 5000);
+    });
+
+    // 3. Floating Contact Popup Re-binding
+    const toggleBtn = document.getElementById('contact-toggle-btn');
+    const popup = document.getElementById('contact-popup');
+    const chatIcon = document.getElementById('chat-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    if (toggleBtn && popup && chatIcon && closeIcon) {
+      let isOpen = false;
+      const toggleMenu = () => {
+        isOpen = !isOpen;
+        if (isOpen) {
+          popup.classList.remove('pointer-events-none', 'invisible', 'scale-95', 'opacity-0');
+          popup.classList.add('scale-100', 'opacity-100');
+          chatIcon.classList.add('scale-50', 'opacity-0');
+          closeIcon.classList.remove('scale-50', 'opacity-0');
+          closeIcon.classList.add('scale-100', 'opacity-100');
+        } else {
+          popup.classList.remove('scale-100', 'opacity-100');
+          popup.classList.add('pointer-events-none', 'invisible', 'scale-95', 'opacity-0');
+          chatIcon.classList.remove('scale-50', 'opacity-0');
+          chatIcon.classList.add('scale-100', 'opacity-100');
+          closeIcon.classList.remove('scale-100', 'opacity-100');
+          closeIcon.classList.add('scale-50', 'opacity-0');
+        }
+      };
+      toggleBtn.addEventListener('click', toggleMenu);
+      document.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        if (isOpen && !toggleBtn.contains(target) && !popup.contains(target)) {
+          toggleMenu();
+        }
+      });
+    }
+  }
+
+  function initLangSwitchers() {
+    const switchers = document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]');
+    switchers.forEach((switcher) => {
+      if (switcher.dataset.listenerBound) return;
+      switcher.dataset.listenerBound = 'true';
+
+      switcher.addEventListener('click', async (e) => {
+        const href = switcher.getAttribute('href');
+        if (!href) return;
+
+        if (switcher.getAttribute('aria-current') === 'page') {
+          e.preventDefault();
+          return;
+        }
+
+        e.preventDefault();
+
+        // Smooth transition effect
+        const mainContent = document.getElementById('main');
+        if (mainContent) {
+          mainContent.style.transition = 'opacity 0.22s ease-out, transform 0.22s ease-out';
+          mainContent.style.opacity = '0.4';
+          mainContent.style.transform = 'translateY(4px)';
+        }
+
+        try {
+          const response = await fetch(href);
+          if (!response.ok) throw new Error('Fetch failed');
+          const html = await response.text();
+
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+
+          // Swap elements seamlessly
+          const currentHeader = document.getElementById('header-bar');
+          const newHeader = doc.getElementById('header-bar');
+          if (currentHeader && newHeader) {
+            currentHeader.innerHTML = newHeader.innerHTML;
+          }
+
+          const currentMobileMenu = document.getElementById('mobile-menu');
+          const newMobileMenu = doc.getElementById('mobile-menu');
+          if (currentMobileMenu && newMobileMenu) {
+            currentMobileMenu.innerHTML = newMobileMenu.innerHTML;
+          }
+
+          const currentMain = document.getElementById('main');
+          const newMain = doc.getElementById('main');
+          if (currentMain && newMain) {
+            currentMain.innerHTML = newMain.innerHTML;
+          }
+
+          const currentFooter = document.querySelector('footer');
+          const newFooter = doc.querySelector('footer');
+          if (currentFooter && newFooter) {
+            currentFooter.innerHTML = newFooter.innerHTML;
+          }
+
+          const currentPopup = document.getElementById('contact-popup');
+          const newPopup = doc.getElementById('contact-popup');
+          if (currentPopup && newPopup) {
+            currentPopup.innerHTML = newPopup.innerHTML;
+          }
+
+          // Update page properties
+          const newLang = doc.documentElement.getAttribute('lang') || 'uz';
+          document.documentElement.setAttribute('lang', newLang);
+          document.title = doc.title;
+          
+          const currentDesc = document.querySelector('meta[name="description"]');
+          const newDesc = doc.querySelector('meta[name="description"]');
+          if (currentDesc && newDesc) {
+            currentDesc.setAttribute('content', newDesc.getAttribute('content') || '');
+          }
+
+          // Push state
+          history.pushState(null, '', href);
+
+          // Re-initialize scripts
+          initMobileMenu();
+          initHeaderScroll();
+          initScrollProgress();
+          initActiveSection();
+          initReveal();
+          initSpotlight();
+          initTheme();
+          initCounters();
+          rebindInteractiveElements();
+          initSmoothScroll();
+
+          // Bind event listeners to new language switches
+          initLangSwitchers();
+
+          // Smooth scroll to top of the page
+          if ((window as any).lenis) {
+            (window as any).lenis.scrollTo(0, { immediate: true });
+          } else {
+            window.scrollTo(0, 0);
+          }
+
+          // Fade content back in
+          if (mainContent) {
+            mainContent.style.opacity = '1';
+            mainContent.style.transform = 'translateY(0)';
+          }
+        } catch (err) {
+          console.error('Error switching language without refresh:', err);
+          window.location.href = href;
+        }
+      });
+    });
+  }
+
+  // Bind on first load
+  initLangSwitchers();
+  rebindInteractiveElements();
+</script>

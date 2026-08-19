@@ -7,26 +7,9 @@
     <meta name="description" content="TuronCore — mobil ilovalar, web saytlar va B2B IT xizmatlari." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
-    <!-- Seamless redirection script that detects preferred language instantly -->
+    <!-- Seamless redirection script that defaults to Uzbek -->
     <script is:inline>
-      (function() {
-        const locales = ['uz', 'ru', 'en'];
-        const defaultLocale = 'uz';
-        let targetLocale = defaultLocale;
-
-        try {
-          // Detect user's browser language preference
-          const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase().split('-')[0];
-          if (locales.includes(browserLang)) {
-            targetLocale = browserLang;
-          }
-        } catch (e) {
-          // Fallback to default
-        }
-
-        // Perform instant client-side redirect
-        window.location.replace('/' + targetLocale + '/');
-      })();
+      window.location.replace('/uz/');
     </script>
 
     <!-- Fallback redirect meta for non-JS or search indexers -->
