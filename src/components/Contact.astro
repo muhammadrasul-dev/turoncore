@@ -1,7 +1,6 @@
 ---
 import type { Translations } from '../i18n/ui';
-import SectionHeading from './ui/SectionHeading.astro';
-import Card from './ui/Card.astro';
+import GeometricBg from './GeometricBg.astro';
 import Button from './ui/Button.astro';
 
 interface Props {
@@ -14,42 +13,89 @@ const contactItems = [
   {
     label: t.contact.info.phone,
     value: t.contact.placeholders.phone,
-    href: 'tel:+998000000000',
-    icon: 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z',
+    href: `tel:${t.contact.placeholders.phone.replace(/\s/g, '')}`,
+    path: 'M4.5 5.2c0-.9.7-1.7 1.6-1.7h2.1c.7 0 1.3.4 1.5 1.1l.9 2.7c.2.6 0 1.3-.6 1.7l-1.3.8a10.8 10.8 0 0 0 4.5 4.5l.8-1.3c.4-.6 1-.8 1.7-.6l2.7.9c.7.2 1.1.8 1.1 1.5v2.1c0 .9-.8 1.6-1.7 1.6C10.4 20.5 4.5 14.6 4.5 5.2Z',
   },
   {
     label: t.contact.info.email,
     value: t.contact.placeholders.email,
     href: `mailto:${t.contact.placeholders.email}`,
-    icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    path: 'M3.5 7.5 10.9 12c.7.4 1.5.4 2.2 0l7.4-4.5M4.5 19h15a1.5 1.5 0 0 0 1.5-1.5v-11A1.5 1.5 0 0 0 19.5 5h-15A1.5 1.5 0 0 0 3 6.5v11A1.5 1.5 0 0 0 4.5 19Z',
   },
   {
     label: t.contact.info.telegram,
     value: t.contact.placeholders.telegram,
-    href: 'https://t.me/turoncore',
-    icon: 'M12 19l9 2-9-18-9 18 9-2zm0 0v-8',
+    href: `https://t.me/${t.contact.placeholders.telegram.replace('@', '')}`,
+    path: 'm4 12 16-7-2.6 15-5-4.4L4 12Zm8.4 3.6L9.7 19v-4.4l8-6.6',
+  },
+  {
+    label: t.contact.info.instagram,
+    value: t.contact.placeholders.instagram,
+    href: `https://instagram.com/${t.contact.placeholders.instagram.replace('@', '')}`,
+    path: 'M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Zm4.5 5.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5ZM17.625 6.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z',
   },
   {
     label: t.contact.info.address,
     value: t.contact.placeholders.address,
     href: null,
-    icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
+    path: 'M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Zm0-8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z',
   },
 ];
 ---
 
-<section id="contact" class="py-20 md:py-28 bg-navy/[0.02] dark:bg-white/[0.02]">
-  <div class="mx-auto max-w-7xl px-4 md:px-6">
-    <div class="reveal">
-      <SectionHeading title={t.contact.title} subtitle={t.contact.subtitle} />
-    </div>
+<section id="contact" class="section relative overflow-hidden">
+  <GeometricBg grid={false} intensity="soft" />
 
-    <div class="grid gap-8 lg:grid-cols-2">
-      <div class="reveal reveal-delay-1">
-        <Card hover={false}>
-          <form id="contact-form" class="space-y-5">
+  <div class="shell relative">
+    <div class="surface reveal overflow-hidden p-7 md:p-12 lg:p-16">
+      <div class="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+        <div>
+          <span class="eyebrow">{t.contact.eyebrow}</span>
+          <h2 class="headline mt-5 text-ink">{t.contact.title}</h2>
+          <p class="lede mt-5 max-w-md">{t.contact.subtitle}</p>
+
+          <ul class="mt-10 space-y-2">
+            {
+              contactItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href ?? undefined}
+                    class="group flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors duration-300 hover:bg-accent-soft"
+                    target={item.href?.startsWith('http') ? '_blank' : undefined}
+                    rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  >
+                    <span class="tile h-10 w-10 shrink-0">
+                      <svg
+                        class="h-[1.15rem] w-[1.15rem]"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d={item.path} />
+                      </svg>
+                    </span>
+                    <span class="min-w-0">
+                      <span class="block text-xs uppercase tracking-wider text-faint">
+                        {item.label}
+                      </span>
+                      <span class="block truncate font-medium text-ink transition-colors duration-300 group-hover:text-accent">
+                        {item.value}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <form id="contact-form" class="flex flex-col gap-4" novalidate>
+          <div class="grid gap-4 sm:grid-cols-2">
             <div>
-              <label for="name" class="block text-sm font-medium text-navy dark:text-white mb-1.5">
+              <label for="name" class="mb-2 block text-sm font-medium text-muted">
                 {t.contact.form.name}
               </label>
               <input
@@ -57,11 +103,13 @@ const contactItems = [
                 id="name"
                 name="name"
                 required
-                class="w-full rounded-xl border border-navy/10 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-navy dark:text-white placeholder:text-navy/30 dark:placeholder:text-white/30 focus:border-emerald focus:outline-none focus:ring-1 focus:ring-emerald transition-colors"
+                autocomplete="name"
+                placeholder={t.contact.form.namePlaceholder}
+                class="field"
               />
             </div>
             <div>
-              <label for="email" class="block text-sm font-medium text-navy dark:text-white mb-1.5">
+              <label for="email" class="mb-2 block text-sm font-medium text-muted">
                 {t.contact.form.email}
               </label>
               <input
@@ -69,73 +117,71 @@ const contactItems = [
                 id="email"
                 name="email"
                 required
-                class="w-full rounded-xl border border-navy/10 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-navy dark:text-white placeholder:text-navy/30 dark:placeholder:text-white/30 focus:border-emerald focus:outline-none focus:ring-1 focus:ring-emerald transition-colors"
+                autocomplete="email"
+                placeholder={t.contact.form.emailPlaceholder}
+                class="field"
               />
             </div>
-            <div>
-              <label for="message" class="block text-sm font-medium text-navy dark:text-white mb-1.5">
-                {t.contact.form.message}
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                required
-                class="w-full rounded-xl border border-navy/10 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-navy dark:text-white placeholder:text-navy/30 dark:placeholder:text-white/30 focus:border-emerald focus:outline-none focus:ring-1 focus:ring-emerald transition-colors resize-none"
-              />
-            </div>
-            <Button variant="primary" size="md" class="w-full sm:w-auto">
+          </div>
+
+          <div>
+            <label for="message" class="mb-2 block text-sm font-medium text-muted">
+              {t.contact.form.message}
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              required
+              placeholder={t.contact.form.messagePlaceholder}
+              class="field resize-none"></textarea>
+          </div>
+
+          <div class="mt-2 flex flex-wrap items-center gap-4">
+            <Button type="submit" variant="primary" size="md">
               {t.contact.form.submit}
+              <svg
+                class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h13M13 6l6 6-6 6"></path>
+              </svg>
             </Button>
-            <p id="form-success" class="hidden text-sm text-emerald font-medium">
+
+            <p
+              id="form-success"
+              class="text-sm font-medium text-accent opacity-0 transition-opacity duration-500"
+              role="status"
+            >
               {t.contact.form.success}
             </p>
-          </form>
-        </Card>
-      </div>
-
-      <div class="reveal reveal-delay-2 space-y-4">
-        {
-          contactItems.map((item) => (
-            <Card>
-              <div class="flex items-start gap-4">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald/10 text-emerald">
-                  <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
-                  </svg>
-                </div>
-                <div>
-                  <div class="text-sm text-navy/50 dark:text-white/50">{item.label}</div>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      class="text-navy dark:text-white font-medium hover:text-emerald transition-colors"
-                      target={item.href.startsWith('http') ? '_blank' : undefined}
-                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    >
-                      {item.value}
-                    </a>
-                  ) : (
-                    <div class="text-navy dark:text-white font-medium">{item.value}</div>
-                  )}
-                </div>
-              </div>
-            </Card>
-          ))
-        }
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const success = document.getElementById('form-success');
+  let timer: number | undefined;
 
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    success?.classList.remove('hidden');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    success?.classList.remove('opacity-0');
     form.reset();
-    setTimeout(() => success?.classList.add('hidden'), 5000);
+    window.clearTimeout(timer);
+    timer = window.setTimeout(() => success?.classList.add('opacity-0'), 5000);
   });
 </script>

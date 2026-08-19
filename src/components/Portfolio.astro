@@ -2,7 +2,6 @@
 import type { Lang, Translations } from '../i18n/ui';
 import { getCollection } from 'astro:content';
 import SectionHeading from './ui/SectionHeading.astro';
-import Card from './ui/Card.astro';
 
 interface Props {
   lang: Lang;
@@ -16,72 +15,112 @@ const projects = allProjects
   .filter((p) => p.data.locale === lang)
   .sort((a, b) => a.data.order - b.data.order);
 
-const categoryColors: Record<string, string> = {
-  Web: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
-  Mobile: 'bg-purple-500/10 text-purple-500 border-purple-500/20',
-  B2B: 'bg-orange-500/10 text-orange-500 border-orange-500/20',
-};
+const palettes = [
+  'linear-gradient(135deg, #0f9b7a 0%, #0b3b52 100%)',
+  'linear-gradient(135deg, #5b47c9 0%, #131a3a 100%)',
+  'linear-gradient(135deg, #c9663f 0%, #2a1630 100%)',
+  'linear-gradient(135deg, #1f7fd4 0%, #0b2340 100%)',
+];
 ---
 
-<section id="portfolio" class="py-20 md:py-28 bg-navy/[0.02] dark:bg-white/[0.02]">
-  <div class="mx-auto max-w-7xl px-4 md:px-6">
-    <div class="reveal">
-      <SectionHeading title={t.portfolio.title} subtitle={t.portfolio.subtitle} />
-    </div>
+<section id="portfolio" class="section band feather-top feather-bottom relative overflow-hidden">
+  <div class="shell relative">
+    <SectionHeading
+      eyebrow={t.portfolio.eyebrow}
+      title={t.portfolio.title}
+      subtitle={t.portfolio.subtitle}
+      class="mb-12 md:mb-16"
+    />
 
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-5 md:grid-cols-2 md:gap-6">
       {
-        projects.map((project, i) => (
-          <div class:list={['reveal card-3d', `reveal-delay-${(i % 4) + 1}`]}>
-            <Card class="h-full">
-              <div class="relative">
-                <!-- Verified badge -->
-                <div class="absolute -top-2 -right-2 glass rounded-full px-2 py-1 text-xs font-medium text-emerald border border-emerald/20 flex items-center gap-1">
-                  <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fill-rule="evenodd"
-                      d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"
-                    />
+        projects.map((project, i) => {
+          const Component = project.data.link ? 'a' : 'article';
+          const linkProps = project.data.link
+            ? { href: project.data.link, target: '_blank', rel: 'noopener noreferrer' }
+            : {};
+          return (
+            <Component
+              {...linkProps}
+              class="group surface spot js-spot lift reveal overflow-hidden p-3"
+              style={`--rd:${(i % 2) * 110}ms`}
+            >
+              <div
+                class="relative aspect-[16/10] overflow-hidden rounded-[calc(var(--r-lg)-0.55rem)]"
+                style={`background:${palettes[i % palettes.length]}`}
+              >
+                <div
+                  class="absolute inset-0 opacity-30 transition-transform duration-[1.2s] group-hover:scale-110"
+                  style="background-image:radial-gradient(rgba(255,255,255,.35) 1px, transparent 1px);background-size:22px 22px"
+                  aria-hidden="true"
+                />
+                <div
+                  class="absolute inset-0 bg-linear-to-t from-black/45 via-transparent to-transparent"
+                  aria-hidden="true"
+                />
+
+                <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[0.7rem] font-semibold tracking-wide text-white backdrop-blur-md">
+                  {project.data.category}
+                </span>
+
+                <span class="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-black/25 px-3 py-1 text-[0.7rem] font-semibold text-white/90 backdrop-blur-md">
+                  <svg class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 1.8l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.5l5.4-.8L10 1.8z" />
                   </svg>
-                  <span>
-                    {lang === 'uz' ? 'Tasdiqlangan' : lang === 'ru' ? 'Подтверждено' : 'Verified'}
-                  </span>
-                </div>
+                  5.0
+                </span>
 
-                <!-- Image placeholder with gradient -->
-                <div class="aspect-video rounded-xl bg-gradient-to-br from-emerald/10 via-navy/5 to-emerald/20 dark:from-emerald/10 dark:to-navy/20 mb-4 flex items-center justify-center overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-500">
-                  <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <span class="text-xs font-medium text-navy/30 dark:text-white/30 uppercase tracking-wider relative z-10">
-                    {t.portfolio.comingSoon}
-                  </span>
-                </div>
+                <span class="absolute bottom-4 left-5 font-display text-[3.5rem] font-extrabold leading-none text-white/15 tabular">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
 
-                <div class="flex items-center gap-2 mb-3">
-                  <span
-                    class:list={[
-                      'inline-block px-2.5 py-0.5 rounded-full text-xs font-medium border',
-                      categoryColors[project.data.category] ?? 'bg-emerald/10 text-emerald border-emerald/20',
-                    ]}
-                  >
-                    {project.data.category}
-                  </span>
-                  <div class="flex items-center gap-0.5 ml-auto">
-                    <svg class="h-3.5 w-3.5 text-emerald" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                {project.data.link && (
+                  <span class="absolute bottom-4 right-4 inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-[0.7rem] font-medium text-white backdrop-blur-md transition-all duration-300 group-hover:bg-white/20">
+                    <svg
+                      class="h-3 w-3"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
                     </svg>
-                    <span class="text-xs font-bold text-emerald">5.0</span>
-                  </div>
+                  </span>
+                )}
+              </div>
+
+              <div class="flex items-end justify-between gap-6 px-4 pb-4 pt-6">
+                <div>
+                  <h3 class="text-xl font-bold text-ink transition-colors duration-300 group-hover:text-accent md:text-[1.35rem]">
+                    {project.data.title}
+                  </h3>
+                  <p class="mt-2 max-w-md text-[0.95rem] leading-relaxed text-muted">
+                    {project.data.description}
+                  </p>
                 </div>
 
-                <h3 class="text-lg font-semibold text-navy dark:text-white mb-1 group-hover:text-emerald transition-colors">
-                  {project.data.title}
-                </h3>
-                <p class="text-sm text-navy/60 dark:text-white/60">{project.data.description}</p>
+                <span
+                  class="tile h-11 w-11 shrink-0 transition-transform duration-500 group-hover:-rotate-45"
+                  aria-hidden="true"
+                >
+                  <svg
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h13M13 6l6 6-6 6" />
+                  </svg>
+                </span>
               </div>
-            </Card>
-          </div>
-        ))
+            </Component>
+          );
+        })
       }
     </div>
   </div>

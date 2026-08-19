@@ -11,21 +11,33 @@
     "tech": "Texnologiyalar",
     "contact": "Bog'lanish"
   },
+  "common": {
+    "learnMore": "Batafsil",
+    "viewProject": "Loyihani ko'rish",
+    "verified": "Tasdiqlangan",
+    "scroll": "Pastga"
+  },
   "hero": {
-    "badge": "IT kompaniya",
+    "badge": "Toshkentdagi IT kompaniya",
     "title": "Raqamli mahsulotlaringizni",
     "titleHighlight": "keyingi bosqichga olib chiqing",
     "subtitle": "Mobil ilovalar, web platformalar va B2B IT hamkorlik — zamonaviy texnologiyalar bilan tez, sifatli va ishonchli yechimlar.",
     "ctaPrimary": "Bog'lanish",
     "ctaSecondary": "Xizmatlar"
   },
+  "trust": {
+    "eyebrow": "Ishonch",
+    "title": "Bizga ishongan kompaniyalar"
+  },
   "services": {
-    "title": "Xizmatlarimiz",
-    "subtitle": "Biznesingiz uchun to'liq IT yechimlar"
+    "eyebrow": "Xizmatlar",
+    "title": "Biznesingiz uchun to'liq yechimlar",
+    "subtitle": "G'oyadan ishga tushirishgacha — bir jamoa, bitta mas'uliyat."
   },
   "about": {
-    "title": "Biz haqimizda",
-    "subtitle": "TuronCore — ishonchli IT hamkoringiz",
+    "eyebrow": "Biz haqimizda",
+    "title": "Ishonchli IT hamkoringiz",
+    "subtitle": "Kichik jamoa, katta standartlar. Har bir loyihada shaffoflik va sifat birinchi o'rinda.",
     "mission": {
       "title": "Missiyamiz",
       "text": "O'zbekiston va xalqaro bozorda bizneslarga zamonaviy raqamli mahsulotlar yaratishda yordam berish. Har bir loyihada sifat, tezlik va shaffoflik — bizning ustuvor tamoyillarimiz."
@@ -42,6 +54,7 @@
     }
   },
   "process": {
+    "eyebrow": "Jarayon",
     "title": "Ish jarayoni",
     "subtitle": "Loyihangizni 4 bosqichda amalga oshiramiz",
     "steps": [
@@ -64,21 +77,37 @@
     ]
   },
   "portfolio": {
-    "title": "Loyihalar",
-    "subtitle": "So'nggi ishlarimizdan namunalar",
+    "eyebrow": "Loyihalar",
+    "title": "So'nggi ishlarimiz",
+    "subtitle": "Turli sohalar uchun yaratgan mahsulotlarimizdan namunalar",
     "comingSoon": "Tez orada"
   },
+  "testimonials": {
+    "eyebrow": "Fikrlar",
+    "title": "Mijozlarimiz nima deydi",
+    "subtitle": "Biz bilan ishlash tajribasi haqida"
+  },
   "tech": {
-    "title": "Texnologiyalar",
-    "subtitle": "Ishlatadigan zamonaviy stack"
+    "eyebrow": "Stack",
+    "title": "Ishlatadigan texnologiyalar",
+    "subtitle": "Barqaror, tez va uzoq muddat qo'llab-quvvatlanadigan stack"
+  },
+  "certificates": {
+    "eyebrow": "Hamkorlar",
+    "title": "Texnologiya hamkorlari",
+    "subtitle": "Sertifikatlangan platformalar va ekotizimlar"
   },
   "contact": {
-    "title": "Bog'lanish",
-    "subtitle": "Loyihangiz haqida gaplashamiz",
+    "eyebrow": "Bog'lanish",
+    "title": "Loyihangiz haqida gaplashamiz",
+    "subtitle": "Qisqacha yozib qoldiring — 24 soat ichida javob beramiz.",
     "form": {
       "name": "Ismingiz",
       "email": "Email",
       "message": "Xabaringiz",
+      "namePlaceholder": "Ismingizni kiriting",
+      "emailPlaceholder": "siz@kompaniya.uz",
+      "messagePlaceholder": "Loyihangiz haqida qisqacha...",
       "submit": "Yuborish",
       "success": "Xabaringiz qabul qilindi! Tez orada bog'lanamiz."
     },
@@ -86,18 +115,21 @@
       "phone": "Telefon",
       "email": "Email",
       "telegram": "Telegram",
+      "instagram": "Instagram",
       "address": "Manzil"
     },
     "placeholders": {
-      "phone": "+998 XX XXX XX XX",
+      "phone": "+998 93 361 57 75",
       "email": "info@turoncore.uz",
-      "telegram": "@turoncore",
+      "telegram": "@muhammadrasultg",
+      "instagram": "@turoncore",
       "address": "Toshkent, O'zbekiston"
     }
   },
   "footer": {
     "tagline": "Mobil ilova va web saytlar — professional IT yechimlar.",
     "rights": "Barcha huquqlar himoyalangan.",
-    "links": "Havolalar"
+    "links": "Havolalar",
+    "cta": "Loyihangizni boshlaymizmi?"
   }
 }

@@ -1,5 +1,7 @@
 ---
 import type { Lang, Translations } from '../i18n/ui';
+import Button from './ui/Button.astro';
+import Logo from './ui/Logo.astro';
 
 interface Props {
   lang: Lang;
@@ -12,37 +14,106 @@ const year = new Date().getFullYear();
 const footerLinks = [
   { href: '#services', label: t.nav.services },
   { href: '#about', label: t.nav.about },
+  { href: '#process', label: t.nav.process },
   { href: '#portfolio', label: t.nav.portfolio },
-  { href: '#contact', label: t.nav.contact },
+  { href: '#tech', label: t.nav.tech },
+];
+
+const socials = [
+  {
+    name: 'Telegram',
+    href: 'https://t.me/turoncore',
+    path: 'm4 12 16-7-2.6 15-5-4.4L4 12Zm8.4 3.6L9.7 19v-4.4l8-6.6',
+  },
+  {
+    name: 'Instagram',
+    href: 'https://instagram.com/turoncore',
+    path: 'M7.5 3.5h9A4 4 0 0 1 20.5 7.5v9a4 4 0 0 1-4 4h-9a4 4 0 0 1-4-4v-9a4 4 0 0 1 4-4Zm4.5 5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm5-1.2v.01',
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/company/turoncore',
+    path: 'M7 10v8M7 6.6v.01M11.5 18v-4.4a2.6 2.6 0 0 1 5.2 0V18M4 3.5h16a.5.5 0 0 1 .5.5v16a.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5Z',
+  },
 ];
 ---
 
-<footer class="border-t border-navy/10 dark:border-white/10 bg-navy dark:bg-black/40">
-  <div class="mx-auto max-w-7xl px-4 py-12 md:px-6">
-    <div class="grid gap-8 md:grid-cols-3">
+<footer class="band feather-top relative overflow-hidden">
+  <div class="shell relative pt-16 md:pt-24">
+    <div
+      class="reveal flex flex-col items-start justify-between gap-8 pb-14 md:flex-row md:items-center md:pb-20"
+    >
+      <h2 class="headline max-w-lg text-ink">{t.footer.cta}</h2>
+      <Button href="#contact" variant="primary" size="lg">
+        {t.hero.ctaPrimary}
+        <svg
+          class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h13M13 6l6 6-6 6"></path>
+        </svg>
+      </Button>
+    </div>
+
+    <div
+      class="h-px w-full"
+      style="background:linear-gradient(90deg, transparent, var(--c-hairline) 20%, var(--c-hairline) 80%, transparent)"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
       <div>
-        <img
-          src="/logos/logo-white.png"
-          alt="TuronCore"
-          class="h-8 w-auto mb-4"
-          width="140"
-          height="36"
-        />
-        <p class="text-sm text-white/60 leading-relaxed max-w-xs">
-          {t.footer.tagline}
-        </p>
+        <a href={`/${lang}/`} class="inline-flex" aria-label="TuronCore">
+          <Logo />
+        </a>
+        <p class="mt-5 max-w-xs text-[0.95rem] leading-relaxed text-muted">{t.footer.tagline}</p>
+
+        <div class="mt-7 flex gap-2.5">
+          {
+            socials.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-inset text-muted transition-all duration-300 hover:-translate-y-1 hover:bg-accent hover:text-accent-ink"
+              >
+                <svg
+                  class="h-[1.05rem] w-[1.05rem]"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d={social.path} />
+                </svg>
+              </a>
+            ))
+          }
+        </div>
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold text-white mb-4">{t.footer.links}</h3>
-        <ul class="space-y-2">
+        <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-faint">
+          {t.footer.links}
+        </h3>
+        <ul class="mt-5 space-y-3">
           {
             footerLinks.map((link) => (
               <li>
                 <a
                   href={link.href}
-                  class="text-sm text-white/60 hover:text-emerald transition-colors"
+                  class="group inline-flex items-center text-[0.95rem] text-muted transition-colors duration-300 hover:text-accent"
                 >
+                  <span class="mr-0 h-px w-0 bg-accent transition-all duration-300 group-hover:mr-2 group-hover:w-4" />
                   {link.label}
                 </a>
               </li>
@@ -52,16 +123,21 @@ const footerLinks = [
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold text-white mb-4">{t.nav.contact}</h3>
-        <ul class="space-y-2 text-sm text-white/60">
+        <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-faint">
+          {t.nav.contact}
+        </h3>
+        <ul class="mt-5 space-y-3 text-[0.95rem] text-muted">
           <li>
-            <a href={`mailto:${t.contact.placeholders.email}`} class="hover:text-emerald transition-colors">
+            <a
+              href={`mailto:${t.contact.placeholders.email}`}
+              class="transition-colors duration-300 hover:text-accent"
+            >
               {t.contact.placeholders.email}
             </a>
           </li>
           <li>
-            <a href="https://t.me/turoncore" target="_blank" rel="noopener noreferrer" class="hover:text-emerald transition-colors">
-              {t.contact.placeholders.telegram}
+            <a href="tel:+998000000000" class="transition-colors duration-300 hover:text-accent">
+              {t.contact.placeholders.phone}
             </a>
           </li>
           <li>{t.contact.placeholders.address}</li>
@@ -69,8 +145,43 @@ const footerLinks = [
       </div>
     </div>
 
-    <div class="mt-10 pt-6 border-t border-white/10 text-center text-sm text-white/40">
-      &copy; {year} TuronCore. {t.footer.rights}
+    <div
+      class="h-px w-full"
+      style="background:linear-gradient(90deg, transparent, var(--c-hairline) 20%, var(--c-hairline) 80%, transparent)"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 py-7 text-sm text-faint">
+      <p>&copy; {year} TuronCore. {t.footer.rights}</p>
+      <a
+        href="#main"
+        class="group inline-flex items-center gap-2 transition-colors duration-300 hover:text-accent"
+      >
+        <svg
+          class="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 19V5M6 11l6-6 6 6"></path>
+        </svg>
+        Top
+      </a>
+    </div>
+  </div>
+
+  <div
+    class="pointer-events-none select-none overflow-hidden"
+    aria-hidden="true"
+  >
+    <div
+      class="shell translate-y-[20%] font-display text-[clamp(2.75rem,10.5vw,9.5rem)] font-extrabold leading-[0.8] tracking-tighter whitespace-nowrap text-ink/[0.04]"
+    >
+      TURONCORE
     </div>
   </div>
 </footer>

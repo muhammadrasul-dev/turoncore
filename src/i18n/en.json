@@ -11,21 +11,33 @@
     "tech": "Technologies",
     "contact": "Contact"
   },
+  "common": {
+    "learnMore": "Learn more",
+    "viewProject": "View project",
+    "verified": "Verified",
+    "scroll": "Scroll"
+  },
   "hero": {
-    "badge": "IT Company",
+    "badge": "IT company based in Tashkent",
     "title": "Take your digital products",
     "titleHighlight": "to the next level",
     "subtitle": "Mobile apps, web platforms, and B2B IT partnerships — fast, quality, and reliable solutions built with modern technologies.",
     "ctaPrimary": "Get in Touch",
     "ctaSecondary": "Services"
   },
+  "trust": {
+    "eyebrow": "Trusted by",
+    "title": "Companies that trust us"
+  },
   "services": {
-    "title": "Our Services",
-    "subtitle": "Complete IT solutions for your business"
+    "eyebrow": "Services",
+    "title": "Complete solutions for your business",
+    "subtitle": "From idea to launch — one team, one point of accountability."
   },
   "about": {
-    "title": "About Us",
-    "subtitle": "TuronCore — your trusted IT partner",
+    "eyebrow": "About us",
+    "title": "Your trusted IT partner",
+    "subtitle": "A small team with high standards. Transparency and quality in every project.",
     "mission": {
       "title": "Our Mission",
       "text": "To help businesses in Uzbekistan and internationally create modern digital products. Quality, speed, and transparency are our core principles in every project."
@@ -42,7 +54,8 @@
     }
   },
   "process": {
-    "title": "Our Process",
+    "eyebrow": "Process",
+    "title": "How we work",
     "subtitle": "We deliver your project in 4 steps",
     "steps": [
       {
@@ -64,21 +77,37 @@
     ]
   },
   "portfolio": {
-    "title": "Projects",
-    "subtitle": "Samples from our recent work",
+    "eyebrow": "Work",
+    "title": "Our recent projects",
+    "subtitle": "A selection of products we built across different industries",
     "comingSoon": "Coming Soon"
   },
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "title": "What our clients say",
+    "subtitle": "About working with us"
+  },
   "tech": {
-    "title": "Technologies",
-    "subtitle": "The modern stack we work with"
+    "eyebrow": "Stack",
+    "title": "Technologies we work with",
+    "subtitle": "A stable, fast, and maintainable stack"
+  },
+  "certificates": {
+    "eyebrow": "Partners",
+    "title": "Technology partners",
+    "subtitle": "Certified platforms and ecosystems"
   },
   "contact": {
-    "title": "Contact Us",
-    "subtitle": "Let's discuss your project",
+    "eyebrow": "Contact",
+    "title": "Let's discuss your project",
+    "subtitle": "Leave a short message — we reply within 24 hours.",
     "form": {
       "name": "Your Name",
       "email": "Email",
       "message": "Your Message",
+      "namePlaceholder": "Enter your name",
+      "emailPlaceholder": "you@company.com",
+      "messagePlaceholder": "Tell us briefly about your project...",
       "submit": "Send",
       "success": "Your message has been received! We'll get back to you soon."
     },
@@ -86,18 +115,21 @@
       "phone": "Phone",
       "email": "Email",
       "telegram": "Telegram",
+      "instagram": "Instagram",
       "address": "Address"
     },
     "placeholders": {
-      "phone": "+998 XX XXX XX XX",
+      "phone": "+998 93 361 57 75",
       "email": "info@turoncore.uz",
-      "telegram": "@turoncore",
+      "telegram": "@muhammadrasultg",
+      "instagram": "@turoncore",
       "address": "Tashkent, Uzbekistan"
     }
   },
   "footer": {
     "tagline": "Mobile apps and websites — professional IT solutions.",
     "rights": "All rights reserved.",
-    "links": "Links"
+    "links": "Links",
+    "cta": "Ready to start your project?"
   }
 }

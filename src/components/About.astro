@@ -1,7 +1,6 @@
 ---
 import type { Translations } from '../i18n/ui';
-import SectionHeading from './ui/SectionHeading.astro';
-import Card from './ui/Card.astro';
+import GeometricBg from './GeometricBg.astro';
 
 interface Props {
   t: Translations;
@@ -10,57 +9,67 @@ interface Props {
 const { t } = Astro.props;
 
 const stats = [
-  { value: 20, label: t.about.stats.projects, suffix: '+' },
-  { value: 15, label: t.about.stats.clients, suffix: '+' },
-  { value: 3, label: t.about.stats.years, suffix: '+' },
-  { value: 10, label: t.about.stats.team, suffix: '+' },
+  { value: 20, suffix: '+', label: t.about.stats.projects },
+  { value: 15, suffix: '+', label: t.about.stats.clients },
+  { value: 3, suffix: '+', label: t.about.stats.years },
+  { value: 10, suffix: '+', label: t.about.stats.team },
 ];
+
+const pillars = [t.about.mission, t.about.vision];
 ---
 
-<section id="about" class="py-20 md:py-28 bg-navy/[0.02] dark:bg-white/[0.02] relative overflow-hidden">
-  <!-- Background gradient -->
-  <div class="absolute inset-0 bg-gradient-radial opacity-50" />
+<section id="about" class="section band feather-top feather-bottom relative overflow-hidden">
+  <GeometricBg grid={false} intensity="soft" />
 
-  <div class="mx-auto max-w-7xl px-4 md:px-6 relative">
-    <div class="reveal">
-      <SectionHeading title={t.about.title} subtitle={t.about.subtitle} />
-    </div>
+  <div class="shell relative">
+    <div class="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+      <div>
+        <span class="eyebrow reveal">{t.about.eyebrow}</span>
+        <h2 class="headline reveal mt-5 text-ink" style="--rd:70ms">{t.about.title}</h2>
+        <p class="lede reveal mt-5" style="--rd:140ms">{t.about.subtitle}</p>
 
-    <div class="grid gap-6 md:grid-cols-2 mb-16">
-      <div class="reveal reveal-delay-1">
-        <Card>
-          <h3 class="text-lg font-semibold text-emerald mb-3">{t.about.mission.title}</h3>
-          <p class="text-navy/60 dark:text-white/60 leading-relaxed">{t.about.mission.text}</p>
-        </Card>
-      </div>
-      <div class="reveal reveal-delay-2">
-        <Card>
-          <h3 class="text-lg font-semibold text-emerald mb-3">{t.about.vision.title}</h3>
-          <p class="text-navy/60 dark:text-white/60 leading-relaxed">{t.about.vision.text}</p>
-        </Card>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      {
-        stats.map((stat, i) => (
-          <div class:list={['reveal text-center group', `reveal-delay-${i + 1}`]}>
-            <div class="glass rounded-2xl p-6 transition-all duration-500 group-hover:scale-105 group-hover:glow-emerald">
-              <div class="flex items-baseline justify-center gap-1">
-                <span
-                  class="counter-number text-3xl md:text-4xl font-bold text-gradient"
-                  data-counter={stat.value}
-                  data-duration="2000"
-                >
-                  0
-                </span>
-                <span class="text-2xl md:text-3xl font-bold text-emerald">{stat.suffix}</span>
+        <div class="mt-12 grid grid-cols-2 gap-x-8 gap-y-10">
+          {
+            stats.map((stat, i) => (
+              <div class="reveal" style={`--rd:${200 + i * 80}ms`}>
+                <div class="flex items-baseline">
+                  <span
+                    class="tabular accent-text font-display text-5xl font-extrabold md:text-6xl"
+                    data-counter={stat.value}
+                    data-duration="1800"
+                  >
+                    0
+                  </span>
+                  <span class="accent-text font-display text-3xl font-extrabold md:text-4xl">
+                    {stat.suffix}
+                  </span>
+                </div>
+                <p class="mt-2 text-sm text-faint">{stat.label}</p>
               </div>
-              <div class="mt-2 text-sm text-navy/60 dark:text-white/60">{stat.label}</div>
-            </div>
-          </div>
-        ))
-      }
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-5">
+        {
+          pillars.map((pillar, i) => (
+            <article
+              class="group surface spot js-spot lift reveal relative overflow-hidden p-8 md:p-10"
+              style={`--rd:${i * 120}ms`}
+            >
+              <span
+                class="absolute left-0 top-8 bottom-8 w-[3px] rounded-full bg-linear-to-b from-accent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+                aria-hidden="true"
+              />
+              <div class="relative z-10">
+                <h3 class="text-xl font-bold text-ink md:text-2xl">{pillar.title}</h3>
+                <p class="mt-4 leading-relaxed text-muted">{pillar.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>

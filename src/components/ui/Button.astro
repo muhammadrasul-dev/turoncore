@@ -1,9 +1,11 @@
 ---
 interface Props {
   href?: string;
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: 'primary' | 'soft' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   class?: string;
+  type?: 'button' | 'submit';
+  external?: boolean;
 }
 
 const {
@@ -11,46 +13,38 @@ const {
   variant = 'primary',
   size = 'md',
   class: className = '',
+  type = 'button',
+  external = false,
 } = Astro.props;
 
-const base =
-  'relative inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-dark overflow-hidden group';
-
 const variants = {
-  primary:
-    'bg-gradient-to-r from-emerald to-emerald-dark text-white shadow-lg shadow-emerald/20 hover:shadow-emerald/40 hover:shadow-xl hover:-translate-y-0.5',
-  secondary:
-    'glass border-emerald/20 text-navy dark:text-white hover:border-emerald/40 hover:glow-emerald',
-  ghost: 'text-navy/70 dark:text-white/70 hover:text-emerald hover:bg-emerald/5',
+  primary: 'btn-primary',
+  soft: 'btn-soft',
+  ghost: 'btn-ghost',
 };
 
 const sizes = {
   sm: 'px-4 py-2 text-sm',
-  md: 'px-6 py-3 text-base',
-  lg: 'px-8 py-4 text-lg',
+  md: 'px-6 py-3 text-[0.95rem]',
+  lg: 'px-7 py-3.5 text-base md:px-8 md:py-4 md:text-[1.05rem]',
 };
 
-const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
+const classes = `btn ${variants[variant]} ${sizes[size]} ${className}`;
 ---
 
 {
   href ? (
-    <a href={href} class={classes}>
-      <span class="relative z-10 flex items-center gap-2">
-        <slot />
-      </span>
-      {variant === 'primary' && (
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
-      )}
+    <a
+      href={href}
+      class={classes}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
+      <slot />
     </a>
   ) : (
-    <button type="button" class={classes}>
-      <span class="relative z-10 flex items-center gap-2">
-        <slot />
-      </span>
-      {variant === 'primary' && (
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
-      )}
+    <button type={type} class={classes}>
+      <slot />
     </button>
   )
 }

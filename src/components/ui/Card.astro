@@ -2,39 +2,38 @@
 interface Props {
   class?: string;
   hover?: boolean;
+  spotlight?: boolean;
+  padding?: 'sm' | 'md' | 'lg' | 'none';
+  as?: 'div' | 'article' | 'li';
 }
 
-const { class: className = '', hover = true } = Astro.props;
+const {
+  class: className = '',
+  hover = true,
+  spotlight = true,
+  padding = 'md',
+  as: Tag = 'div',
+} = Astro.props;
+
+const pads = {
+  none: '',
+  sm: 'p-5',
+  md: 'p-6 md:p-7',
+  lg: 'p-7 md:p-9',
+};
 ---
 
-<div
+<Tag
   class:list={[
-    'group relative rounded-2xl overflow-hidden transition-all duration-500',
+    'group surface overflow-hidden',
+    pads[padding],
+    hover && 'lift',
+    spotlight && hover && 'spot',
+    spotlight && hover && 'js-spot',
     className,
   ]}
 >
-  <!-- Gradient border effect -->
-  <div
-    class:list={[
-      'absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald/20 via-transparent to-navy/20 opacity-0 transition-opacity duration-500',
-      hover && 'group-hover:opacity-100',
-    ]}
-  />
-
-  <!-- Main content with glassmorphism -->
-  <div
-    class:list={[
-      'relative glass rounded-2xl p-6 transition-all duration-500',
-      hover && 'group-hover:shadow-xl group-hover:shadow-emerald/10',
-    ]}
-  >
+  <div class="relative z-10 h-full">
     <slot />
   </div>
-
-  <!-- Shine effect -->
-  {
-    hover && (
-      <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-    )
-  }
-</div>
+</Tag>

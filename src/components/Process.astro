@@ -9,33 +9,40 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section id="process" class="py-20 md:py-28 relative overflow-hidden">
-  <!-- Background gradient -->
-  <div class="absolute inset-0 bg-gradient-radial opacity-30" />
+<section id="process" class="section relative overflow-hidden">
+  <div class="shell relative">
+    <SectionHeading
+      eyebrow={t.process.eyebrow}
+      title={t.process.title}
+      subtitle={t.process.subtitle}
+      class="mb-14 md:mb-20"
+    />
 
-  <div class="mx-auto max-w-7xl px-4 md:px-6 relative">
-    <div class="reveal">
-      <SectionHeading title={t.process.title} subtitle={t.process.subtitle} />
-    </div>
-
-    <div class="grid gap-8 md:grid-cols-4 relative">
+    <div class="relative">
       <div
-        class="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-emerald/30 to-transparent"
-      />
+        class="pointer-events-none absolute left-0 right-0 top-7 hidden h-px md:block"
+        style="background:linear-gradient(90deg, transparent, var(--c-hairline) 12%, var(--c-hairline) 88%, transparent)"
+        aria-hidden="true"
+      >
+      </div>
 
-      {
-        t.process.steps.map((step, i) => (
-          <div class:list={['reveal relative text-center group', `reveal-delay-${i + 1}`]}>
-            <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl glass border border-emerald/20 text-emerald font-bold text-2xl relative z-10 group-hover:scale-110 group-hover:glow-emerald transition-all duration-300">
-              <span class="text-gradient">{String(i + 1).padStart(2, '0')}</span>
-            </div>
-            <h3 class="text-lg font-semibold text-navy dark:text-white mb-2 group-hover:text-emerald transition-colors">
-              {step.title}
-            </h3>
-            <p class="text-sm text-navy/60 dark:text-white/60 leading-relaxed">{step.description}</p>
-          </div>
-        ))
-      }
+      <ol class="grid gap-12 md:grid-cols-4 md:gap-8">
+        {
+          t.process.steps.map((step, i) => (
+            <li class="group relative reveal" style={`--rd:${i * 110}ms`}>
+              <div class="flex items-center gap-4 md:block">
+                <span class="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-bg-soft text-lg font-extrabold text-accent shadow-[inset_0_1px_0_var(--sheen),var(--shadow-sm)] transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-accent group-hover:text-accent-ink">
+                  <span class="tabular font-display">{String(i + 1).padStart(2, '0')}</span>
+                </span>
+                <h3 class="text-lg font-bold text-ink md:mt-7">{step.title}</h3>
+              </div>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-muted md:mt-3">
+                {step.description}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </div>
 </section>

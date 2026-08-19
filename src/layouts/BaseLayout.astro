@@ -14,6 +14,7 @@ interface Props {
 const { lang, t, title, description } = Astro.props;
 const pageTitle = title ?? t.meta.title;
 const pageDescription = description ?? t.meta.description;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -22,28 +23,50 @@ const pageDescription = description ?? t.meta.description;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={pageDescription} />
+    <meta name="theme-color" content="#05070b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f3f5f7" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="/logos/logo-light-bg.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <script is:inline>
       (function () {
-        const saved = localStorage.getItem('theme');
-        const isDark = saved ? saved === 'dark' : true;
-        document.documentElement.classList.toggle('dark', isDark);
+        var saved = localStorage.getItem('theme');
+        document.documentElement.classList.toggle('dark', saved ? saved === 'dark' : true);
       })();
     </script>
   </head>
-  <body class="min-h-screen">
+  <body class="min-h-screen bg-bg text-ink">
+    <div id="scroll-progress"></div>
+
+    <a
+      href="#main"
+      class="btn btn-primary sr-only px-5 py-2.5 text-sm focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100]"
+    >
+      Skip to content
+    </a>
+
     <Header lang={lang} t={t} />
-    <main>
+
+    <main id="main">
       <slot />
     </main>
+
     <Footer lang={lang} t={t} />
 
     <script>
       import '../scripts/theme.ts';
       import '../scripts/reveal.ts';
       import '../scripts/header.ts';
+      import '../scripts/spotlight.ts';
     </script>
   </body>
 </html>

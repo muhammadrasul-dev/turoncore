@@ -1,6 +1,6 @@
 export function initReveal() {
+  const elements = document.querySelectorAll('.reveal, .reveal-scale');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const elements = document.querySelectorAll('.reveal');
 
   if (prefersReduced) {
     elements.forEach((el) => el.classList.add('visible'));
@@ -10,13 +10,12 @@ export function initReveal() {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       });
     },
-    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
   );
 
   elements.forEach((el) => observer.observe(el));
