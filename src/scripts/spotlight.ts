@@ -5,6 +5,8 @@ export function initSpotlight() {
   if (!cards.length) return;
 
   cards.forEach((card) => {
+    if (card.dataset.spotBound === '1') return;
+    card.dataset.spotBound = '1';
     let frame = 0;
 
     card.addEventListener(
@@ -22,5 +24,3 @@ export function initSpotlight() {
     );
   });
 }
-
-initSpotlight();

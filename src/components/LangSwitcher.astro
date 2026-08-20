@@ -8,222 +8,134 @@ interface Props {
 
 const { lang } = Astro.props;
 const currentPath = Astro.url.pathname;
+
+const languageIcons: Record<Lang, string> = {
+  uz: '🇺🇿',
+  ru: '🇷🇺',
+  en: '🇬🇧',
+};
+
+const languageNames: Record<Lang, string> = {
+  uz: 'O\'zbek',
+  ru: 'Русский',
+  en: 'English',
+};
 ---
 
-<div class="flex items-center gap-0.5 rounded-full bg-inset p-1">
-  {
-    languages.map(({ code, label }) => {
-      const href = getLocalizedPath(currentPath, code);
-      const isActive = lang === code;
-      return (
-        <a
-          href={href}
-          data-lang-switch
-          class:list={[
-            'rounded-full px-2.5 py-1 text-[0.7rem] font-semibold tracking-wide transition-all duration-300',
-            isActive
-              ? 'bg-accent text-accent-ink shadow-[0_6px_16px_-8px_var(--c-accent)]'
-              : 'text-faint hover:text-ink',
-          ]}
-          aria-current={isActive ? 'page' : undefined}
-        >
-          {label}
-        </a>
-      );
-    })
-  }
+<div class="relative" data-lang-dropdown>
+  <button
+    type="button"
+    class="flex items-center gap-2 rounded-full bg-inset px-3 py-2 text-sm font-medium text-ink transition-all duration-300 hover:bg-accent-soft hover:text-accent"
+    aria-label="Select language"
+    aria-expanded="false"
+    data-lang-trigger
+  >
+    <span class="text-lg leading-none">{languageIcons[lang]}</span>
+    <span class="hidden sm:inline">{lang.toUpperCase()}</span>
+    <svg
+      class="h-4 w-4 transition-transform duration-300"
+      data-lang-chevron
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M6 9l6 6 6-6"></path>
+    </svg>
+  </button>
+
+  <div
+    class="absolute right-0 top-full z-50 mt-2 w-48 origin-top-right scale-95 opacity-0 pointer-events-none rounded-2xl bg-surface p-2 shadow-2xl border border-hairline/30 backdrop-blur-xl transition-all duration-300"
+    data-lang-menu
+  >
+    {
+      languages.map(({ code, label }) => {
+        const href = getLocalizedPath(currentPath, code);
+        const isActive = lang === code;
+        return (
+          <a
+            href={href}
+            data-lang-switch
+            class:list={[
+              'flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-300',
+              isActive
+                ? 'bg-accent text-white shadow-lg shadow-accent/20'
+                : 'text-muted hover:bg-accent-soft hover:text-accent',
+            ]}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            <span class="text-xl leading-none">{languageIcons[code]}</span>
+            <span class="flex-1">{languageNames[code]}</span>
+            {isActive && (
+              <svg
+                class="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 6L9 17l-5-5"></path>
+              </svg>
+            )}
+          </a>
+        );
+      })
+    }
+  </div>
 </div>
 
 <script>
-  import { initMobileMenu, initHeaderScroll, initScrollProgress, initActiveSection } from '../scripts/header.ts';
-  import { initReveal } from '../scripts/reveal.ts';
-  import { initSpotlight } from '../scripts/spotlight.ts';
-  import { initSmoothScroll } from '../scripts/scroll.ts';
-  import { initTheme } from '../scripts/theme.ts';
-  import { initCounters } from '../scripts/counter.ts';
+  function initLangDropdown() {
+    const dropdowns = document.querySelectorAll('[data-lang-dropdown]');
 
-  function rebindInteractiveElements() {
-    // 1. Audit Form Re-binding
-    const auditForm = document.getElementById('audit-form') as HTMLFormElement | null;
-    const auditSuccess = document.getElementById('audit-success');
-    let auditTimer: number | undefined;
-    auditForm?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!auditForm.checkValidity()) {
-        auditForm.reportValidity();
-        return;
-      }
-      auditSuccess?.classList.remove('opacity-0');
-      auditForm.reset();
-      window.clearTimeout(auditTimer);
-      auditTimer = window.setTimeout(() => auditSuccess?.classList.add('opacity-0'), 5000);
-    });
+    dropdowns.forEach((dropdown) => {
+      const trigger = dropdown.querySelector('[data-lang-trigger]') as HTMLElement;
+      const menu = dropdown.querySelector('[data-lang-menu]') as HTMLElement;
+      const chevron = dropdown.querySelector('[data-lang-chevron]') as HTMLElement;
 
-    // 2. Contact Form Re-binding
-    const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
-    const contactSuccess = document.getElementById('form-success');
-    let contactTimer: number | undefined;
-    contactForm?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!contactForm.checkValidity()) {
-        contactForm.reportValidity();
-        return;
-      }
-      contactSuccess?.classList.remove('opacity-0');
-      contactForm.reset();
-      window.clearTimeout(contactTimer);
-      contactTimer = window.setTimeout(() => contactSuccess?.classList.add('opacity-0'), 5000);
-    });
+      if (!trigger || !menu || !chevron) return;
 
-    // 3. Floating Contact Popup Re-binding
-    const toggleBtn = document.getElementById('contact-toggle-btn');
-    const popup = document.getElementById('contact-popup');
-    const chatIcon = document.getElementById('chat-icon');
-    const closeIcon = document.getElementById('close-icon');
-
-    if (toggleBtn && popup && chatIcon && closeIcon) {
       let isOpen = false;
-      const toggleMenu = () => {
-        isOpen = !isOpen;
-        if (isOpen) {
-          popup.classList.remove('pointer-events-none', 'invisible', 'scale-95', 'opacity-0');
-          popup.classList.add('scale-100', 'opacity-100');
-          chatIcon.classList.add('scale-50', 'opacity-0');
-          closeIcon.classList.remove('scale-50', 'opacity-0');
-          closeIcon.classList.add('scale-100', 'opacity-100');
-        } else {
-          popup.classList.remove('scale-100', 'opacity-100');
-          popup.classList.add('pointer-events-none', 'invisible', 'scale-95', 'opacity-0');
-          chatIcon.classList.remove('scale-50', 'opacity-0');
-          chatIcon.classList.add('scale-100', 'opacity-100');
-          closeIcon.classList.remove('scale-100', 'opacity-100');
-          closeIcon.classList.add('scale-50', 'opacity-0');
-        }
+
+      const open = () => {
+        isOpen = true;
+        trigger.setAttribute('aria-expanded', 'true');
+        menu.classList.remove('scale-95', 'opacity-0', 'pointer-events-none');
+        menu.classList.add('scale-100', 'opacity-100');
+        chevron.style.transform = 'rotate(180deg)';
       };
-      toggleBtn.addEventListener('click', toggleMenu);
-      document.addEventListener('click', (event) => {
-        const target = event.target as HTMLElement;
-        if (isOpen && !toggleBtn.contains(target) && !popup.contains(target)) {
-          toggleMenu();
+
+      const close = () => {
+        isOpen = false;
+        trigger.setAttribute('aria-expanded', 'false');
+        menu.classList.add('scale-95', 'opacity-0', 'pointer-events-none');
+        menu.classList.remove('scale-100', 'opacity-100');
+        chevron.style.transform = 'rotate(0deg)';
+      };
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isOpen ? close() : open();
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target as Node)) {
+          close();
         }
       });
-    }
-  }
 
-  function initLangSwitchers() {
-    const switchers = document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]');
-    switchers.forEach((switcher) => {
-      if (switcher.dataset.listenerBound) return;
-      switcher.dataset.listenerBound = 'true';
-
-      switcher.addEventListener('click', async (e) => {
-        const href = switcher.getAttribute('href');
-        if (!href) return;
-
-        if (switcher.getAttribute('aria-current') === 'page') {
-          e.preventDefault();
-          return;
-        }
-
-        e.preventDefault();
-
-        // Smooth transition effect
-        const mainContent = document.getElementById('main');
-        if (mainContent) {
-          mainContent.style.transition = 'opacity 0.22s ease-out, transform 0.22s ease-out';
-          mainContent.style.opacity = '0.4';
-          mainContent.style.transform = 'translateY(4px)';
-        }
-
-        try {
-          const response = await fetch(href);
-          if (!response.ok) throw new Error('Fetch failed');
-          const html = await response.text();
-
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-
-          // Swap elements seamlessly
-          const currentHeader = document.getElementById('header-bar');
-          const newHeader = doc.getElementById('header-bar');
-          if (currentHeader && newHeader) {
-            currentHeader.innerHTML = newHeader.innerHTML;
-          }
-
-          const currentMobileMenu = document.getElementById('mobile-menu');
-          const newMobileMenu = doc.getElementById('mobile-menu');
-          if (currentMobileMenu && newMobileMenu) {
-            currentMobileMenu.innerHTML = newMobileMenu.innerHTML;
-          }
-
-          const currentMain = document.getElementById('main');
-          const newMain = doc.getElementById('main');
-          if (currentMain && newMain) {
-            currentMain.innerHTML = newMain.innerHTML;
-          }
-
-          const currentFooter = document.querySelector('footer');
-          const newFooter = doc.querySelector('footer');
-          if (currentFooter && newFooter) {
-            currentFooter.innerHTML = newFooter.innerHTML;
-          }
-
-          const currentPopup = document.getElementById('contact-popup');
-          const newPopup = doc.getElementById('contact-popup');
-          if (currentPopup && newPopup) {
-            currentPopup.innerHTML = newPopup.innerHTML;
-          }
-
-          // Update page properties
-          const newLang = doc.documentElement.getAttribute('lang') || 'uz';
-          document.documentElement.setAttribute('lang', newLang);
-          document.title = doc.title;
-          
-          const currentDesc = document.querySelector('meta[name="description"]');
-          const newDesc = doc.querySelector('meta[name="description"]');
-          if (currentDesc && newDesc) {
-            currentDesc.setAttribute('content', newDesc.getAttribute('content') || '');
-          }
-
-          // Push state
-          history.pushState(null, '', href);
-
-          // Re-initialize scripts
-          initMobileMenu();
-          initHeaderScroll();
-          initScrollProgress();
-          initActiveSection();
-          initReveal();
-          initSpotlight();
-          initTheme();
-          initCounters();
-          rebindInteractiveElements();
-          initSmoothScroll();
-
-          // Bind event listeners to new language switches
-          initLangSwitchers();
-
-          // Smooth scroll to top of the page
-          if ((window as any).lenis) {
-            (window as any).lenis.scrollTo(0, { immediate: true });
-          } else {
-            window.scrollTo(0, 0);
-          }
-
-          // Fade content back in
-          if (mainContent) {
-            mainContent.style.opacity = '1';
-            mainContent.style.transform = 'translateY(0)';
-          }
-        } catch (err) {
-          console.error('Error switching language without refresh:', err);
-          window.location.href = href;
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) {
+          close();
         }
       });
     });
   }
 
-  // Bind on first load
-  initLangSwitchers();
-  rebindInteractiveElements();
+  initLangDropdown();
+  document.addEventListener('astro:after-swap', initLangDropdown);
 </script>

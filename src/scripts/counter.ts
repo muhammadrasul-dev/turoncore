@@ -1,4 +1,9 @@
+let counterObserver: IntersectionObserver | null = null;
+
 export function initCounters() {
+  counterObserver?.disconnect();
+  counterObserver = null;
+
   const counters = document.querySelectorAll('[data-counter]');
 
   if (!counters.length) return;
@@ -33,23 +38,19 @@ export function initCounters() {
     requestAnimationFrame(update);
   }
 
-  const observer = new IntersectionObserver(
+  counterObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const target = parseInt(entry.target.getAttribute('data-counter') || '0');
           const duration = parseInt(entry.target.getAttribute('data-duration') || '2000');
           animateCounter(entry.target, 0, target, duration);
-          observer.unobserve(entry.target);
+          counterObserver?.unobserve(entry.target);
         }
       });
     },
     { threshold: 0.3 }
   );
 
-  counters.forEach((counter) => observer.observe(counter));
-}
-
-if (typeof window !== 'undefined') {
-  initCounters();
+  counters.forEach((counter) => counterObserver?.observe(counter));
 }

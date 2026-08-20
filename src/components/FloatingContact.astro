@@ -39,19 +39,19 @@ const contactDetails = [
   {
     name: t.footer.email,
     href: `mailto:${t.footer.email}`,
-    iconColor: 'bg-blue-500/10 text-blue-500',
+    iconColor: 'bg-accent-soft text-accent',
     svg: `<svg class="h-4.5 w-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`
   },
   {
     name: t.footer.phone,
     href: `tel:${t.footer.phone.replace(/\s/g, '')}`,
-    iconColor: 'bg-blue-500/10 text-blue-500',
+    iconColor: 'bg-accent-soft text-accent',
     svg: `<svg class="h-4.5 w-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.79 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`
   }
 ];
 ---
 
-<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 font-sans">
+<div id="floating-contact" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 font-sans">
   <!-- Popup Menu -->
   <div
     id="contact-popup"
@@ -103,8 +103,8 @@ const contactDetails = [
       class="flex items-center gap-2 rounded-full border border-white/[0.08] bg-[#0d0e12] py-2.5 pl-4 pr-5 text-sm font-semibold text-white shadow-xl backdrop-blur-md"
     >
       <span class="relative flex h-2 w-2">
-        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
-        <span class="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
+        <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
       </span>
       <span>{t.nav.contact}</span>
     </div>
@@ -112,7 +112,7 @@ const contactDetails = [
     <!-- Circular Toggle Button -->
     <button
       id="contact-toggle-btn"
-      class="relative flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white shadow-xl transition-all duration-300 hover:bg-blue-700 hover:scale-105 active:scale-95 cursor-pointer"
+      class="relative flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-ink shadow-xl transition-all duration-300 hover:bg-accent-bright hover:scale-105 active:scale-95 cursor-pointer"
       aria-label="Toggle contact menu"
     >
       <!-- Chat Icon (Visible when closed) -->
@@ -146,47 +146,3 @@ const contactDetails = [
     </button>
   </div>
 </div>
-
-<script>
-  const toggleBtn = document.getElementById('contact-toggle-btn');
-  const popup = document.getElementById('contact-popup');
-  const chatIcon = document.getElementById('chat-icon');
-  const closeIcon = document.getElementById('close-icon');
-
-  if (toggleBtn && popup && chatIcon && closeIcon) {
-    let isOpen = false;
-
-    const toggleMenu = () => {
-      isOpen = !isOpen;
-
-      if (isOpen) {
-        // Open
-        popup.classList.remove('pointer-events-none', 'invisible', 'scale-95', 'opacity-0');
-        popup.classList.add('scale-100', 'opacity-100');
-        
-        chatIcon.classList.add('scale-50', 'opacity-0');
-        closeIcon.classList.remove('scale-50', 'opacity-0');
-        closeIcon.classList.add('scale-100', 'opacity-100');
-      } else {
-        // Close
-        popup.classList.remove('scale-100', 'opacity-100');
-        popup.classList.add('pointer-events-none', 'invisible', 'scale-95', 'opacity-0');
-        
-        chatIcon.classList.remove('scale-50', 'opacity-0');
-        chatIcon.classList.add('scale-100', 'opacity-100');
-        closeIcon.classList.remove('scale-100', 'opacity-100');
-        closeIcon.classList.add('scale-50', 'opacity-0');
-      }
-    };
-
-    toggleBtn.addEventListener('click', toggleMenu);
-
-    // Close when clicking outside
-    document.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-      if (isOpen && !toggleBtn.contains(target) && !popup.contains(target)) {
-        toggleMenu();
-      }
-    });
-  }
-</script>

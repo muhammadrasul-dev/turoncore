@@ -23,6 +23,12 @@
     "badge": "Toshkentdagi IT kompaniya",
     "title": "Raqamli mahsulotlaringizni",
     "titleHighlight": "keyingi bosqichga olib chiqing",
+    "typewriterPhrases": [
+      "keyingi bosqichga olib chiqing",
+      "zamonaviy dizaynda yarating",
+      "biz bilan avtomatlashtiring",
+      "eng kuchli texnologiyalar bilan quring"
+    ],
     "subtitle": "Mobil ilovalar, web platformalar va B2B IT hamkorlik — zamonaviy texnologiyalar bilan tez, sifatli va ishonchli yechimlar.",
     "ctaPrimary": "Bog'lanish",
     "ctaSecondary": "Xizmatlar"
@@ -232,5 +238,24 @@
       "submit": "Auditga buyurtma berish",
       "success": "Arizangiz qabul qilindi! Saytingizni tahlil qilib, tez orada bog'lanamiz."
     }
+  },
+  "modal": {
+    "title": "Biz har doim aloqadamiz 👋",
+    "subtitle": "Xabar qoldiring — mutaxassisimiz 1 soat ichida siz bilan bog'lanadi. Yoki to'g'ridan-to'g'ri Telegram orqali yozing.",
+    "qrScan": "QR-kodni telefoningiz orqali skanerlang",
+    "telegramBtn": "Telegramda yozish",
+    "callBtn": "Qo'ng'iroq qilish",
+    "orLeaveRequest": "YOKI TEZKOR ARIZA QOLDIRING",
+    "formName": "Ismingiz",
+    "formNamePlaceholder": "Ismingizni kiriting",
+    "formPhone": "Telefon raqamingiz",
+    "formPhonePlaceholder": "90 123 45 67",
+    "formSector": "Loyiha sohasi / Yo'nalish",
+    "formSectorPlaceholder": "Sohani tanlang...",
+    "formMessage": "Loyihangiz haqida (ixtiyoriy)",
+    "formMessagePlaceholder": "Katta yoki kichik loyiha, talablaringiz...",
+    "submit": "Ariza yuborish",
+    "privacy": "Sizning ma'lumotlaringiz xavfsiz. Spam yo'q.",
+    "success": "Arizangiz muvaffaqiyatli yuborildi! Tez orada bog'lanamiz."
   }
 }

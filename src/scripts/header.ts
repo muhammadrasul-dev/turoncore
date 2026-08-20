@@ -1,3 +1,5 @@
+let menuAbort: AbortController | null = null;
+
 export function initMobileMenu() {
   const toggle = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-menu');
@@ -6,6 +8,10 @@ export function initMobileMenu() {
   const bot = document.getElementById('bar-bot');
 
   if (!toggle || !menu) return;
+
+  menuAbort?.abort();
+  menuAbort = new AbortController();
+  const signal = menuAbort.signal;
 
   const setState = (open: boolean) => {
     menu.classList.toggle('open', open);
@@ -17,25 +23,41 @@ export function initMobileMenu() {
     bot?.classList.toggle('-rotate-45', open);
   };
 
-  toggle.addEventListener('click', () => setState(!menu.classList.contains('open')));
-  menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setState(false)));
-  window.addEventListener('resize', () => {
-    if (window.innerWidth >= 1024) setState(false);
+  toggle.addEventListener('click', () => setState(!menu.classList.contains('open')), { signal });
+  menu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setState(false), { signal });
   });
+  window.addEventListener(
+    'resize',
+    () => {
+      if (window.innerWidth >= 1024) setState(false);
+    },
+    { signal }
+  );
 }
+
+let headerScrollAbort: AbortController | null = null;
 
 export function initHeaderScroll() {
   const header = document.getElementById('site-header');
   if (!header) return;
 
+  headerScrollAbort?.abort();
+  headerScrollAbort = new AbortController();
+
   const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', onScroll, { passive: true, signal: headerScrollAbort.signal });
   onScroll();
 }
+
+let progressAbort: AbortController | null = null;
 
 export function initScrollProgress() {
   const bar = document.getElementById('scroll-progress');
   if (!bar) return;
+
+  progressAbort?.abort();
+  progressAbort = new AbortController();
 
   let ticking = false;
   const update = () => {
@@ -53,12 +75,17 @@ export function initScrollProgress() {
         requestAnimationFrame(update);
       }
     },
-    { passive: true }
+    { passive: true, signal: progressAbort.signal }
   );
   update();
 }
 
+let sectionObserver: IntersectionObserver | null = null;
+
 export function initActiveSection() {
+  sectionObserver?.disconnect();
+  sectionObserver = null;
+
   const links = Array.from(
     document.querySelectorAll<HTMLAnchorElement>('a[data-navlink]')
   );
@@ -78,7 +105,7 @@ export function initActiveSection() {
 
   const visible = new Set<string>();
 
-  const observer = new IntersectionObserver(
+  sectionObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) visible.add(entry.target.id);
@@ -91,10 +118,5 @@ export function initActiveSection() {
     { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
   );
 
-  targets.forEach((section) => observer.observe(section));
+  targets.forEach((section) => sectionObserver?.observe(section));
 }
-
-initMobileMenu();
-initHeaderScroll();
-initScrollProgress();
-initActiveSection();

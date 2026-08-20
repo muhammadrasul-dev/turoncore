@@ -3,6 +3,7 @@ import type { Lang, Translations } from '../i18n/ui';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingContact from '../components/FloatingContact.astro';
+import ContactModal from '../components/ContactModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -40,6 +41,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
     <script is:inline>
       (function () {
+        try {
+          if (sessionStorage.getItem('tc-ready') === '1') {
+            document.documentElement.classList.add('app-ready');
+          }
+        } catch (e) {}
         var saved = localStorage.getItem('theme');
         document.documentElement.classList.toggle('dark', saved ? saved === 'dark' : false);
       })();
@@ -54,8 +60,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <div class="relative flex flex-col items-center">
         <!-- Circular spinner with premium glows -->
         <div class="relative h-14 w-14">
-          <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-blue-500 animate-spin"></div>
-          <div class="absolute inset-2 rounded-full border-b-2 border-l-2 border-blue-400 animate-spin" style="animation-direction: reverse; animation-duration: 0.8s"></div>
+          <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-accent animate-spin"></div>
+          <div class="absolute inset-2 rounded-full border-b-2 border-l-2 border-accent-bright animate-spin" style="animation-direction: reverse; animation-duration: 0.8s"></div>
         </div>
         <!-- Soft, clean loading text -->
         <div class="mt-6 font-display text-[0.85rem] font-bold uppercase tracking-[0.2em] text-[#64748b]">
@@ -67,24 +73,29 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <!-- Preloader controller script -->
     <script is:inline>
       (function () {
-        // Prevent scroll on html tag while preloader is active
+        if (document.documentElement.classList.contains('app-ready')) {
+          const preloader = document.getElementById('page-preloader');
+          if (preloader) preloader.remove();
+          return;
+        }
+
         document.documentElement.classList.add('lenis-stopped');
 
-        // On complete page load (DOM + all images, styles, and assets)
         window.addEventListener('load', function () {
           const preloader = document.getElementById('page-preloader');
+          try {
+            sessionStorage.setItem('tc-ready', '1');
+            document.documentElement.classList.add('app-ready');
+          } catch (e) {}
           if (preloader) {
-            // Elegant exit transitions
             preloader.style.opacity = '0';
             preloader.style.visibility = 'hidden';
             preloader.style.transform = 'translateY(-24px)';
 
-            // Clean up and unlock scroll
             setTimeout(function () {
               preloader.remove();
               document.documentElement.classList.remove('lenis-stopped');
               
-              // Trigger Hero visual elements cascade load animations immediately
               const heroReveals = document.querySelectorAll('#hero .reveal, #hero .reveal-scale');
               heroReveals.forEach(function (el) {
                 el.classList.add('visible');
@@ -114,12 +125,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
     <FloatingContact lang={lang} t={t} />
 
+    <ContactModal lang={lang} t={t} />
+
     <script>
-      import '../scripts/theme.ts';
-      import '../scripts/reveal.ts';
-      import '../scripts/header.ts';
-      import '../scripts/spotlight.ts';
-      import '../scripts/scroll.ts';
+      import { bindPage } from '../scripts/page.ts';
+      import { initLangSwitchers } from '../scripts/lang.ts';
+      import { initSmoothScroll } from '../scripts/scroll.ts';
+
+      bindPage();
+      initLangSwitchers();
+      initSmoothScroll();
     </script>
   </body>
 </html>

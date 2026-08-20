@@ -532,6 +532,11 @@ p {
   transform: none;
 }
 
+html.lang-swapping .reveal,
+html.lang-swapping .reveal-scale {
+  transition: none;
+}
+
 .reveal-scale {
   opacity: 0;
   transform: scale(0.96);
@@ -654,6 +659,10 @@ p {
   background: linear-gradient(90deg, var(--c-accent), var(--c-accent-bright));
   z-index: 100;
   pointer-events: none;
+}
+
+html.app-ready #page-preloader {
+  display: none !important;
 }
 
 }

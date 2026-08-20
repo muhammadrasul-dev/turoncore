@@ -145,22 +145,3 @@ const auditFeatures = [
   </div>
 </section>
 
-<script>
-  // Handle form submission with simple validation and success message
-  const form = document.getElementById('audit-form') as HTMLFormElement | null;
-  const success = document.getElementById('audit-success');
-  let timer: number | undefined;
-
-  form?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    success?.classList.remove('opacity-0');
-    form.reset();
-    window.clearTimeout(timer);
-    timer = window.setTimeout(() => success?.classList.add('opacity-0'), 5000);
-  });
-</script>

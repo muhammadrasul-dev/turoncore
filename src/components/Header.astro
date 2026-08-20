@@ -13,12 +13,10 @@ const { lang, t } = Astro.props;
 
 const navItems = [
   { href: '#services', label: t.nav.services },
-  { href: '#sectors', label: t.nav.sectors },
   { href: '#about', label: t.nav.about },
   { href: '#process', label: t.nav.process },
   { href: '#portfolio', label: t.nav.portfolio },
   { href: '#tech', label: t.nav.tech },
-  { href: '#audit', label: t.nav.audit },
 ];
 ---
 
@@ -32,13 +30,13 @@ const navItems = [
         <Logo class="transition-transform duration-500 group-hover:scale-[1.03]" />
       </a>
 
-      <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+      <nav class="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
         {
           navItems.map((item) => (
             <a
               href={item.href}
               data-navlink={item.href}
-              class="relative rounded-full px-4 py-2 text-sm font-medium text-muted transition-colors duration-300 hover:text-ink"
+              class="relative rounded-full px-3 py-2 text-[0.8rem] font-medium text-muted transition-colors duration-300 hover:text-ink whitespace-nowrap"
             >
               <span class="relative z-10">{item.label}</span>
               <span

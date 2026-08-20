@@ -167,21 +167,3 @@ const contactItems = [
   </div>
 </section>
 
-<script>
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  const success = document.getElementById('form-success');
-  let timer: number | undefined;
-
-  form?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    success?.classList.remove('opacity-0');
-    form.reset();
-    window.clearTimeout(timer);
-    timer = window.setTimeout(() => success?.classList.add('opacity-0'), 5000);
-  });
-</script>
