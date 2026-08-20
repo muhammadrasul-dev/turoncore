@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TuronCore — Mobil ilova va Web saytlar</title>
     <meta name="description" content="TuronCore — mobil ilovalar, web saytlar va B2B IT xizmatlari." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     
     <!-- Seamless redirection script that defaults to Uzbek -->
     <script is:inline>
@@ -66,7 +66,8 @@
       .brand-logo {
         width: 72px;
         height: 72px;
-        color: #ffffff;
+        object-fit: contain;
+        border-radius: 16px;
       }
 
       .brand-text {
@@ -160,21 +161,11 @@
       <div class="glow-effect"></div>
       
       <div class="logo-wrapper">
-        <svg
+        <img
           class="brand-logo"
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g stroke="currentColor" stroke-width="2.6" stroke-linejoin="round">
-            <rect x="10" y="10" width="28" height="28" rx="1.5"></rect>
-            <rect x="10" y="10" width="28" height="28" rx="1.5" transform="rotate(45 24 24)"></rect>
-          </g>
-          <polygon
-            points="32,24 28,30.9 20,30.9 16,24 20,17.1 28,17.1"
-            fill="var(--c-accent)"
-          ></polygon>
-        </svg>
+          src="/logos/icon-dark-bg.png"
+          alt="TuronCore"
+        />
       </div>
 
       <div class="brand-text">Turon<span>Core</span></div>
