@@ -159,10 +159,10 @@
     "subtitle": "Qisqacha yozib qoldiring — 24 soat ichida javob beramiz.",
     "form": {
       "name": "Ismingiz",
-      "email": "Email",
+      "phone": "Telefon raqamingiz",
       "message": "Xabaringiz",
       "namePlaceholder": "Ismingizni kiriting",
-      "emailPlaceholder": "siz@kompaniya.uz",
+      "phonePlaceholder": "90 123 45 67",
       "messagePlaceholder": "Loyihangiz haqida qisqacha...",
       "submit": "Yuborish",
       "success": "Xabaringiz qabul qilindi! Tez orada bog'lanamiz.",

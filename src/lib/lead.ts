@@ -64,7 +64,7 @@ export function isSpam(lead: LeadPayload) {
 
 export function isValidLead(lead: LeadPayload) {
   if (lead.source === 'contact') {
-    return Boolean(lead.name && lead.email && lead.message && lead.email.includes('@'));
+    return Boolean(lead.name && lead.phone && lead.message);
   }
   if (lead.source === 'modal') {
     return Boolean(lead.name && lead.phone && lead.sector);

@@ -159,10 +159,10 @@
     "subtitle": "Leave a short message — we reply within 24 hours.",
     "form": {
       "name": "Your Name",
-      "email": "Email",
+      "phone": "Phone number",
       "message": "Your Message",
       "namePlaceholder": "Enter your name",
-      "emailPlaceholder": "you@company.com",
+      "phonePlaceholder": "90 123 45 67",
       "messagePlaceholder": "Tell us briefly about your project...",
       "submit": "Send",
       "success": "Your message has been received! We'll get back to you soon.",

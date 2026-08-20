@@ -26,7 +26,7 @@ export function readLeadForm(form: HTMLFormElement, source: LeadSource): LeadPay
     hp: readValue(form, 'hp'),
   };
 
-  if (source === 'modal' && lead.phone) {
+  if ((source === 'modal' || source === 'contact') && lead.phone) {
     lead.phone = withUzPhone(lead.phone);
   }
 
