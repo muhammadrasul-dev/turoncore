@@ -20,7 +20,7 @@
     "scroll": "Scroll"
   },
   "hero": {
-    "badge": "IT company based in Tashkent",
+    "badge": "IT company",
     "title": "Take your digital products",
     "titleHighlight": "to the next level",
     "typewriterPhrases": [
@@ -183,7 +183,7 @@
     }
   },
   "footer": {
-    "tagline": "7+ projects. 100% delivered. Created in Tashkent.",
+    "tagline": "7+ projects. 100% delivered.",
     "rights": "All rights reserved.",
     "links": "Links",
     "cta": "Ready to start your project?",

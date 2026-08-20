@@ -20,7 +20,7 @@
     "scroll": "Pastga"
   },
   "hero": {
-    "badge": "Toshkentdagi IT kompaniya",
+    "badge": "IT kompaniya",
     "title": "Raqamli mahsulotlaringizni",
     "titleHighlight": "keyingi bosqichga olib chiqing",
     "typewriterPhrases": [
@@ -183,7 +183,7 @@
     }
   },
   "footer": {
-    "tagline": "7+ loyiha. 100% yetkazilgan. Toshkentda yaratilgan.",
+    "tagline": "7+ loyiha. 100% yetkazilgan.",
     "rights": "Barcha huquqlar himoyalangan.",
     "links": "Havolalar",
     "cta": "Loyihangizni boshlaymizmi?",
