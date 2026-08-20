@@ -64,33 +64,32 @@ const { lang, t } = Astro.props;
           </p>
         </div>
 
-        <!-- QR Code container -->
+        <!-- Logo / Brand Showcase container -->
         <div class="hidden sm:flex items-center gap-5 mt-6 p-4 rounded-2xl border border-hairline bg-surface/50 backdrop-blur-md">
-          <div class="shrink-0 bg-white p-2 rounded-xl shadow-sm transition-transform duration-300 hover:scale-105">
-            <!-- Scannable SVG QR Code pointing to https://t.me/muhammadrasultg -->
-            <svg class="h-20 w-20 text-[#090c12]" viewBox="0 0 100 100" fill="currentColor">
-              <path d="M0,0 h30 v30 h-30 z M5,5 v20 h20 v-20 z M10,10 h10 v10 h-10 z" />
-              <path d="M70,0 h30 v30 h-30 z M75,5 v20 h20 v-20 z M80,10 h10 v10 h-10 z" />
-              <path d="M0,70 h30 v30 h-30 z M5,75 v20 h20 v-20 z M10,80 h10 v10 h-10 z" />
-              <path d="M80,80 h10 v10 h-10 z" />
-              <path d="M35,0 h5 v5 h-5 z M45,0 h5 v5 h-5 z M55,0 h5 v5 h-5 z M65,0 h5 v5 h-5 z" />
-              <path d="M35,10 h5 v5 h-5 z M50,10 h5 v5 h-5 z M60,10 h5 v5 h-5 z" />
-              <path d="M40,20 h5 v5 h-5 z M55,20 h5 v5 h-5 z M65,20 h5 v5 h-5 z" />
-              <path d="M0,35 h5 v5 h-5 z M15,35 h5 v5 h-5 z M30,35 h5 v5 h-5 z M45,35 h5 v5 h-5 z M55,35 h5 v5 h-5 z M65,35 h5 v5 h-5 z M80,35 h5 v5 h-5 z M95,35 h5 v5 h-5 z" />
-              <path d="M10,45 h5 v5 h-5 z M25,45 h5 v5 h-5 z M40,45 h5 v5 h-5 z M50,45 h5 v5 h-5 z M60,45 h5 v5 h-5 z M70,45 h5 v5 h-5 z M85,45 h5 v5 h-5 z" />
-              <path d="M5,55 h5 v5 h-5 z M20,55 h5 v5 h-5 z M35,55 h5 v5 h-5 z M45,55 h5 v5 h-5 z M55,55 h5 v5 h-5 z M65,55 h5 v5 h-5 z M75,55 h5 v5 h-5 z M90,55 h5 v5 h-5 z" />
-              <path d="M30,65 h5 v5 h-5 z M50,65 h5 v5 h-5 z M60,65 h5 v5 h-5 z M80,65 h-5 v5 h5 z" />
-              <path d="M35,75 h5 v5 h-5 z M45,75 h5 v5 h-5 z M55,75 h5 v5 h-5 z M65,75 h5 v5 h-5 z M85,75 h5 v5 h-5 z M95,75 h5 v5 h-5 z" />
-              <path d="M40,85 h5 v5 h-5 z M60,85 h5 v5 h-5 z M75,85 h5 v5 h-5 z M90,85 h5 v5 h-5 z" />
-              <path d="M35,95 h5 v5 h-5 z M50,95 h5 v5 h-5 z M65,95 h5 v5 h-5 z M80,95 h5 v5 h-5 z M95,95 h5 v5 h-5 z" />
+          <div class="shrink-0 flex items-center justify-center p-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] shadow-inner transition-all duration-500 hover:scale-105 group/logo">
+            <svg
+              class="h-10 w-10 text-accent transition-transform duration-500 group-hover/logo:rotate-45"
+              viewBox="0 0 48 48"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g stroke="currentColor" stroke-width="3" stroke-linejoin="round">
+                <rect x="10" y="10" width="28" height="28" rx="2"></rect>
+                <rect x="10" y="10" width="28" height="28" rx="2" transform="rotate(45 24 24)"></rect>
+              </g>
+              <polygon
+                points="32,24 28,30.9 20,30.9 16,24 20,17.1 28,17.1"
+                fill="currentColor"
+                class="text-accent-bright"
+              ></polygon>
             </svg>
           </div>
           <div>
-            <p class="text-[11px] font-bold text-faint uppercase tracking-wider leading-snug">
-              {t.modal.qrScan}
+            <p class="font-display text-sm font-extrabold text-ink tracking-wide">
+              Turon<span class="text-accent">Core</span>
             </p>
-            <p class="text-xs text-muted mt-1 font-mono">
-              @muhammadrasultg
+            <p class="text-xs text-muted mt-1">
+              Digital Engineering Studio
             </p>
           </div>
         </div>

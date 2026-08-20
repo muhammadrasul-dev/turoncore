@@ -242,7 +242,6 @@
   "modal": {
     "title": "Biz har doim aloqadamiz 👋",
     "subtitle": "Xabar qoldiring — mutaxassisimiz 1 soat ichida siz bilan bog'lanadi. Yoki to'g'ridan-to'g'ri Telegram orqali yozing.",
-    "qrScan": "QR-kodni telefoningiz orqali skanerlang",
     "telegramBtn": "Telegramda yozish",
     "callBtn": "Qo'ng'iroq qilish",
     "orLeaveRequest": "YOKI TEZKOR ARIZA QOLDIRING",

@@ -242,7 +242,6 @@
   "modal": {
     "title": "We're always reachable 👋",
     "subtitle": "Leave a request — our specialist will get back to you within an hour. Or message us directly on Telegram.",
-    "qrScan": "Scan the QR code with your phone",
     "telegramBtn": "Message on Telegram",
     "callBtn": "Call us",
     "orLeaveRequest": "OR LEAVE A FAST REQUEST",
