@@ -92,7 +92,8 @@ const contactItems = [
           </ul>
         </div>
 
-        <form id="contact-form" class="flex flex-col gap-4" novalidate>
+        <form id="contact-form" class="relative flex flex-col gap-4" novalidate>
+          <input type="text" name="hp" class="hp-field" tabindex="-1" autocomplete="off" />
           <div class="grid gap-4 sm:grid-cols-2">
             <div>
               <label for="name" class="mb-2 block text-sm font-medium text-muted">
@@ -159,6 +160,13 @@ const contactItems = [
               role="status"
             >
               {t.contact.form.success}
+            </p>
+            <p
+              id="form-error"
+              class="text-sm font-medium text-red-500 opacity-0 transition-opacity duration-500"
+              role="status"
+            >
+              {t.contact.form.error}
             </p>
           </div>
         </form>

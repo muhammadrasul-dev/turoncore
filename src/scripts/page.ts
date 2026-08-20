@@ -3,45 +3,13 @@ import { initReveal } from './reveal.ts';
 import { initSpotlight } from './spotlight.ts';
 import { initTheme } from './theme.ts';
 import { initCounters } from './counter.ts';
+import { bindLeadForm } from './forms.ts';
 
 let floatingAbort: AbortController | null = null;
 
 function bindForms() {
-  const auditForm = document.getElementById('audit-form') as HTMLFormElement | null;
-  const auditSuccess = document.getElementById('audit-success');
-  if (auditForm && auditForm.dataset.bound !== '1') {
-    auditForm.dataset.bound = '1';
-    let auditTimer: number | undefined;
-    auditForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!auditForm.checkValidity()) {
-        auditForm.reportValidity();
-        return;
-      }
-      auditSuccess?.classList.remove('opacity-0');
-      auditForm.reset();
-      window.clearTimeout(auditTimer);
-      auditTimer = window.setTimeout(() => auditSuccess?.classList.add('opacity-0'), 5000);
-    });
-  }
-
-  const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
-  const contactSuccess = document.getElementById('form-success');
-  if (contactForm && contactForm.dataset.bound !== '1') {
-    contactForm.dataset.bound = '1';
-    let contactTimer: number | undefined;
-    contactForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!contactForm.checkValidity()) {
-        contactForm.reportValidity();
-        return;
-      }
-      contactSuccess?.classList.remove('opacity-0');
-      contactForm.reset();
-      window.clearTimeout(contactTimer);
-      contactTimer = window.setTimeout(() => contactSuccess?.classList.add('opacity-0'), 5000);
-    });
-  }
+  bindLeadForm('audit-form', 'audit', 'audit-success', 'audit-error');
+  bindLeadForm('contact-form', 'contact', 'form-success', 'form-error');
 }
 
 function bindFloatingContact() {

@@ -165,7 +165,8 @@ const { lang, t } = Astro.props;
         </div>
 
         <!-- Fast Request Form -->
-        <form id="contact-modal-form" class="flex flex-col gap-4" novalidate>
+        <form id="contact-modal-form" class="relative flex flex-col gap-4" novalidate>
+          <input type="text" name="hp" class="hp-field" tabindex="-1" autocomplete="off" />
           <!-- Name Input -->
           <div>
             <label for="modal-name" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
@@ -256,7 +257,7 @@ const { lang, t } = Astro.props;
           <div class="mt-2">
             <button
               type="submit"
-              class="group flex w-full items-center justify-center gap-2 rounded-2xl bg-accent px-5 py-3.5 text-sm font-bold text-accent-ink shadow-lg transition-all duration-300 hover:bg-accent-bright hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+              class="group flex w-full items-center justify-center gap-2 rounded-2xl bg-accent px-5 py-3.5 text-sm font-bold text-accent-ink shadow-lg transition-all duration-300 hover:bg-accent-bright hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               {t.modal.submit}
               <svg
@@ -275,6 +276,13 @@ const { lang, t } = Astro.props;
 
             <p class="text-[11px] text-faint text-center mt-3 tracking-wide">
               {t.modal.privacy}
+            </p>
+            <p
+              id="modal-form-error"
+              class="text-sm font-medium text-red-500 text-center opacity-0 transition-opacity duration-500"
+              role="status"
+            >
+              {t.modal.error}
             </p>
           </div>
         </form>
@@ -298,6 +306,8 @@ const { lang, t } = Astro.props;
 </style>
 
 <script>
+  import { readLeadForm, submitLead } from '../scripts/forms.ts';
+
   function initContactModal() {
     const backdrop = document.getElementById('contact-modal-backdrop');
     const dialog = document.getElementById('contact-modal-dialog');
@@ -305,6 +315,7 @@ const { lang, t } = Astro.props;
     const form = document.getElementById('contact-modal-form') as HTMLFormElement | null;
     const successScreen = document.getElementById('modal-success-screen');
     const successIcon = document.getElementById('modal-success-icon');
+    const errorEl = document.getElementById('modal-form-error');
 
     if (!backdrop || !dialog || !closeBtn) return;
 
@@ -332,15 +343,18 @@ const { lang, t } = Astro.props;
       document.documentElement.classList.remove('lenis-stopped');
     }
 
+    const abort = new AbortController();
+    const { signal } = abort;
+
     // Bind event listeners
-    closeBtn.addEventListener('click', closeModal);
+    closeBtn.addEventListener('click', closeModal, { signal });
     
     // Close on backdrop click (click outside dialog)
     backdrop.addEventListener('click', (e) => {
       if (e.target === backdrop) {
         closeModal();
       }
-    });
+    }, { signal });
 
     // Close on Escape key
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -348,18 +362,32 @@ const { lang, t } = Astro.props;
         closeModal();
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown, { signal });
 
     // Form submission inside modal
     let successTimer: number | undefined;
     if (form) {
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         if (!form.checkValidity()) {
           form.reportValidity();
           return;
         }
+
+        const submitBtn = form.querySelector('[type="submit"]') as HTMLButtonElement | null;
+        if (submitBtn) submitBtn.disabled = true;
+        errorEl?.classList.add('opacity-0');
+
+        try {
+          await submitLead(readLeadForm(form, 'modal'));
+        } catch {
+          errorEl?.classList.remove('opacity-0');
+          if (submitBtn) submitBtn.disabled = false;
+          return;
+        }
+
+        if (submitBtn) submitBtn.disabled = false;
 
         // Show success overlay
         if (successScreen && successIcon) {
@@ -386,7 +414,7 @@ const { lang, t } = Astro.props;
             }, 600);
           }, 6000);
         }
-      });
+      }, { signal });
     }
 
     // Trigger timer: 15 seconds after page loads
@@ -395,8 +423,8 @@ const { lang, t } = Astro.props;
     }, 15000);
 
     return () => {
+      abort.abort();
       clearTimeout(timerId);
-      window.removeEventListener('keydown', handleKeyDown);
       if (successTimer) window.clearTimeout(successTimer);
     };
   }

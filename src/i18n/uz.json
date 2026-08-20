@@ -165,7 +165,8 @@
       "emailPlaceholder": "siz@kompaniya.uz",
       "messagePlaceholder": "Loyihangiz haqida qisqacha...",
       "submit": "Yuborish",
-      "success": "Xabaringiz qabul qilindi! Tez orada bog'lanamiz."
+      "success": "Xabaringiz qabul qilindi! Tez orada bog'lanamiz.",
+      "error": "Yuborilmadi. Qayta urinib ko'ring."
     },
     "info": {
       "phone": "Telefon",
@@ -236,7 +237,8 @@
       "phone": "Telefon raqamingiz",
       "phonePlaceholder": "+998 (90) 123-45-67",
       "submit": "Auditga buyurtma berish",
-      "success": "Arizangiz qabul qilindi! Saytingizni tahlil qilib, tez orada bog'lanamiz."
+      "success": "Arizangiz qabul qilindi! Saytingizni tahlil qilib, tez orada bog'lanamiz.",
+      "error": "Yuborilmadi. Qayta urinib ko'ring."
     }
   },
   "modal": {
@@ -255,6 +257,7 @@
     "formMessagePlaceholder": "Katta yoki kichik loyiha, talablaringiz...",
     "submit": "Ariza yuborish",
     "privacy": "Sizning ma'lumotlaringiz xavfsiz. Spam yo'q.",
-    "success": "Arizangiz muvaffaqiyatli yuborildi! Tez orada bog'lanamiz."
+    "success": "Arizangiz muvaffaqiyatli yuborildi! Tez orada bog'lanamiz.",
+    "error": "Yuborilmadi. Qayta urinib ko'ring."
   }
 }

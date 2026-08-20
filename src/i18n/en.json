@@ -165,7 +165,8 @@
       "emailPlaceholder": "you@company.com",
       "messagePlaceholder": "Tell us briefly about your project...",
       "submit": "Send",
-      "success": "Your message has been received! We'll get back to you soon."
+      "success": "Your message has been received! We'll get back to you soon.",
+      "error": "Could not send. Please try again."
     },
     "info": {
       "phone": "Phone",
@@ -236,7 +237,8 @@
       "phone": "Your Phone Number",
       "phonePlaceholder": "+998 (90) 123-45-67",
       "submit": "Request Audit",
-      "success": "Your request has been received! We will analyze your site and contact you soon."
+      "success": "Your request has been received! We will analyze your site and contact you soon.",
+      "error": "Could not send. Please try again."
     }
   },
   "modal": {
@@ -255,6 +257,7 @@
     "formMessagePlaceholder": "Large or small project, requirements...",
     "submit": "Send request",
     "privacy": "Your data is private. No spam.",
-    "success": "Your request has been successfully sent! We will contact you soon."
+    "success": "Your request has been successfully sent! We will contact you soon.",
+    "error": "Could not send. Please try again."
   }
 }

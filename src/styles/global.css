@@ -396,8 +396,19 @@ p {
     color 0.35s var(--ease);
 }
 
-.btn:active {
-  transform: scale(0.975);
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
 
 .btn-primary {
