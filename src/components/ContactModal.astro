@@ -12,20 +12,19 @@ const { lang, t } = Astro.props;
 
 <div
   id="contact-modal-backdrop"
-  class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#05070b]/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500 ease-out"
+  class="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-4 md:p-6 bg-[#05070b]/60 sm:backdrop-blur-md opacity-0 pointer-events-none"
   role="dialog"
   aria-modal="true"
   aria-labelledby="modal-title"
 >
-  <!-- Modal Dialog -->
   <div
     id="contact-modal-dialog"
-    class="relative w-full max-w-4xl rounded-[2rem] border border-hairline bg-bg-soft/95 p-6 md:p-10 lg:p-12 shadow-2xl backdrop-blur-xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) scale-95 translate-y-4 opacity-0"
+    class="relative flex w-full max-w-4xl flex-col overflow-hidden border border-hairline bg-bg-soft shadow-2xl sm:bg-bg-soft/95 sm:backdrop-blur-xl"
+    data-lenis-prevent
   >
-    <!-- Close Button -->
     <button
       id="contact-modal-close"
-      class="absolute top-5 right-5 flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-surface/50 text-faint transition-all duration-300 hover:bg-inset hover:text-ink hover:scale-105 active:scale-95 cursor-pointer z-10"
+      class="absolute right-3 top-3 z-20 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-faint transition-all duration-300 hover:bg-inset hover:text-ink hover:scale-105 active:scale-95 cursor-pointer sm:right-5 sm:top-5 sm:h-10 sm:w-10"
       aria-label="Close modal"
     >
       <svg
@@ -42,206 +41,52 @@ const { lang, t } = Astro.props;
       </svg>
     </button>
 
-    <!-- Modal Content Layout -->
-    <div class="grid gap-10 lg:grid-cols-[0.42fr_0.58fr] lg:gap-14">
-      
-      <!-- Left Column: Contact Links and QR -->
-      <div class="flex flex-col justify-between">
-        <div>
-          <!-- Badge -->
-          <span class="inline-flex items-center gap-1.5 text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-accent">
-            <span class="relative flex h-2 w-2">
-              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
-              <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+    <div class="modal-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-12 sm:px-8 sm:pb-8 sm:pt-12 md:px-10 lg:px-12 lg:pb-12 lg:pt-14">
+      <div class="grid gap-6 sm:gap-8 lg:grid-cols-[0.42fr_0.58fr] lg:gap-14">
+        <div class="flex flex-col justify-between">
+          <div>
+            <span class="inline-flex items-center gap-1.5 text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-accent">
+              <span class="relative flex h-2 w-2">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+              </span>
+              TuronCore
             </span>
-            TuronCore
-          </span>
 
-          <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold text-ink tracking-tight mt-4 leading-tight">
-            {t.modal.title}
-          </h2>
-          <p class="text-sm text-muted mt-3 leading-relaxed">
-            {t.modal.subtitle}
-          </p>
-        </div>
+            <h2 id="modal-title" class="mt-3 text-xl font-extrabold leading-tight tracking-tight text-ink sm:mt-4 sm:text-2xl md:text-3xl">
+              {t.modal.title}
+            </h2>
+            <p class="mt-2 text-sm leading-relaxed text-muted sm:mt-3">
+              {t.modal.subtitle}
+            </p>
+          </div>
 
-        <!-- Logo / Brand Showcase container -->
-        <div class="hidden sm:flex flex-col gap-3 mt-6 p-4 rounded-2xl border border-hairline bg-surface/50 backdrop-blur-md">
-          <Logo />
-          <p class="text-xs text-muted">
-            Digital Engineering Studio
-          </p>
-        </div>
+          <div class="mt-5 hidden flex-col gap-3 rounded-2xl border border-hairline bg-surface/50 p-4 backdrop-blur-md sm:mt-6 md:flex">
+            <Logo />
+            <p class="text-xs text-muted">
+              Digital Engineering Studio
+            </p>
+          </div>
 
-        <!-- Buttons row/column -->
-        <div class="flex flex-col gap-3 mt-6 lg:mt-8">
-          <!-- Telegram Button -->
-          <a
-            href={`https://t.me/${t.footer.telegram.replace('@', '')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex w-full items-center justify-center gap-3 rounded-2xl bg-[#229ED9] px-5 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#1d8cc2] hover:scale-[1.01] active:scale-[0.99]"
-          >
-            <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.04-.19-.01-.27.01-.12.02-1.93 1.22-5.46 3.5-.52.36-.98.53-1.39.52-.46-.01-1.33-.26-1.98-.48-.8-.27-1.43-.42-1.37-.89.03-.25.38-.51 1.03-.78 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.16-.03.25z"/>
-            </svg>
-            {t.modal.telegramBtn}
-          </a>
-
-          <!-- Call us button -->
-          <a
-            href={`tel:${t.footer.phone.replace(/\s/g, '')}`}
-            class="group flex w-full items-center justify-center gap-3 rounded-2xl border border-hairline bg-surface/50 px-5 py-3.5 text-sm font-semibold text-ink transition-all duration-300 hover:bg-inset hover:scale-[1.01] active:scale-[0.99]"
-          >
-            <svg
-              class="h-4.5 w-4.5 text-accent group-hover:text-accent-bright transition-colors"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+          <div class="mt-5 grid grid-cols-2 gap-2.5 sm:mt-6 sm:grid-cols-1 lg:mt-8">
+            <a
+              href={`https://t.me/${t.footer.telegram.replace('@', '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[#229ED9] px-3 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#1d8cc2] hover:scale-[1.01] active:scale-[0.99] sm:gap-3 sm:px-5 sm:py-3.5"
             >
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.79 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-            {t.modal.callBtn}
-          </a>
-        </div>
-      </div>
+              <svg class="h-5 w-5 shrink-0 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.04-.19-.01-.27.01-.12.02-1.93 1.22-5.46 3.5-.52.36-.98.53-1.39.52-.46-.01-1.33-.26-1.98-.48-.8-.27-1.43-.42-1.37-.89.03-.25.38-.51 1.03-.78 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.16-.03.25z"/>
+              </svg>
+              <span class="truncate">{t.modal.telegramBtn}</span>
+            </a>
 
-      <!-- Right Column: Form Block -->
-      <div class="relative flex flex-col justify-center">
-        <!-- Success Overlay (hidden by default) -->
-        <div
-          id="modal-success-screen"
-          class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center bg-bg-soft/95 opacity-0 pointer-events-none transition-all duration-500 rounded-2xl"
-        >
-          <div class="h-16 w-16 flex items-center justify-center rounded-full bg-accent-soft text-accent border border-accent/20 mb-6 scale-90 transition-transform duration-500" id="modal-success-icon">
-            <svg
-              class="h-8 w-8"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+            <a
+              href={`tel:${t.footer.phone.replace(/\s/g, '')}`}
+              class="group flex w-full items-center justify-center gap-2 rounded-2xl border border-hairline bg-surface/50 px-3 py-3 text-sm font-semibold text-ink transition-all duration-300 hover:bg-inset hover:scale-[1.01] active:scale-[0.99] sm:gap-3 sm:px-5 sm:py-3.5"
             >
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-ink mb-3">{t.contact.form.success}</h3>
-          <p class="text-sm text-muted max-w-sm px-4">
-            {t.modal.success}
-          </p>
-        </div>
-
-        <!-- Section separator/header -->
-        <div class="relative flex py-3 items-center mb-5">
-          <div class="grow border-t border-hairline/60"></div>
-          <span class="mx-4 text-[10px] font-extrabold uppercase tracking-widest text-faint">
-            {t.modal.orLeaveRequest}
-          </span>
-          <div class="grow border-t border-hairline/60"></div>
-        </div>
-
-        <!-- Fast Request Form -->
-        <form id="contact-modal-form" class="relative flex flex-col gap-4" novalidate>
-          <input type="text" name="hp" class="hp-field" tabindex="-1" autocomplete="off" />
-          <!-- Name Input -->
-          <div>
-            <label for="modal-name" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
-              {t.modal.formName}
-            </label>
-            <input
-              type="text"
-              id="modal-name"
-              name="name"
-              required
-              autocomplete="name"
-              placeholder={t.modal.formNamePlaceholder}
-              class="field"
-            />
-          </div>
-
-          <!-- Phone Input (With premium flag and custom layout) -->
-          <div>
-            <label for="modal-phone" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
-              {t.modal.formPhone}
-            </label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-4 flex items-center gap-2 pointer-events-none z-10">
-                <!-- Detailed Uzbekistan flag SVG -->
-                <svg class="h-3.5 w-5 rounded-[2px] shadow-xs" viewBox="0 0 125 60" fill="none">
-                  <rect width="125" height="20" fill="#00a3da"/>
-                  <rect y="20" width="125" height="2" fill="#ff4b5a"/>
-                  <rect y="22" width="125" height="16" fill="#ffffff"/>
-                  <rect y="38" width="125" height="2" fill="#ff4b5a"/>
-                  <rect y="40" width="125" height="20" fill="#1fc153"/>
-                </svg>
-                <span class="text-sm font-semibold text-muted">+998</span>
-                <span class="h-4 w-px bg-hairline/80"></span>
-              </div>
-              <input
-                type="tel"
-                id="modal-phone"
-                name="phone"
-                required
-                placeholder={t.modal.formPhonePlaceholder}
-                class="field pl-24"
-              />
-            </div>
-          </div>
-
-          <!-- Project Sector Selection Dropdown -->
-          <div>
-            <label for="modal-sector" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
-              {t.modal.formSector}
-            </label>
-            <div class="relative">
-              <select
-                id="modal-sector"
-                name="sector"
-                required
-                class="field pr-10 appearance-none bg-inset cursor-pointer"
-              >
-                <option value="" disabled selected>{t.modal.formSectorPlaceholder}</option>
-                {t.sectors.items.map((item) => (
-                  <option value={item.title}>{item.title}</option>
-                ))}
-                <option value="Other / Boshqa">Other / Boshqa</option>
-              </select>
-              <!-- Custom dropdown arrow indicator -->
-              <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-faint">
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Message input -->
-          <div>
-            <label for="modal-message" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
-              {t.modal.formMessage}
-            </label>
-            <textarea
-              id="modal-message"
-              name="message"
-              rows="3"
-              placeholder={t.modal.formMessagePlaceholder}
-              class="field resize-none"
-            ></textarea>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="mt-2">
-            <button
-              type="submit"
-              class="group flex w-full items-center justify-center gap-2 rounded-2xl bg-accent px-5 py-3.5 text-sm font-bold text-accent-ink shadow-lg transition-all duration-300 hover:bg-accent-bright hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed disabled:hover:scale-100"
-            >
-              {t.modal.submit}
               <svg
-                class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                class="h-4.5 w-4.5 shrink-0 text-accent transition-colors group-hover:text-accent-bright"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -249,39 +94,217 @@ const { lang, t } = Astro.props;
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.79 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
               </svg>
-            </button>
+              <span class="truncate">{t.modal.callBtn}</span>
+            </a>
+          </div>
+        </div>
 
-            <p class="text-[11px] text-faint text-center mt-3 tracking-wide">
-              {t.modal.privacy}
-            </p>
-            <p
-              id="modal-form-error"
-              class="text-sm font-medium text-red-500 text-center opacity-0 transition-opacity duration-500"
-              role="status"
-            >
-              {t.modal.error}
+        <div class="relative flex flex-col justify-center">
+          <div
+            id="modal-success-screen"
+            class="absolute inset-0 z-20 flex flex-col items-center justify-center rounded-2xl bg-bg-soft/95 px-4 text-center opacity-0 pointer-events-none transition-all duration-500"
+          >
+            <div class="mb-6 flex h-16 w-16 scale-90 items-center justify-center rounded-full border border-accent/20 bg-accent-soft text-accent transition-transform duration-500" id="modal-success-icon">
+              <svg
+                class="h-8 w-8"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-ink">{t.contact.form.success}</h3>
+            <p class="max-w-sm px-4 text-sm text-muted">
+              {t.modal.success}
             </p>
           </div>
-        </form>
-      </div>
 
+          <div class="relative mb-4 flex items-center py-2 sm:mb-5 sm:py-3">
+            <div class="grow border-t border-hairline/60"></div>
+            <span class="mx-3 text-[10px] font-extrabold uppercase tracking-widest text-faint sm:mx-4">
+              {t.modal.orLeaveRequest}
+            </span>
+            <div class="grow border-t border-hairline/60"></div>
+          </div>
+
+          <form id="contact-modal-form" class="relative flex flex-col gap-3 sm:gap-4" novalidate>
+            <input type="text" name="hp" class="hp-field" tabindex="-1" autocomplete="off" />
+            <div>
+              <label for="modal-name" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
+                {t.modal.formName}
+              </label>
+              <input
+                type="text"
+                id="modal-name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder={t.modal.formNamePlaceholder}
+                class="field"
+              />
+            </div>
+
+            <div>
+              <label for="modal-phone" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
+                {t.modal.formPhone}
+              </label>
+              <div class="relative">
+                <div class="pointer-events-none absolute inset-y-0 left-4 z-10 flex items-center gap-2">
+                  <svg class="h-3.5 w-5 rounded-[2px] shadow-xs" viewBox="0 0 125 60" fill="none">
+                    <rect width="125" height="20" fill="#00a3da"/>
+                    <rect y="20" width="125" height="2" fill="#ff4b5a"/>
+                    <rect y="22" width="125" height="16" fill="#ffffff"/>
+                    <rect y="38" width="125" height="2" fill="#ff4b5a"/>
+                    <rect y="40" width="125" height="20" fill="#1fc153"/>
+                  </svg>
+                  <span class="text-sm font-semibold text-muted">+998</span>
+                  <span class="h-4 w-px bg-hairline/80"></span>
+                </div>
+                <input
+                  type="tel"
+                  id="modal-phone"
+                  name="phone"
+                  required
+                  placeholder={t.modal.formPhonePlaceholder}
+                  class="field pl-24"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="modal-sector" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
+                {t.modal.formSector}
+              </label>
+              <div class="relative">
+                <select
+                  id="modal-sector"
+                  name="sector"
+                  required
+                  class="field cursor-pointer appearance-none bg-inset pr-10"
+                >
+                  <option value="" disabled selected>{t.modal.formSectorPlaceholder}</option>
+                  {t.sectors.items.map((item) => (
+                    <option value={item.title}>{item.title}</option>
+                  ))}
+                  <option value="Other / Boshqa">Other / Boshqa</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-faint">
+                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label for="modal-message" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
+                {t.modal.formMessage}
+              </label>
+              <textarea
+                id="modal-message"
+                name="message"
+                rows="2"
+                placeholder={t.modal.formMessagePlaceholder}
+                class="field min-h-[4.5rem] resize-none sm:min-h-[5.75rem]"
+              ></textarea>
+            </div>
+
+            <div class="mt-1 sm:mt-2">
+              <button
+                type="submit"
+                class="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-accent px-5 py-3.5 text-sm font-bold text-accent-ink shadow-lg transition-all duration-300 hover:bg-accent-bright hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-55 disabled:hover:scale-100"
+              >
+                {t.modal.submit}
+                <svg
+                  class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </button>
+
+              <p class="mt-3 text-center text-[11px] tracking-wide text-faint">
+                {t.modal.privacy}
+              </p>
+              <p
+                id="modal-form-error"
+                class="text-center text-sm font-medium text-red-500 opacity-0 transition-opacity duration-500"
+                role="status"
+              >
+                {t.modal.error}
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <style>
-  /* Modal visibility and transitions */
+  #contact-modal-backdrop {
+    transition: opacity 0.4s ease, backdrop-filter 0.4s ease;
+  }
+
+  #contact-modal-dialog {
+    max-height: 100vh;
+    max-height: 100dvh;
+    max-height: 100svh;
+    border-radius: 1.5rem 1.5rem 0 0;
+    transform: translateY(110%);
+    opacity: 1;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   #contact-modal-backdrop.open {
     opacity: 1;
     pointer-events: auto;
   }
 
   #contact-modal-backdrop.open #contact-modal-dialog {
-    transform: scale(1) translateY(0);
-    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .modal-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #contact-modal-dialog :global(.field) {
+    font-size: 16px;
+    padding: 0.8rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    #contact-modal-dialog {
+      max-height: min(90dvh, 880px);
+      border-radius: 2rem;
+      transform: translateY(1rem) scale(0.96);
+      opacity: 0;
+      transition:
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #contact-modal-backdrop.open #contact-modal-dialog {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    #contact-modal-dialog :global(.field) {
+      padding: 0.95rem 1.1rem;
+    }
   }
 </style>
 
@@ -299,9 +322,17 @@ const { lang, t } = Astro.props;
 
     if (!backdrop || !dialog || !closeBtn) return;
 
-    // Open Modal function
+    function lockPage() {
+      document.documentElement.classList.add('lenis-stopped');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function unlockPage() {
+      document.documentElement.classList.remove('lenis-stopped');
+      document.body.style.overflow = '';
+    }
+
     function openModal() {
-      // Check if modal has already been shown in this session
       try {
         if (sessionStorage.getItem('tc-modal-shown') === '1') {
           return;
@@ -309,34 +340,29 @@ const { lang, t } = Astro.props;
       } catch (e) {}
 
       backdrop?.classList.add('open');
-      document.documentElement.classList.add('lenis-stopped');
+      lockPage();
 
-      // Set session marker so it doesn't open again
       try {
         sessionStorage.setItem('tc-modal-shown', '1');
       } catch (e) {}
     }
 
-    // Close Modal function
     function closeModal() {
       backdrop?.classList.remove('open');
-      document.documentElement.classList.remove('lenis-stopped');
+      unlockPage();
     }
 
     const abort = new AbortController();
     const { signal } = abort;
 
-    // Bind event listeners
     closeBtn.addEventListener('click', closeModal, { signal });
-    
-    // Close on backdrop click (click outside dialog)
+
     backdrop.addEventListener('click', (e) => {
       if (e.target === backdrop) {
         closeModal();
       }
     }, { signal });
 
-    // Close on Escape key
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && backdrop.classList.contains('open')) {
         closeModal();
@@ -344,12 +370,11 @@ const { lang, t } = Astro.props;
     };
     window.addEventListener('keydown', handleKeyDown, { signal });
 
-    // Form submission inside modal
     let successTimer: number | undefined;
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         if (!form.checkValidity()) {
           form.reportValidity();
           return;
@@ -369,11 +394,10 @@ const { lang, t } = Astro.props;
 
         if (submitBtn) submitBtn.disabled = false;
 
-        // Show success overlay
         if (successScreen && successIcon) {
           successScreen.classList.remove('opacity-0', 'pointer-events-none');
           successScreen.classList.add('opacity-100', 'pointer-events-auto');
-          
+
           setTimeout(() => {
             successIcon.classList.remove('scale-90');
             successIcon.classList.add('scale-100');
@@ -381,11 +405,9 @@ const { lang, t } = Astro.props;
 
           form.reset();
 
-          // Auto close modal after 6 seconds
           window.clearTimeout(successTimer);
           successTimer = window.setTimeout(() => {
             closeModal();
-            // Reset success screen for next time (in case modal is reopened manually)
             setTimeout(() => {
               successScreen.classList.remove('opacity-100', 'pointer-events-auto');
               successScreen.classList.add('opacity-0', 'pointer-events-none');
@@ -397,7 +419,6 @@ const { lang, t } = Astro.props;
       }, { signal });
     }
 
-    // Trigger timer: 15 seconds after page loads
     const timerId = setTimeout(() => {
       openModal();
     }, 15000);
@@ -416,9 +437,6 @@ const { lang, t } = Astro.props;
     cleanupModal = initContactModal();
   }
 
-  // Initial load
   setup();
-  
-  // Astro view transitions swap event
   document.addEventListener('astro:after-swap', setup);
 </script>

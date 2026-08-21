@@ -51,11 +51,11 @@ const contactDetails = [
 ];
 ---
 
-<div id="floating-contact" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 font-sans">
+<div id="floating-contact" class="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-3 z-50 flex flex-col items-end gap-3 font-sans sm:bottom-6 sm:right-6">
   <!-- Popup Menu -->
   <div
     id="contact-popup"
-    class="pointer-events-none invisible absolute bottom-16 right-0 mb-2 w-72 origin-bottom-right scale-95 rounded-2xl border border-white/[0.08] bg-[#0d0e12] p-3.5 text-white opacity-0 shadow-2xl transition-all duration-300 ease-out"
+    class="pointer-events-none invisible absolute bottom-16 right-0 mb-2 w-[min(18rem,calc(100vw-1.5rem))] origin-bottom-right scale-95 rounded-2xl border border-white/[0.08] bg-[#0d0e12] p-3.5 text-white opacity-0 shadow-2xl transition-all duration-300 ease-out"
   >
     <div class="flex flex-col gap-1">
       <!-- Social Links -->
@@ -100,7 +100,7 @@ const contactDetails = [
     <!-- Pill Indicator -->
     <div
       id="contact-pill"
-      class="flex items-center gap-2 rounded-full border border-white/[0.08] bg-[#0d0e12] py-2.5 pl-4 pr-5 text-sm font-semibold text-white shadow-xl backdrop-blur-md"
+      class="hidden items-center gap-2 rounded-full border border-white/[0.08] bg-[#0d0e12] py-2.5 pl-4 pr-5 text-sm font-semibold text-white shadow-xl backdrop-blur-md sm:flex"
     >
       <span class="relative flex h-2 w-2">
         <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
