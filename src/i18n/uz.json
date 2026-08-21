@@ -1,7 +1,22 @@
 {
   "meta": {
-    "title": "TuronCore — Mobil ilova va Web saytlar",
-    "description": "TuronCore — mobil ilovalar, web saytlar va B2B IT xizmatlari. Zamonaviy texnologiyalar bilan biznesingizni rivojlantiring."
+    "title": "TuronCore — Mobil ilova, web sayt va IT xizmatlar agentligi",
+    "description": "TuronCore — O'zbekistondagi mobil ilova, web sayt, B2B platforma va IT xizmatlar agentligi. iOS, Android, web va biznes avtomatlashtirish yechimlarini professional ishlab chiqamiz.",
+    "keywords": "TuronCore, turoncore, Turon Core, turon core, mobil ilova yaratish, mobile app kompaniya, mobile app agentlik, mobil dastur ishlab chiqish, Android ilova, iOS ilova, web sayt yaratish, IT agentlik, IT kompaniya, eng yaxshi IT xizmatlar, biznes avtomatlashtirish, B2B IT xizmatlar, Toshkent IT kompaniya, O'zbekiston IT agentlik",
+    "imageAlt": "TuronCore mobil ilova va IT xizmatlar agentligi logotipi",
+    "serviceName": "Mobil ilova, web sayt va B2B IT xizmatlar",
+    "serviceTypes": [
+      "Mobil ilova ishlab chiqish",
+      "iOS va Android ilovalar",
+      "Web sayt va web platforma yaratish",
+      "B2B IT hamkorlik",
+      "Biznes avtomatlashtirish",
+      "Mobil ilova auditi",
+      "Web sayt SEO auditi"
+    ],
+    "city": "Toshkent",
+    "country": "UZ",
+    "areaServed": "O'zbekiston"
   },
   "nav": {
     "services": "Xizmatlar",

@@ -1,5 +1,5 @@
 ---
-import type { Lang, Translations } from '../i18n/ui';
+import { languages, type Lang, type Translations } from '../i18n/ui';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingContact from '../components/FloatingContact.astro';
@@ -16,7 +16,95 @@ interface Props {
 const { lang, t, title, description } = Astro.props;
 const pageTitle = title ?? t.meta.title;
 const pageDescription = description ?? t.meta.description;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const canonical = new URL(Astro.url.pathname, siteUrl);
+const defaultLocaleUrl = new URL('/uz/', siteUrl).toString();
+const alternateUrls = languages.map(({ code }) => ({
+  code,
+  hrefLang: code === 'uz' ? 'uz-UZ' : code === 'ru' ? 'ru-RU' : 'en',
+  href: new URL(`/${code}/`, siteUrl).toString(),
+}));
+const ogImage = new URL('/logos/logo-light-bg.png', siteUrl).toString();
+const telegramUrl = `https://t.me/${t.footer.telegram.replace('@', '')}`;
+const instagramUrl = `https://instagram.com/${t.contact.placeholders.instagram.replace('@', '')}`;
+const phone = t.contact.placeholders.phone.replace(/\s/g, '');
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}#organization`,
+      name: 'TuronCore',
+      alternateName: ['Turon Core', 'turoncore', 'turon core'],
+      url: siteUrl.toString(),
+      logo: ogImage,
+      image: ogImage,
+      description: pageDescription,
+      email: t.contact.placeholders.email,
+      telephone: t.contact.placeholders.phone,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: t.meta.city,
+        addressCountry: t.meta.country,
+      },
+      areaServed: t.meta.areaServed,
+      sameAs: [telegramUrl, instagramUrl, 'https://youtube.com/@turoncore'],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: phone,
+        contactType: 'sales',
+        areaServed: t.meta.areaServed,
+        availableLanguage: ['uz', 'ru', 'en'],
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#website`,
+      url: siteUrl.toString(),
+      name: 'TuronCore',
+      inLanguage: lang,
+      publisher: {
+        '@id': `${siteUrl}#organization`,
+      },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonical.toString()}#webpage`,
+      url: canonical.toString(),
+      name: pageTitle,
+      description: pageDescription,
+      isPartOf: {
+        '@id': `${siteUrl}#website`,
+      },
+      about: {
+        '@id': `${siteUrl}#organization`,
+      },
+      inLanguage: lang,
+    },
+    {
+      '@type': 'Service',
+      '@id': `${siteUrl}#services`,
+      name: t.meta.serviceName,
+      provider: {
+        '@id': `${siteUrl}#organization`,
+      },
+      areaServed: t.meta.areaServed,
+      serviceType: t.meta.serviceTypes,
+      description: t.services.subtitle,
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: t.services.title,
+        itemListElement: t.meta.serviceTypes.map((service: string) => ({
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: service,
+          },
+        })),
+      },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -25,20 +113,34 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={pageDescription} />
+    <meta name="keywords" content={t.meta.keywords} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="TuronCore" />
+    <meta name="application-name" content="TuronCore" />
     <meta name="theme-color" content="#05070b" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f3f5f7" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="canonical" href={canonical} />
+    <link rel="canonical" href={canonical.toString()} />
+    {alternateUrls.map(({ hrefLang, href }) => <link rel="alternate" hreflang={hrefLang} href={href} />)}
+    <link rel="alternate" hreflang="x-default" href={defaultLocaleUrl} />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TuronCore" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content="/logos/logo-light-bg.png" />
+    <meta property="og:url" content={canonical.toString()} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={t.meta.imageAlt} />
+    <meta property="og:locale" content={lang === 'uz' ? 'uz_UZ' : lang === 'ru' ? 'ru_RU' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
 
     <script is:inline>
       (function () {

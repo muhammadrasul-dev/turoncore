@@ -1,7 +1,22 @@
 {
   "meta": {
-    "title": "TuronCore — Mobile Apps & Web Development",
-    "description": "TuronCore — mobile applications, websites, and B2B IT services. Grow your business with modern technologies."
+    "title": "TuronCore — Mobile App, Web Development & IT Agency",
+    "description": "TuronCore is an IT agency in Uzbekistan building mobile apps, websites, B2B platforms, and business automation. We deliver professional iOS, Android, and web solutions.",
+    "keywords": "TuronCore, turoncore, Turon Core, turon core, mobile app development, mobile app company, mobile app agency, Android app development, iOS app development, web development, IT agency, IT company, best IT services, business automation, B2B IT services, Tashkent IT company, Uzbekistan IT agency",
+    "imageAlt": "TuronCore mobile app and IT services agency logo",
+    "serviceName": "Mobile app, web development, and B2B IT services",
+    "serviceTypes": [
+      "Mobile app development",
+      "iOS and Android apps",
+      "Website and web platform development",
+      "B2B IT partnership",
+      "Business automation",
+      "Mobile app audit",
+      "Website SEO audit"
+    ],
+    "city": "Tashkent",
+    "country": "UZ",
+    "areaServed": "Uzbekistan"
   },
   "nav": {
     "services": "Services",
