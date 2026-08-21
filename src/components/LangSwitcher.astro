@@ -51,7 +51,7 @@ const languageNames: Record<Lang, string> = {
     data-lang-menu
   >
     {
-      languages.map(({ code, label }) => {
+      languages.map(({ code }) => {
         const href = getLocalizedPath(currentPath, code);
         const isActive = lang === code;
         return (
@@ -87,55 +87,3 @@ const languageNames: Record<Lang, string> = {
     }
   </div>
 </div>
-
-<script>
-  function initLangDropdown() {
-    const dropdowns = document.querySelectorAll('[data-lang-dropdown]');
-
-    dropdowns.forEach((dropdown) => {
-      const trigger = dropdown.querySelector('[data-lang-trigger]') as HTMLElement;
-      const menu = dropdown.querySelector('[data-lang-menu]') as HTMLElement;
-      const chevron = dropdown.querySelector('[data-lang-chevron]') as HTMLElement;
-
-      if (!trigger || !menu || !chevron) return;
-
-      let isOpen = false;
-
-      const open = () => {
-        isOpen = true;
-        trigger.setAttribute('aria-expanded', 'true');
-        menu.classList.remove('scale-95', 'opacity-0', 'pointer-events-none');
-        menu.classList.add('scale-100', 'opacity-100');
-        chevron.style.transform = 'rotate(180deg)';
-      };
-
-      const close = () => {
-        isOpen = false;
-        trigger.setAttribute('aria-expanded', 'false');
-        menu.classList.add('scale-95', 'opacity-0', 'pointer-events-none');
-        menu.classList.remove('scale-100', 'opacity-100');
-        chevron.style.transform = 'rotate(0deg)';
-      };
-
-      trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        isOpen ? close() : open();
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target as Node)) {
-          close();
-        }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isOpen) {
-          close();
-        }
-      });
-    });
-  }
-
-  initLangDropdown();
-  document.addEventListener('astro:after-swap', initLangDropdown);
-</script>

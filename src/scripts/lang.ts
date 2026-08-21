@@ -1,6 +1,10 @@
 import { bindPage } from './page.ts';
 
 const pageCache = new Map<string, string>();
+const inflight = new Map<string, Promise<string>>();
+
+let listenersBound = false;
+let switchToken = 0;
 
 function normalizeHref(href: string) {
   const url = new URL(href, window.location.origin);
@@ -13,28 +17,67 @@ function langHref(anchor: HTMLAnchorElement) {
   return href ? normalizeHref(href) : null;
 }
 
-function cacheCurrentPage() {
-  const href = normalizeHref(window.location.pathname + window.location.search);
-  if (!pageCache.has(href)) {
-    pageCache.set(href, `<!DOCTYPE html>${document.documentElement.outerHTML}`);
-  }
+async function loadLangHtml(href: string) {
+  const cached = pageCache.get(href);
+  if (cached) return cached;
+
+  const pending = inflight.get(href);
+  if (pending) return pending;
+
+  const request = fetch(href, { credentials: 'same-origin' })
+    .then(async (response) => {
+      if (!response.ok) throw new Error('Language page fetch failed');
+      const html = await response.text();
+      pageCache.set(href, html);
+      return html;
+    })
+    .finally(() => {
+      inflight.delete(href);
+    });
+
+  inflight.set(href, request);
+  return request;
 }
 
-async function prefetchLang(href: string) {
-  if (!href || pageCache.has(href)) return;
-  try {
-    const response = await fetch(href, { credentials: 'same-origin' });
-    if (!response.ok) return;
-    pageCache.set(href, await response.text());
-  } catch {
-    // Keep the current page if prefetch fails.
-  }
+function prefetchLang(href: string) {
+  if (!href || pageCache.has(href) || inflight.has(href)) return;
+  loadLangHtml(href).catch(() => {
+    // Ignore prefetch errors. Click handler fetches again if needed.
+  });
+}
+
+function prefetchOpenLangLinks() {
+  document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]').forEach((switcher) => {
+    const href = langHref(switcher);
+    if (href) prefetchLang(href);
+  });
 }
 
 function swapSection(current: Element | null, next: Element | null) {
   if (current && next) {
     current.innerHTML = next.innerHTML;
   }
+}
+
+function setMenuOpen(dropdown: Element, open: boolean) {
+  const trigger = dropdown.querySelector('[data-lang-trigger]');
+  const menu = dropdown.querySelector('[data-lang-menu]');
+  const chevron = dropdown.querySelector<HTMLElement>('[data-lang-chevron]');
+  if (!trigger || !menu) return;
+
+  trigger.setAttribute('aria-expanded', String(open));
+  menu.classList.toggle('scale-95', !open);
+  menu.classList.toggle('opacity-0', !open);
+  menu.classList.toggle('pointer-events-none', !open);
+  menu.classList.toggle('scale-100', open);
+  menu.classList.toggle('opacity-100', open);
+  if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+}
+
+function closeAllLangMenus() {
+  document.querySelectorAll('[data-lang-dropdown]').forEach((dropdown) => {
+    setMenuOpen(dropdown, false);
+  });
 }
 
 function applyPageHtml(html: string, href: string, pushHistory: boolean) {
@@ -62,62 +105,74 @@ function applyPageHtml(html: string, href: string, pushHistory: boolean) {
   }
 
   bindPage();
-  initLangSwitchers();
+  prefetchOpenLangLinks();
   requestAnimationFrame(() => {
     document.documentElement.classList.remove('lang-swapping');
   });
 }
 
 async function switchLanguage(href: string, pushHistory = true) {
-  cacheCurrentPage();
   const target = normalizeHref(href);
-  let html = pageCache.get(target);
-  if (!html) {
-    const response = await fetch(target, { credentials: 'same-origin' });
-    if (!response.ok) throw new Error('Language page fetch failed');
-    html = await response.text();
-    pageCache.set(target, html);
-  }
-
+  const token = ++switchToken;
+  const html = await loadLangHtml(target);
+  if (token !== switchToken) return;
   applyPageHtml(html, target, pushHistory);
 }
 
-export function initLangSwitchers() {
-  const switchers = document.querySelectorAll<HTMLAnchorElement>('[data-lang-switch]');
+function bindLangListeners() {
+  if (listenersBound) return;
+  listenersBound = true;
 
-  switchers.forEach((switcher) => {
-    const href = langHref(switcher);
-    if (href) prefetchLang(href);
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement | null;
+    if (!target) return;
 
-    if (switcher.dataset.listenerBound === 'true') return;
-    switcher.dataset.listenerBound = 'true';
-
-    switcher.addEventListener('pointerenter', () => {
-      const target = langHref(switcher);
-      if (target) prefetchLang(target);
-    });
-
-    switcher.addEventListener('click', async (event) => {
-      const target = langHref(switcher);
-      if (!target) return;
-      if (switcher.getAttribute('aria-current') === 'page') {
-        event.preventDefault();
-        return;
-      }
-
+    const trigger = target.closest('[data-lang-trigger]');
+    if (trigger) {
       event.preventDefault();
-      try {
-        await switchLanguage(target, true);
-      } catch (err) {
-        console.error('Language switch failed', err);
-        window.location.href = target;
-      }
-    });
-  });
-}
+      event.stopPropagation();
+      const dropdown = trigger.closest('[data-lang-dropdown]');
+      if (!dropdown) return;
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      closeAllLangMenus();
+      if (!isOpen) setMenuOpen(dropdown, true);
+      return;
+    }
 
-if (typeof window !== 'undefined' && !(window as unknown as { __tcLangPopstate?: boolean }).__tcLangPopstate) {
-  (window as unknown as { __tcLangPopstate?: boolean }).__tcLangPopstate = true;
+    const switcher = target.closest<HTMLAnchorElement>('[data-lang-switch]');
+    if (switcher) {
+      const href = langHref(switcher);
+      if (!href) return;
+      event.preventDefault();
+      closeAllLangMenus();
+      if (switcher.getAttribute('aria-current') === 'page') return;
+      switchLanguage(href, true).catch(() => {
+        window.location.href = href;
+      });
+      return;
+    }
+
+    if (!target.closest('[data-lang-dropdown]')) {
+      closeAllLangMenus();
+    }
+  });
+
+  // pointerover bubbles, so it still works after the header html is replaced
+  document.addEventListener(
+    'pointerover',
+    (event) => {
+      const switcher = (event.target as HTMLElement | null)?.closest?.('[data-lang-switch]');
+      if (!switcher) return;
+      const href = langHref(switcher as HTMLAnchorElement);
+      if (href) prefetchLang(href);
+    },
+    true
+  );
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeAllLangMenus();
+  });
+
   window.addEventListener('popstate', () => {
     const href = `${window.location.pathname}${window.location.search}`;
     if (!/^\/(uz|ru|en)(\/|$)/.test(href)) return;
@@ -130,4 +185,9 @@ if (typeof window !== 'undefined' && !(window as unknown as { __tcLangPopstate?:
       window.location.reload();
     });
   });
+}
+
+export function initLangSwitchers() {
+  bindLangListeners();
+  prefetchOpenLangLinks();
 }
