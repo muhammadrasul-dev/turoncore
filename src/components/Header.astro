@@ -39,7 +39,7 @@ const navItems = [
               <span class="relative z-10">{item.label}</span>
               <span
                 aria-hidden="true"
-                class="nav-pill pointer-events-none absolute inset-0 rounded-full bg-inset opacity-0 transition-opacity duration-300"
+                class="nav-pill pointer-events-none absolute inset-0 rounded-full bg-inset-2 opacity-0 transition-opacity duration-300"
               />
             </a>
           ))
@@ -52,7 +52,7 @@ const navItems = [
         <button
           id="mobile-menu-toggle"
           type="button"
-          class="header-toggle flex h-9 w-9 items-center justify-center rounded-full bg-inset text-ink transition-colors duration-300"
+          class="header-toggle flex h-9 w-9 items-center justify-center rounded-full bg-inset-2 text-ink transition-colors duration-300"
           aria-label="Menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -98,7 +98,8 @@ const navItems = [
 
 <style>
   #header-bar {
-    background: var(--c-surface);
+    background: var(--c-inset);
+    border: 1px solid var(--c-hairline);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     box-shadow:
