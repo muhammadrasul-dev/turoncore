@@ -7,14 +7,43 @@ export type LeadPayload = {
   phone?: string;
   message?: string;
   sector?: string;
+  interest?: string;
   website?: string;
   hp?: string;
 };
 
 const SOURCE_LABEL: Record<LeadSource, string> = {
   contact: 'Kontakt formasi',
-  modal: 'Tezkor ariza',
+  modal: 'Kontakt popup',
   audit: 'Sayt auditi',
+};
+
+const INTEREST_CATEGORY: Record<string, string> = {
+  'Mobile App Development': 'A — New Product',
+  'Web Development': 'A — New Product',
+  'Existing Product Development': 'B — Existing Product',
+  'Dedicated Mobile Team': 'D — Dedicated Team',
+  'B2B Partnership': 'C — B2B Partnership',
+  'Technical Consulting': 'E — Consulting',
+  Other: 'F — Other',
+  'Mobile product development': 'A — New Product',
+  'Mobil mahsulot ishlab chiqish': 'A — New Product',
+  'Разработка мобильных продуктов': 'A — New Product',
+  'Mobile development partnership': 'C — B2B Partnership',
+  'Mobil dasturlash hamkorligi': 'C — B2B Partnership',
+  'Партнёрство в мобильной разработке': 'C — B2B Partnership',
+  'Dedicated mobile team': 'D — Dedicated Team',
+  'Dedicated mobil jamoa': 'D — Dedicated Team',
+  'Выделенная мобильная команда': 'D — Dedicated Team',
+  'Web and supporting systems': 'A — New Product',
+  "Web va qo'llab-quvvatlovchi tizimlar": 'A — New Product',
+  'Web и вспомогательные системы': 'A — New Product',
+  'Product discovery and consulting': 'E — Consulting',
+  'Mahsulot discovery va konsalting': 'E — Consulting',
+  'Product discovery и консалтинг': 'E — Consulting',
+  'Not sure yet': 'F — Other',
+  'Hali aniq emas': 'F — Other',
+  'Пока неясно': 'F — Other',
 };
 
 const MAX = {
@@ -23,6 +52,7 @@ const MAX = {
   phone: 40,
   message: 4000,
   sector: 120,
+  interest: 120,
   website: 200,
 };
 
@@ -53,6 +83,7 @@ export function normalizeLead(input: LeadPayload): LeadPayload {
     phone: clean(input.phone, MAX.phone),
     message: clean(input.message, MAX.message),
     sector: clean(input.sector, MAX.sector),
+    interest: clean(input.interest, MAX.interest),
     website: clean(input.website, MAX.website),
     hp: clean(input.hp, 80),
   };
@@ -64,10 +95,10 @@ export function isSpam(lead: LeadPayload) {
 
 export function isValidLead(lead: LeadPayload) {
   if (lead.source === 'contact') {
-    return Boolean(lead.name && lead.phone && lead.message);
+    return Boolean(lead.name && lead.phone && lead.interest && lead.message);
   }
   if (lead.source === 'modal') {
-    return Boolean(lead.name && lead.phone && lead.sector);
+    return Boolean(lead.name && lead.phone && lead.interest);
   }
   if (lead.source === 'audit') {
     return Boolean(lead.website && lead.phone);
@@ -83,6 +114,8 @@ function telegramText(lead: LeadPayload) {
     htmlRow('Email', lead.email ?? ''),
     htmlRow('Telefon', lead.phone ?? ''),
     htmlRow('Soha', lead.sector ?? ''),
+    htmlRow('Qiziqish', lead.interest ?? ''),
+    htmlRow('Kategoriya', INTEREST_CATEGORY[lead.interest ?? ''] ?? ''),
     htmlRow('Sayt', lead.website ?? ''),
     lead.message ? `<b>Xabar:</b>\n${escapeHtml(lead.message)}` : '',
   ].filter(Boolean);
@@ -101,6 +134,8 @@ function emailFields(lead: LeadPayload) {
     email: lead.email || 'noreply@turoncore.uz',
     phone: lead.phone || '-',
     sector: lead.sector || '-',
+    interest: lead.interest || '-',
+    category: INTEREST_CATEGORY[lead.interest ?? ''] || '-',
     website: lead.website || '-',
     message: lead.message || '-',
   };

@@ -6,6 +6,15 @@ import { bindLeadForm } from './forms.ts';
 
 let floatingAbort: AbortController | null = null;
 
+function parseMessages(raw: string | null): string[] {
+  try {
+    const parsed = JSON.parse(raw || '[]');
+    return Array.isArray(parsed) ? parsed.filter((item) => typeof item === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
 function bindForms() {
   bindLeadForm('audit-form', 'audit', 'audit-success', 'audit-error');
   bindLeadForm('contact-form', 'contact', 'form-success', 'form-error');
@@ -25,12 +34,15 @@ function bindFloatingContact() {
   const signal = floatingAbort.signal;
 
   let isOpen = false;
-  let messages: string[] = [];
-  try {
-    messages = JSON.parse(stage.getAttribute('data-messages') || '[]');
-  } catch {
-    messages = [];
-  }
+  const hour = new Date().getHours();
+  const isEvening = hour >= 19 || hour < 7;
+  const dayMessages = parseMessages(stage.getAttribute('data-messages-day'));
+  const eveningMessages = parseMessages(stage.getAttribute('data-messages-evening'));
+  const timedMessages = isEvening ? eveningMessages : dayMessages;
+  const messages = timedMessages.length ? timedMessages : dayMessages.length ? dayMessages : eveningMessages;
+
+  const firstText = bubbleA.querySelector('.contact-bubble-text');
+  if (firstText && messages[0]) firstText.textContent = messages[0];
 
   const setMenuOpen = (open: boolean) => {
     isOpen = open;

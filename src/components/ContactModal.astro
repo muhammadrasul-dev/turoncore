@@ -7,7 +7,7 @@ interface Props {
   t: Translations;
 }
 
-const { lang, t } = Astro.props;
+const { t } = Astro.props;
 ---
 
 <div
@@ -15,6 +15,7 @@ const { lang, t } = Astro.props;
   class="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-4 md:p-6 bg-ink/45 sm:backdrop-blur-md opacity-0 pointer-events-none"
   role="dialog"
   aria-modal="true"
+  aria-hidden="true"
   aria-labelledby="modal-title"
 >
   <div
@@ -24,8 +25,8 @@ const { lang, t } = Astro.props;
   >
     <button
       id="contact-modal-close"
-      class="absolute right-3 top-3 z-20 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-faint transition-all duration-300 hover:bg-inset hover:text-ink hover:scale-105 active:scale-95 cursor-pointer sm:right-5 sm:top-5 sm:h-10 sm:w-10"
-      aria-label="Close modal"
+      class="absolute right-3 top-3 z-20 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-faint transition-colors duration-200 hover:bg-inset hover:text-ink cursor-pointer sm:right-5 sm:top-5 sm:h-10 sm:w-10"
+      aria-label="Close"
     >
       <svg
         class="h-5 w-5"
@@ -42,38 +43,35 @@ const { lang, t } = Astro.props;
     </button>
 
     <div class="modal-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-12 sm:px-8 sm:pb-8 sm:pt-12 md:px-10 lg:px-12 lg:pb-12 lg:pt-14">
-      <div class="grid gap-6 sm:gap-8 lg:grid-cols-[0.42fr_0.58fr] lg:gap-14">
-        <div class="flex flex-col justify-between">
-          <div>
+      <div class="grid gap-5 sm:gap-8 lg:grid-cols-[0.42fr_0.58fr] lg:gap-14">
+        <div class="contents lg:flex lg:flex-col lg:justify-between">
+          <div class="order-1 lg:order-none">
             <span class="inline-flex items-center gap-1.5 text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-accent">
-              <span class="relative flex h-2 w-2">
-                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
-              </span>
-              TuronCore
+              <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
+              {t.modal.eyebrow}
             </span>
 
             <h2 id="modal-title" class="mt-3 text-xl font-extrabold leading-tight tracking-tight text-ink sm:mt-4 sm:text-2xl md:text-3xl">
               {t.modal.title}
             </h2>
-            <p class="mt-2 text-sm leading-relaxed text-muted sm:mt-3">
+            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted sm:mt-3 sm:line-clamp-none">
               {t.modal.subtitle}
             </p>
           </div>
 
-          <div class="mt-5 hidden flex-col gap-3 rounded-2xl border border-hairline bg-surface/50 p-4 backdrop-blur-md sm:mt-6 md:flex">
+          <div class="mt-5 hidden flex-col gap-3 rounded-2xl border border-hairline bg-surface/50 p-4 backdrop-blur-md lg:mt-6 lg:flex">
             <Logo />
             <p class="text-xs text-muted">
-              Digital Engineering Studio
+              {t.modal.positioning}
             </p>
           </div>
 
-          <div class="mt-5 grid grid-cols-2 gap-2.5 sm:mt-6 sm:grid-cols-1 lg:mt-8">
+          <div class="order-3 mt-1 grid grid-cols-2 gap-2.5 lg:order-none lg:mt-8 lg:grid-cols-1">
             <a
               href={`https://t.me/${t.footer.telegram.replace('@', '')}`}
               target="_blank"
               rel="noopener noreferrer"
-              class="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[#229ED9] px-3 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#1d8cc2] hover:scale-[1.01] active:scale-[0.99] sm:gap-3 sm:px-5 sm:py-3.5"
+              class="group flex w-full items-center justify-center gap-2 rounded-2xl bg-[#229ED9] px-3 py-3 text-sm font-semibold text-white shadow-lg transition-colors duration-200 hover:bg-[#1d8cc2] sm:gap-3 sm:px-5 sm:py-3.5"
             >
               <svg class="h-5 w-5 shrink-0 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.04-.19-.01-.27.01-.12.02-1.93 1.22-5.46 3.5-.52.36-.98.53-1.39.52-.46-.01-1.33-.26-1.98-.48-.8-.27-1.43-.42-1.37-.89.03-.25.38-.51 1.03-.78 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.16-.03.25z"/>
@@ -83,10 +81,10 @@ const { lang, t } = Astro.props;
 
             <a
               href={`tel:${t.footer.phone.replace(/\s/g, '')}`}
-              class="group flex w-full items-center justify-center gap-2 rounded-2xl border border-hairline bg-surface/50 px-3 py-3 text-sm font-semibold text-ink transition-all duration-300 hover:bg-inset hover:scale-[1.01] active:scale-[0.99] sm:gap-3 sm:px-5 sm:py-3.5"
+              class="group flex w-full items-center justify-center gap-2 rounded-2xl border border-hairline bg-surface/50 px-3 py-3 text-sm font-semibold text-ink transition-colors duration-200 hover:bg-inset sm:gap-3 sm:px-5 sm:py-3.5"
             >
               <svg
-                class="h-4.5 w-4.5 shrink-0 text-accent transition-colors group-hover:text-accent-bright"
+                class="h-4.5 w-4.5 shrink-0 text-accent"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -101,12 +99,12 @@ const { lang, t } = Astro.props;
           </div>
         </div>
 
-        <div class="relative flex flex-col justify-center">
+        <div class="relative order-2 flex flex-col justify-center">
           <div
             id="modal-success-screen"
-            class="absolute inset-0 z-20 flex flex-col items-center justify-center rounded-2xl bg-bg-soft/95 px-4 text-center opacity-0 pointer-events-none transition-all duration-500"
+            class="absolute inset-0 z-20 flex flex-col items-center justify-center rounded-2xl bg-bg-soft/95 px-4 text-center opacity-0 pointer-events-none transition-opacity duration-300"
           >
-            <div class="mb-6 flex h-16 w-16 scale-90 items-center justify-center rounded-full border border-accent/20 bg-accent-soft text-accent transition-transform duration-500" id="modal-success-icon">
+            <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-accent/20 bg-accent-soft text-accent" id="modal-success-icon">
               <svg
                 class="h-8 w-8"
                 viewBox="0 0 24 24"
@@ -125,7 +123,7 @@ const { lang, t } = Astro.props;
             </p>
           </div>
 
-          <div class="relative mb-4 flex items-center py-2 sm:mb-5 sm:py-3">
+          <div class="relative mb-4 hidden items-center py-2 lg:mb-5 lg:flex lg:py-3">
             <div class="grow border-t border-hairline/60"></div>
             <span class="mx-3 text-[10px] font-extrabold uppercase tracking-widest text-faint sm:mx-4">
               {t.modal.orLeaveRequest}
@@ -180,21 +178,20 @@ const { lang, t } = Astro.props;
             </div>
 
             <div>
-              <label for="modal-sector" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
-                {t.modal.formSector}
+              <label for="modal-interest" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
+                {t.modal.formInterest}
               </label>
               <div class="relative">
                 <select
-                  id="modal-sector"
-                  name="sector"
+                  id="modal-interest"
+                  name="interest"
                   required
                   class="field cursor-pointer appearance-none bg-inset pr-10"
                 >
-                  <option value="" disabled selected>{t.modal.formSectorPlaceholder}</option>
-                  {t.sectors.items.map((item) => (
-                    <option value={item.title}>{item.title}</option>
+                  <option value="" disabled selected>{t.modal.formInterestPlaceholder}</option>
+                  {t.modal.formInterestOptions.map((item) => (
+                    <option value={item.value}>{item.label}</option>
                   ))}
-                  <option value="Other / Boshqa">Other / Boshqa</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-faint">
                   <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -220,11 +217,11 @@ const { lang, t } = Astro.props;
             <div class="mt-1 sm:mt-2">
               <button
                 type="submit"
-                class="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-accent px-5 py-3.5 text-sm font-bold text-accent-ink shadow-lg transition-all duration-300 hover:bg-accent-bright hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-55 disabled:hover:scale-100"
+                class="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-accent px-5 py-3.5 text-sm font-bold text-accent-ink shadow-lg transition-colors duration-200 hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-55"
               >
                 {t.modal.submit}
                 <svg
-                  class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -232,8 +229,8 @@ const { lang, t } = Astro.props;
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 >
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </button>
 
@@ -242,7 +239,7 @@ const { lang, t } = Astro.props;
               </p>
               <p
                 id="modal-form-error"
-                class="text-center text-sm font-medium text-red-500 opacity-0 transition-opacity duration-500"
+                class="text-center text-sm font-medium text-red-500 opacity-0 transition-opacity duration-300"
                 role="status"
               >
                 {t.modal.error}
@@ -257,7 +254,7 @@ const { lang, t } = Astro.props;
 
 <style>
   #contact-modal-backdrop {
-    transition: opacity 0.4s ease, backdrop-filter 0.4s ease;
+    transition: opacity 0.28s ease;
   }
 
   #contact-modal-dialog {
@@ -265,9 +262,9 @@ const { lang, t } = Astro.props;
     max-height: 100dvh;
     max-height: 100svh;
     border-radius: 1.5rem 1.5rem 0 0;
-    transform: translateY(110%);
+    transform: translateY(100%);
     opacity: 1;
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.28s ease;
   }
 
   #contact-modal-backdrop.open {
@@ -292,15 +289,15 @@ const { lang, t } = Astro.props;
     #contact-modal-dialog {
       max-height: min(90dvh, 880px);
       border-radius: 2rem;
-      transform: translateY(1rem) scale(0.96);
+      transform: translateY(12px);
       opacity: 0;
       transition:
-        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        transform 0.28s ease,
+        opacity 0.28s ease;
     }
 
     #contact-modal-backdrop.open #contact-modal-dialog {
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
       opacity: 1;
     }
 
@@ -308,21 +305,99 @@ const { lang, t } = Astro.props;
       padding: 0.95rem 1.1rem;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    #contact-modal-backdrop,
+    #contact-modal-dialog {
+      transition: opacity 0.15s ease;
+    }
+
+    #contact-modal-dialog,
+    #contact-modal-backdrop.open #contact-modal-dialog {
+      transform: none;
+    }
+  }
 </style>
 
 <script>
-  import { readLeadForm, submitLead } from '../scripts/forms.ts';
+  import { hasSubmittedLead, markLeadSubmitted, readLeadForm, submitLead } from '../scripts/forms.ts';
+
+  const SESSION_KEY = 'tc-modal-shown';
+  const LAST_SHOWN_KEY = 'tc-modal-last-shown';
+  const COOLDOWN_MS = 5 * 24 * 60 * 60 * 1000;
+  const DELAY_MS = 40000;
+  const SCROLL_RATIO = 0.55;
+  const EXIT_MIN_MS = 12000;
+  const OTHER_MODAL_GAP_MS = 8000;
+  const MOBILE_INTERACT_MS = 20000;
+  const MOBILE_INTERACT_COUNT = 2;
+
+  function storageGet(storage: Storage, key: string) {
+    try {
+      return storage.getItem(key);
+    } catch {
+      return null;
+    }
+  }
+
+  function storageSet(storage: Storage, key: string, value: string) {
+    try {
+      storage.setItem(key, value);
+    } catch {
+      // storage may be blocked
+    }
+  }
+
+  function isDesktopPointer() {
+    return window.matchMedia('(pointer: fine) and (hover: hover)').matches && window.innerWidth >= 768;
+  }
+
+  function scrollRatio() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if (max <= 0) return 0;
+    return window.scrollY / max;
+  }
+
+  function isContactInView() {
+    if (location.hash === '#contact') return true;
+    const contact = document.getElementById('contact');
+    if (!contact) return false;
+    const rect = contact.getBoundingClientRect();
+    const viewH = window.innerHeight || document.documentElement.clientHeight;
+    const visible = Math.min(rect.bottom, viewH) - Math.max(rect.top, 0);
+    return visible > viewH * 0.25;
+  }
+
+  function isOtherModalOpen() {
+    const overlay = document.getElementById('case-study-overlay');
+    return Boolean(overlay && overlay.classList.contains('opacity-100'));
+  }
+
+  function isContactFormActive() {
+    const active = document.activeElement;
+    if (!(active instanceof HTMLElement)) return false;
+    return Boolean(active.closest('#contact-form, #audit-form'));
+  }
 
   function initContactModal() {
     const backdrop = document.getElementById('contact-modal-backdrop');
-    const dialog = document.getElementById('contact-modal-dialog');
     const closeBtn = document.getElementById('contact-modal-close');
     const form = document.getElementById('contact-modal-form') as HTMLFormElement | null;
     const successScreen = document.getElementById('modal-success-screen');
-    const successIcon = document.getElementById('modal-success-icon');
     const errorEl = document.getElementById('modal-form-error');
 
-    if (!backdrop || !dialog || !closeBtn) return;
+    if (!backdrop || !closeBtn) return;
+
+    const abort = new AbortController();
+    const { signal } = abort;
+    const startedAt = Date.now();
+
+    let armed = false;
+    let opened = false;
+    let otherModalWasOpen = false;
+    let otherModalClosedAt = 0;
+    let mobileInteractions = 0;
+    let successTimer: number | undefined;
 
     function lockPage() {
       document.documentElement.classList.add('lenis-stopped');
@@ -334,45 +409,80 @@ const { lang, t } = Astro.props;
       document.body.style.overflow = '';
     }
 
+    function canShowByFrequency() {
+      if (hasSubmittedLead()) return false;
+      if (storageGet(sessionStorage, SESSION_KEY) === '1') return false;
+      const lastShown = Number(storageGet(localStorage, LAST_SHOWN_KEY) || 0);
+      if (lastShown && Date.now() - lastShown < COOLDOWN_MS) return false;
+      return true;
+    }
+
+    function isBlocked() {
+      if (opened || backdrop.classList.contains('open')) return true;
+      if (isContactInView() || isContactFormActive()) return true;
+
+      const otherOpen = isOtherModalOpen();
+      if (otherOpen) {
+        otherModalWasOpen = true;
+        return true;
+      }
+      if (otherModalWasOpen) {
+        otherModalClosedAt = Date.now();
+        otherModalWasOpen = false;
+      }
+      if (otherModalClosedAt && Date.now() - otherModalClosedAt < OTHER_MODAL_GAP_MS) return true;
+
+      return false;
+    }
+
     function openModal() {
-      try {
-        if (sessionStorage.getItem('tc-modal-shown') === '1') {
-          return;
-        }
-      } catch (e) {}
+      if (!canShowByFrequency() || isBlocked()) return;
 
-      backdrop?.classList.add('open');
+      opened = true;
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      document.getElementById('floating-contact')?.setAttribute('hidden', '');
       lockPage();
+      storageSet(sessionStorage, SESSION_KEY, '1');
+      storageSet(localStorage, LAST_SHOWN_KEY, String(Date.now()));
+    }
 
-      try {
-        sessionStorage.setItem('tc-modal-shown', '1');
-      } catch (e) {}
+    function tryShow() {
+      if (!armed || opened) return;
+      if (!canShowByFrequency()) {
+        armed = false;
+        return;
+      }
+      if (isBlocked()) return;
+      openModal();
+    }
+
+    function arm() {
+      if (opened) return;
+      armed = true;
+      tryShow();
     }
 
     function closeModal() {
-      backdrop?.classList.remove('open');
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+      document.getElementById('floating-contact')?.removeAttribute('hidden');
       unlockPage();
+      storageSet(sessionStorage, SESSION_KEY, '1');
     }
-
-    const abort = new AbortController();
-    const { signal } = abort;
 
     closeBtn.addEventListener('click', closeModal, { signal });
 
     backdrop.addEventListener('click', (e) => {
-      if (e.target === backdrop) {
+      if (e.target === backdrop) closeModal();
+    }, { signal });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.classList.contains('open')) {
         closeModal();
       }
     }, { signal });
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && backdrop.classList.contains('open')) {
-        closeModal();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown, { signal });
-
-    let successTimer: number | undefined;
     if (form) {
       const phoneInput = form.querySelector('input[name="phone"]') as HTMLInputElement | null;
       if (phoneInput) {
@@ -395,6 +505,7 @@ const { lang, t } = Astro.props;
 
         try {
           await submitLead(readLeadForm(form, 'modal'));
+          markLeadSubmitted();
         } catch {
           errorEl?.classList.remove('opacity-0');
           if (submitBtn) submitBtn.disabled = false;
@@ -403,39 +514,71 @@ const { lang, t } = Astro.props;
 
         if (submitBtn) submitBtn.disabled = false;
 
-        if (successScreen && successIcon) {
+        if (successScreen) {
           successScreen.classList.remove('opacity-0', 'pointer-events-none');
           successScreen.classList.add('opacity-100', 'pointer-events-auto');
-
-          setTimeout(() => {
-            successIcon.classList.remove('scale-90');
-            successIcon.classList.add('scale-100');
-          }, 50);
-
           form.reset();
 
           window.clearTimeout(successTimer);
           successTimer = window.setTimeout(() => {
             closeModal();
-            setTimeout(() => {
+            window.setTimeout(() => {
               successScreen.classList.remove('opacity-100', 'pointer-events-auto');
               successScreen.classList.add('opacity-0', 'pointer-events-none');
-              successIcon.classList.remove('scale-100');
-              successIcon.classList.add('scale-90');
-            }, 600);
-          }, 6000);
+            }, 300);
+          }, 4000);
         }
       }, { signal });
     }
 
-    const timerId = setTimeout(() => {
-      openModal();
-    }, 15000);
+    const delayTimer = window.setTimeout(arm, DELAY_MS);
+
+    const onScroll = () => {
+      if (scrollRatio() >= SCROLL_RATIO) arm();
+      else if (armed) tryShow();
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true, signal });
+
+    const lenis = (window as unknown as { lenis?: { on?: (event: string, cb: () => void) => void; off?: (event: string, cb: () => void) => void } }).lenis;
+    lenis?.on?.('scroll', onScroll);
+    signal.addEventListener('abort', () => lenis?.off?.('scroll', onScroll));
+
+    window.addEventListener('hashchange', () => {
+      if (armed) tryShow();
+    }, { signal });
+
+    document.documentElement.addEventListener('mouseleave', (e) => {
+      if (!isDesktopPointer()) return;
+      if (Date.now() - startedAt < EXIT_MIN_MS) return;
+      if (e.clientY > 8) return;
+      arm();
+    }, { signal });
+
+    window.addEventListener('pointerdown', (e) => {
+      if (isDesktopPointer()) return;
+      if (opened) return;
+      const target = e.target as Node | null;
+      if (target && backdrop.contains(target)) return;
+      mobileInteractions += 1;
+      if (mobileInteractions >= MOBILE_INTERACT_COUNT && Date.now() - startedAt >= MOBILE_INTERACT_MS) {
+        arm();
+      }
+    }, { signal });
+
+    const retryTimer = window.setInterval(() => {
+      if (armed) tryShow();
+    }, 2000);
 
     return () => {
       abort.abort();
-      clearTimeout(timerId);
+      window.clearTimeout(delayTimer);
+      window.clearInterval(retryTimer);
       if (successTimer) window.clearTimeout(successTimer);
+      if (backdrop.classList.contains('open')) {
+        document.getElementById('floating-contact')?.removeAttribute('hidden');
+        unlockPage();
+      }
     };
   }
 

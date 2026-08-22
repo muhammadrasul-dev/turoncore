@@ -14,21 +14,23 @@ const youtubeHref = 'https://youtube.com/@turoncore';
 const linkedinHref =
   'https://www.linkedin.com/search/results/companies/?keywords=TuronCore&origin=SWITCH_SEARCH_VERTICAL';
 const emailHref = `mailto:${t.footer.email}`;
-const messages = t.floating.messages;
+const messagesDay = t.floating.messagesDay;
+const messagesEvening = t.floating.messagesEvening;
 ---
 
 <div id="floating-contact">
   <div
     id="contact-bubble-stage"
     class="is-hidden"
-    data-messages={JSON.stringify(messages)}
+    data-messages-day={JSON.stringify(messagesDay)}
+    data-messages-evening={JSON.stringify(messagesEvening)}
     aria-live="polite"
   >
     <a id="contact-bubble-a" class="contact-bubble is-active" href="#contact">
-      <span class="contact-bubble-text">{messages[0]}</span>
+      <span class="contact-bubble-text">{messagesDay[0]}</span>
     </a>
     <a id="contact-bubble-b" class="contact-bubble" href="#contact" aria-hidden="true" tabindex="-1">
-      <span class="contact-bubble-text">{messages[1] ?? messages[0]}</span>
+      <span class="contact-bubble-text">{messagesDay[1] ?? messagesDay[0]}</span>
     </a>
   </div>
 

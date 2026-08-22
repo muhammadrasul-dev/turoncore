@@ -1,5 +1,25 @@
 import type { LeadPayload, LeadSource } from '../lib/lead';
 
+const LEAD_SUBMITTED_KEY = 'tc-lead-submitted';
+const MODAL_SHOWN_KEY = 'tc-modal-shown';
+
+export function markLeadSubmitted() {
+  try {
+    localStorage.setItem(LEAD_SUBMITTED_KEY, '1');
+    sessionStorage.setItem(MODAL_SHOWN_KEY, '1');
+  } catch {
+    // storage may be blocked
+  }
+}
+
+export function hasSubmittedLead() {
+  try {
+    return localStorage.getItem(LEAD_SUBMITTED_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
 function readValue(form: HTMLFormElement, name: string) {
   const value = form.elements.namedItem(name);
   if (value instanceof HTMLInputElement || value instanceof HTMLTextAreaElement || value instanceof HTMLSelectElement) {
@@ -22,6 +42,7 @@ export function readLeadForm(form: HTMLFormElement, source: LeadSource): LeadPay
     phone: readValue(form, 'phone'),
     message: readValue(form, 'message'),
     sector: readValue(form, 'sector'),
+    interest: readValue(form, 'interest'),
     website: readValue(form, 'website'),
     hp: readValue(form, 'hp'),
   };
@@ -83,6 +104,7 @@ export function bindLeadForm(
 
     try {
       await submitLead(readLeadForm(form, source));
+      markLeadSubmitted();
       successEl?.classList.remove('opacity-0');
       form.reset();
       window.clearTimeout(timer);

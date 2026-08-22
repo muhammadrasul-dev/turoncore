@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "TuronCore — Ishonchli mobil dasturlash hamkori",
+    "title": "TuronCore — Ishonchli dasturlash hamkori",
     "description": "TuronCore bizneslar uchun ishonchli mobil mahsulotlar yaratadi va IT kompaniyalarga mobil dasturlash imkoniyatlarini kengaytirishda yordam beradi.",
     "keywords": "TuronCore, turoncore, mobil dasturlash hamkori, mobil ilova ishlab chiqish, iOS, Android, Flutter, mobil mahsulot, IT hamkorlik, white-label, dedicated team, Toshkent, O'zbekiston",
     "imageAlt": "TuronCore mobil dasturlash hamkori logotipi",
@@ -39,21 +39,22 @@
   },
   "floating": {
     "aria": "Bog'lanish",
-    "cta": "Bog'lanish",
+    "cta": "Bog'lanish →",
     "more": "Boshqa aloqa",
-    "messages": [
-      "Ishonchli mobil dasturlash hamkori kerakmi?",
-      "G'oya bor — mahsulotga aylantiramiz",
-      "Mobil jamoa yo'qmi? Biz yordam beramiz",
-      "Mobil imkoniyatlaringizni kengaytirmoqchimisiz?",
-      "iOS, Android va cross-platform ilovalar yaratamiz",
-      "Keyingi mobil loyihangiz uchun hamkor bo'ling",
-      "Loyihani bugun muhokama qilamizmi?"
+    "messagesDay": [
+      "💡 G'oya bor-mi? Birga yechim topamiz!",
+      "👋 Loyihangiz bormi? Gaplashamiz!",
+      "🚀 Biror narsa quramizmi?"
+    ],
+    "messagesEvening": [
+      "🌙 G'oya uyg'oqmi? Biz ham shu yerdamiz. 😄",
+      "💡 Ertangi loyihangizni bugun boshlaymizmi!",
+      "✨ Yaxshi g'oyalar vaqt tanlamaydi."
     ]
   },
   "hero": {
     "badge": "TuronCore — Mobil dasturlash",
-    "title": "Ishonchli mobil",
+    "title": "Ishonchli",
     "titleHighlight": "dasturlash hamkoringiz",
     "typewriterPhrases": [
       "dasturlash hamkoringiz",
@@ -262,15 +263,25 @@
   },
   "contact": {
     "eyebrow": "Bog'lanish",
-    "title": "Loyiha bormi?",
-    "subtitle": "G'oyangizni muhokama qilaylik va to'g'ri texnik yechimni topaylik.",
+    "title": "Keling, bog'lanamiz",
+    "subtitle": "Loyihangiz, hamkorlik yoki texnik ehtiyojingiz haqida bizga yozing. Siz uchun eng to'g'ri yechimni birgalikda topamiz.",
     "form": {
       "name": "Ismingiz",
       "phone": "Telefon raqamingiz",
+      "interest": "Sizni nima qiziqtiradi?",
+      "interestPlaceholder": "Xizmat turini tanlang",
+      "interestOptions": [
+        "Mobil mahsulot ishlab chiqish",
+        "Mobil dasturlash hamkorligi",
+        "Dedicated mobil jamoa",
+        "Web va qo'llab-quvvatlovchi tizimlar",
+        "Mahsulot discovery va konsalting",
+        "Hali aniq emas"
+      ],
       "message": "Xabaringiz",
       "namePlaceholder": "Ismingizni kiriting",
       "phonePlaceholder": "90 123 45 67",
-      "messagePlaceholder": "Loyihangiz haqida qisqacha...",
+      "messagePlaceholder": "Loyiha, hamkorlik yoki ehtiyojingiz haqida yozing...",
       "submit": "Suhbatni boshlash",
       "success": "Xabaringiz qabul qilindi! Tez orada bog'lanamiz.",
       "error": "Yuborilmadi. Qayta urinib ko'ring."
@@ -334,22 +345,33 @@
     }
   },
   "modal": {
-    "title": "Biz har doim aloqadamiz 👋",
-    "subtitle": "Xabar qoldiring — mutaxassisimiz 1 soat ichida siz bilan bog'lanadi. Yoki to'g'ridan-to'g'ri Telegram orqali yozing.",
+    "eyebrow": "Bog'lanish",
+    "title": "Keling, gaplashamiz 👋",
+    "subtitle": "Loyiha, hamkorlik yoki texnik ehtiyojingiz haqida yozing. Jamoamiz siz bilan bog'lanib, eng to'g'ri yechimni birgalikda ko'rib chiqadi.",
+    "positioning": "Mobile Development Partner",
     "telegramBtn": "Telegramda yozish",
     "callBtn": "Qo'ng'iroq qilish",
-    "orLeaveRequest": "YOKI TEZKOR ARIZA QOLDIRING",
+    "orLeaveRequest": "Yoki tezkor murojaat qoldiring",
     "formName": "Ismingiz",
     "formNamePlaceholder": "Ismingizni kiriting",
     "formPhone": "Telefon raqamingiz",
     "formPhonePlaceholder": "90 123 45 67",
-    "formSector": "Loyiha sohasi / Yo'nalish",
-    "formSectorPlaceholder": "Sohani tanlang...",
-    "formMessage": "Loyihangiz haqida (ixtiyoriy)",
-    "formMessagePlaceholder": "Katta yoki kichik loyiha, talablaringiz...",
-    "submit": "Ariza yuborish",
-    "privacy": "Sizning ma'lumotlaringiz xavfsiz. Spam yo'q.",
-    "success": "Arizangiz muvaffaqiyatli yuborildi! Tez orada bog'lanamiz.",
+    "formInterest": "Sizni nima qiziqtiradi?",
+    "formInterestPlaceholder": "Yo'nalishni tanlang...",
+    "formInterestOptions": [
+      { "value": "Mobile App Development", "label": "Mobil ilova ishlab chiqish" },
+      { "value": "Web Development", "label": "Web development" },
+      { "value": "Existing Product Development", "label": "Mavjud mahsulotni rivojlantirish" },
+      { "value": "Dedicated Mobile Team", "label": "Dedicated Mobile Team" },
+      { "value": "B2B Partnership", "label": "B2B hamkorlik" },
+      { "value": "Technical Consulting", "label": "Texnik konsultatsiya" },
+      { "value": "Other", "label": "Boshqa" }
+    ],
+    "formMessage": "Xabaringiz (ixtiyoriy)",
+    "formMessagePlaceholder": "Loyiha, hamkorlik yoki ehtiyojingiz haqida qisqacha yozing...",
+    "submit": "Suhbatni boshlash",
+    "privacy": "Ma'lumotlaringiz maxfiy saqlanadi.",
+    "success": "Xabaringiz qabul qilindi. Tez orada bog'lanamiz.",
     "error": "Yuborilmadi. Qayta urinib ko'ring."
   },
   "why": {

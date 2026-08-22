@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "TuronCore — Your Reliable Mobile Development Partner",
+    "title": "TuronCore — Your Reliable Development Partner",
     "description": "TuronCore builds reliable mobile products for businesses and helps IT companies scale their mobile development capabilities. iOS, Android, and cross-platform expertise.",
     "keywords": "TuronCore, turoncore, mobile development partner, mobile app development, iOS development, Android development, Flutter, mobile product development, IT partnership, white-label development, dedicated mobile team, Tashkent, Uzbekistan",
     "imageAlt": "TuronCore mobile development partner logo",
@@ -39,21 +39,22 @@
   },
   "floating": {
     "aria": "Contact",
-    "cta": "Contact",
+    "cta": "Contact →",
     "more": "More contact options",
-    "messages": [
-      "Need a reliable mobile development partner?",
-      "Have an idea — let's turn it into a product",
-      "No mobile team? We've got you covered",
-      "Looking to scale your mobile capabilities?",
-      "We build iOS, Android, and cross-platform apps",
-      "Partner with us for your next mobile project",
-      "Shall we discuss your project today?"
+    "messagesDay": [
+      "💡 Got an idea? Let's find a solution together!",
+      "👋 Got a project? Let's talk!",
+      "🚀 Shall we build something?"
+    ],
+    "messagesEvening": [
+      "🌙 Still up with an idea? We're here too. 😄",
+      "💡 Start tomorrow's project today?",
+      "✨ Good ideas don't wait."
     ]
   },
   "hero": {
     "badge": "TuronCore — Mobile Development",
-    "title": "Your Reliable Mobile",
+    "title": "Your Reliable",
     "titleHighlight": "Development Partner",
     "typewriterPhrases": [
       "Development Partner",
@@ -271,15 +272,25 @@
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Have a Project in Mind?",
-    "subtitle": "Let's discuss your idea and find the right technical solution.",
+    "title": "Let's get in touch",
+    "subtitle": "Tell us about your project, partnership, or technical need. We'll find the right solution together.",
     "form": {
       "name": "Your Name",
       "phone": "Phone number",
+      "interest": "What are you interested in?",
+      "interestPlaceholder": "Select a service type",
+      "interestOptions": [
+        "Mobile product development",
+        "Mobile development partnership",
+        "Dedicated mobile team",
+        "Web and supporting systems",
+        "Product discovery and consulting",
+        "Not sure yet"
+      ],
       "message": "Your Message",
       "namePlaceholder": "Enter your name",
       "phonePlaceholder": "90 123 45 67",
-      "messagePlaceholder": "Tell us briefly about your project...",
+      "messagePlaceholder": "Tell us about your project, partnership, or need...",
       "submit": "Start a Conversation",
       "success": "Your message has been received! We'll get back to you soon.",
       "error": "Could not send. Please try again."
@@ -343,22 +354,33 @@
     }
   },
   "modal": {
-    "title": "We're always reachable 👋",
-    "subtitle": "Leave a request — our specialist will get back to you within an hour. Or message us directly on Telegram.",
+    "eyebrow": "Let's talk",
+    "title": "Let's talk 👋",
+    "subtitle": "Tell us about a project, partnership, or technical need. Our team will get in touch and we'll look at the right solution together.",
+    "positioning": "Mobile Development Partner",
     "telegramBtn": "Message on Telegram",
     "callBtn": "Call us",
-    "orLeaveRequest": "OR LEAVE A FAST REQUEST",
+    "orLeaveRequest": "Or leave a quick message",
     "formName": "Your name",
     "formNamePlaceholder": "Enter your name",
     "formPhone": "Phone number",
     "formPhonePlaceholder": "90 123 45 67",
-    "formSector": "Project sector / Category",
-    "formSectorPlaceholder": "Select a sector...",
-    "formMessage": "About your project (optional)",
-    "formMessagePlaceholder": "Large or small project, requirements...",
-    "submit": "Send request",
-    "privacy": "Your data is private. No spam.",
-    "success": "Your request has been successfully sent! We will contact you soon.",
+    "formInterest": "What are you interested in?",
+    "formInterestPlaceholder": "Select a direction...",
+    "formInterestOptions": [
+      { "value": "Mobile App Development", "label": "Mobile App Development" },
+      { "value": "Web Development", "label": "Web Development" },
+      { "value": "Existing Product Development", "label": "Existing Product Development" },
+      { "value": "Dedicated Mobile Team", "label": "Dedicated Mobile Team" },
+      { "value": "B2B Partnership", "label": "B2B Partnership" },
+      { "value": "Technical Consulting", "label": "Technical Consulting" },
+      { "value": "Other", "label": "Other" }
+    ],
+    "formMessage": "Your message (optional)",
+    "formMessagePlaceholder": "Briefly describe your project, partnership, or need...",
+    "submit": "Start a conversation",
+    "privacy": "Your information is kept confidential.",
+    "success": "Your message has been received. We'll get back to you soon.",
     "error": "Could not send. Please try again."
   },
   "why": {
