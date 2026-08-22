@@ -1,18 +1,16 @@
 {
   "meta": {
-    "title": "TuronCore — Mobil ilova, web sayt va IT xizmatlar agentligi",
-    "description": "TuronCore — O'zbekistondagi mobil ilova, web sayt, B2B platforma va IT xizmatlar agentligi. iOS, Android, web va biznes avtomatlashtirish yechimlarini professional ishlab chiqamiz.",
-    "keywords": "TuronCore, turoncore, Turon Core, turon core, mobil ilova yaratish, mobile app kompaniya, mobile app agentlik, mobil dastur ishlab chiqish, Android ilova, iOS ilova, web sayt yaratish, IT agentlik, IT kompaniya, eng yaxshi IT xizmatlar, biznes avtomatlashtirish, B2B IT xizmatlar, Toshkent IT kompaniya, O'zbekiston IT agentlik",
-    "imageAlt": "TuronCore mobil ilova va IT xizmatlar agentligi logotipi",
-    "serviceName": "Mobil ilova, web sayt va B2B IT xizmatlar",
+    "title": "TuronCore — Ishonchli mobil dasturlash hamkori",
+    "description": "TuronCore bizneslar uchun ishonchli mobil mahsulotlar yaratadi va IT kompaniyalarga mobil dasturlash imkoniyatlarini kengaytirishda yordam beradi.",
+    "keywords": "TuronCore, turoncore, mobil dasturlash hamkori, mobil ilova ishlab chiqish, iOS, Android, Flutter, mobil mahsulot, IT hamkorlik, white-label, dedicated team, Toshkent, O'zbekiston",
+    "imageAlt": "TuronCore mobil dasturlash hamkori logotipi",
+    "serviceName": "Mobil mahsulot ishlab chiqish va mobil dasturlash hamkorligi",
     "serviceTypes": [
-      "Mobil ilova ishlab chiqish",
-      "iOS va Android ilovalar",
-      "Web sayt va web platforma yaratish",
-      "B2B IT hamkorlik",
-      "Biznes avtomatlashtirish",
-      "Mobil ilova auditi",
-      "Web sayt SEO auditi"
+      "Mobil mahsulot ishlab chiqish",
+      "Mobil dasturlash hamkorligi",
+      "Dedicated mobil jamoa",
+      "Mahsulot discovery va konsalting",
+      "Web va qo'llab-quvvatlovchi tizimlar"
     ],
     "city": "Toshkent",
     "country": "UZ",
@@ -20,13 +18,18 @@
   },
   "nav": {
     "services": "Xizmatlar",
-    "sectors": "Sohalar",
+    "forBusinesses": "Bizneslar uchun",
+    "forIT": "IT kompaniyalar",
+    "ourWork": "Ishlarimiz",
     "about": "Biz haqimizda",
+    "why": "Nega biz",
     "process": "Jarayon",
     "portfolio": "Loyihalar",
     "tech": "Texnologiyalar",
     "audit": "Bepul audit",
-    "contact": "Bog'lanish"
+    "contact": "Bog'lanish",
+    "startProject": "Loyihani boshlash",
+    "sectors": "Sohalar"
   },
   "common": {
     "learnMore": "Batafsil",
@@ -34,115 +37,199 @@
     "verified": "Tasdiqlangan",
     "scroll": "Pastga"
   },
+  "floating": {
+    "aria": "Bog'lanish",
+    "cta": "Bog'lanish",
+    "more": "Boshqa aloqa",
+    "messages": [
+      "Ishonchli mobil dasturlash hamkori kerakmi?",
+      "G'oya bor — mahsulotga aylantiramiz",
+      "Mobil jamoa yo'qmi? Biz yordam beramiz",
+      "Mobil imkoniyatlaringizni kengaytirmoqchimisiz?",
+      "iOS, Android va cross-platform ilovalar yaratamiz",
+      "Keyingi mobil loyihangiz uchun hamkor bo'ling",
+      "Loyihani bugun muhokama qilamizmi?"
+    ]
+  },
   "hero": {
-    "badge": "IT kompaniya",
-    "title": "Raqamli mahsulotlaringizni",
-    "titleHighlight": "keyingi bosqichga olib chiqing",
+    "badge": "TuronCore — Mobil dasturlash",
+    "title": "Ishonchli mobil",
+    "titleHighlight": "dasturlash hamkoringiz",
     "typewriterPhrases": [
-      "keyingi bosqichga olib chiqing",
-      "zamonaviy dizaynda yarating",
-      "biz bilan avtomatlashtiring",
-      "eng kuchli texnologiyalar bilan quring"
+      "dasturlash hamkoringiz",
+      "bizneslar va startaplar uchun",
+      "IT kompaniyalar va agentliklar uchun",
+      "o'sadigan mahsulotlar yaratamiz"
     ],
-    "subtitle": "Mobil ilovalar, web platformalar va B2B IT hamkorlik — zamonaviy texnologiyalar bilan tez, sifatli va ishonchli yechimlar.",
-    "ctaPrimary": "Bog'lanish",
-    "ctaSecondary": "Xizmatlar"
+    "subtitle": "Bizneslar uchun ishonchli mobil mahsulotlar yaratamiz va IT kompaniyalarga mobil dasturlash imkoniyatlarini kengaytirishda yordam beramiz.",
+    "ctaPrimary": "Mahsulot yaratish",
+    "ctaSecondary": "Hamkor bo'lish",
+    "assemble": {
+      "labels": {
+        "payment": "To'lov tizimi",
+        "push": "Push bildirishnoma",
+        "analytics": "Analitika",
+        "admin": "Admin panel"
+      }
+    }
   },
   "trust": {
     "eyebrow": "Ishonch",
-    "title": "Bizga ishongan kompaniyalar"
+    "title": "Bizga ishongan kompaniyalar",
+    "metrics": [
+      { "value": "7+", "label": "Yetkazilgan loyihalar" },
+      { "value": "7+", "label": "Mijozlar" },
+      { "value": "2+", "label": "Yillik tajriba" }
+    ]
+  },
+  "whatWeDo": {
+    "eyebrow": "Nima qilamiz",
+    "title": "Muvaffaqiyat uchun uch yo'nalish",
+    "subtitle": "Mahsulot kerak bo'lsa, hamkor kerak bo'lsa yoki jamoa kerak bo'lsa — to'g'ri model bizda bor.",
+    "items": [
+      {
+        "label": "BUILD",
+        "title": "Mobil mahsulot ishlab chiqish",
+        "description": "Bizneslar va startaplarga g'oyalarni ishonchli mobil mahsulotlarga aylantirishda yordam beramiz.",
+        "cta": "Batafsil",
+        "href": "#for-businesses"
+      },
+      {
+        "label": "PARTNER",
+        "title": "Mobil dasturlash hamkorligi",
+        "description": "IT kompaniyalar uchun ishonchli mobil dasturlash hamkori bo'lamiz.",
+        "cta": "Hamkorlikni o'rganish",
+        "href": "#for-it-companies"
+      },
+      {
+        "label": "SCALE",
+        "title": "Dedicated mobil jamoa",
+        "description": "Biznesingiz kengayganda tajribali mobil dasturlash jamoasini taqdim etamiz.",
+        "cta": "Jamoangizni tuzing",
+        "href": "#for-it-companies"
+      }
+    ]
+  },
+  "mobileExpertise": {
+    "eyebrow": "Ekspertiza",
+    "title": "Mobil dasturlash — bizning asosiy yo'nalishimiz",
+    "subtitle": "Biz natija beramiz — faqat texnologiyalar ro'yxatini ko'rsatmaymiz. Mana nima yaratamiz va hal qilamiz.",
+    "capabilities": [
+      "Android dasturlash",
+      "iOS dasturlash",
+      "Cross-platform dasturlash",
+      "MVP ishlab chiqish",
+      "Mavjud ilovalar bilan ishlash",
+      "Ilova modernizatsiyasi",
+      "Ishlash tezligini optimallashtirish",
+      "App Store va Google Play chiqarish"
+    ],
+    "technologies": ["Flutter", "Android", "iOS"]
+  },
+  "forBusinesses": {
+    "eyebrow": "Bizneslar uchun",
+    "title": "G'oya bormi? Keling, mahsulotga aylantiramiz.",
+    "subtitle": "G'oyadan boshlayotgan bo'lsangiz yoki mavjud biznesni yaxshilayotgan bo'lsangiz — discoverydan launchgacha to'g'ri texnik yechim bilan yordam beramiz.",
+    "processLabel": "Biz bilan yo'lingiz",
+    "steps": [
+      "G'oya",
+      "Discovery",
+      "Rejalashtirish",
+      "Dizayn",
+      "Ishlab chiqish",
+      "Launch",
+      "O'sish"
+    ],
+    "cta": "Loyihani muhokama qilish"
+  },
+  "forIT": {
+    "eyebrow": "IT kompaniyalar uchun",
+    "title": "Mobil jamoa yo'qmi? Biz yordam beramiz.",
+    "subtitle": "Kompaniyangizga mobil loyiha tushganda, dasturchilarni yollash yoki mobil bo'lim qurish shart emas. TuronCore ishonchli mobil dasturlash hamkoringiz bo'lishi mumkin.",
+    "benefits": [
+      "Ichki mobil bo'lim qurish shart emas",
+      "Vaqtinchalik dasturchilarni qidirish shart emas",
+      "Resurs yetishmasligi sababli mobil loyihalarni yo'qotmaysiz",
+      "Tajribali mobil dasturlash ekspertizasiga ega bo'lasiz",
+      "Kerak bo'lganda imkoniyatlaringizni kengaytirasiz"
+    ],
+    "modelsTitle": "Hamkorlik modellari",
+    "models": [
+      {
+        "title": "White-Label dasturlash",
+        "description": "Mijoz bilan munosabatni siz boshqarasiz, mobil dasturlashni TuronCore bajaradi."
+      },
+      {
+        "title": "Texnik hamkorlik",
+        "description": "TuronCore kompaniyangiz bilan birgalikda dedicated mobil texnologiya hamkori sifatida ishlaydi."
+      },
+      {
+        "title": "Dedicated mobil jamoa",
+        "description": "Loyihangiz ehtiyojlariga mos tajribali mobil jamoa taqdim etamiz."
+      }
+    ],
+    "cta": "Hamkor bo'lish"
   },
   "services": {
     "eyebrow": "Xizmatlar",
     "title": "Biznesingiz uchun to'liq yechimlar",
-    "subtitle": "G'oyadan ishga tushirishgacha — bir jamoa, bitta mas'uliyat."
+    "subtitle": "G'oyadan ishga tushirishgacha — bir jamoa, bitta mas'uliyat.",
+    "discuss": "Xizmatni muhokama qilish"
   },
   "sectors": {
     "eyebrow": "Sohalar",
     "title": "Qaysi sohalarda ishlaymiz",
     "subtitle": "Har bir sohaning o'ziga xosligini ichidan bilamiz.",
     "items": [
-      {
-        "title": "Ombor & logistika",
-        "description": "ERP, marshrut va ombor avtomatizatsiyasi"
-      },
-      {
-        "title": "Moliya",
-        "description": "Workflow, audit va xavfsizlik"
-      },
-      {
-        "title": "Maktab / ta'lim",
-        "description": "LMS va boshqaruv tizimlari"
-      },
-      {
-        "title": "Tibbiyot",
-        "description": "Klinika va bemor boshqaruvi"
-      },
-      {
-        "title": "Savdo / retail",
-        "description": "POS, ombor va e-commerce"
-      },
-      {
-        "title": "Ishlab chiqarish",
-        "description": "Resurs va ishlab chiqarish rejasi"
-      },
-      {
-        "title": "Restoran",
-        "description": "Buyurtma, oshxona va yetkazib berish"
-      },
-      {
-        "title": "Qurilish",
-        "description": "Loyiha va smeta boshqaruvi"
-      }
+      { "title": "Ombor & logistika", "description": "ERP, marshrut va ombor avtomatizatsiyasi" },
+      { "title": "Moliya", "description": "Workflow, audit va xavfsizlik" },
+      { "title": "Maktab / ta'lim", "description": "LMS va boshqaruv tizimlari" },
+      { "title": "Tibbiyot", "description": "Klinika va bemor boshqaruvi" },
+      { "title": "Savdo / retail", "description": "POS, ombor va e-commerce" },
+      { "title": "Ishlab chiqarish", "description": "Resurs va ishlab chiqarish rejasi" },
+      { "title": "Restoran", "description": "Buyurtma, oshxona va yetkazib berish" },
+      { "title": "Qurilish", "description": "Loyiha va smeta boshqaruvi" }
     ]
   },
   "about": {
     "eyebrow": "Biz haqimizda",
-    "title": "Ishonchli IT hamkoringiz",
-    "subtitle": "Kichik jamoa, katta standartlar. Har bir loyihada shaffoflik va sifat birinchi o'rinda.",
+    "title": "Ishonchli mobil dasturlash hamkoringiz",
+    "subtitle": "Fokuslangan jamoa, yuqori standartlar. Har bir loyihada shaffoflik va sifat.",
     "mission": {
       "title": "Missiyamiz",
-      "text": "O'zbekiston va xalqaro bozorda bizneslarga zamonaviy raqamli mahsulotlar yaratishda yordam berish. Har bir loyihada sifat, tezlik va shaffoflik — bizning ustuvor tamoyillarimiz."
+      "text": "Bizneslar va IT kompaniyalarga ishonchli mobil mahsulotlar yaratishda yordam berish. Har bir loyihada sifat, tezlik va shaffoflik — bizning ustuvor tamoyillarimiz."
     },
     "vision": {
       "title": "Vizyonimiz",
-      "text": "Mintaqadagi eng ishonchli IT kompaniyalardan biri bo'lish. Innovatsion yechimlar orqali mijozlarimizning raqamli transformatsiyasiga yetakchilik qilish."
+      "text": "Mintaqadagi eng ishonchli mobil dasturlash hamkorlaridan biri bo'lish."
     },
     "stats": {
       "projects": "Loyihalar",
       "clients": "Mijozlar",
       "years": "Yillik tajriba",
-      "team": "Mutaxassislar"
+      "team": "Muhandislar"
     }
   },
   "process": {
     "eyebrow": "Jarayon",
-    "title": "Ish jarayoni",
-    "subtitle": "Loyihangizni 4 bosqichda amalga oshiramiz",
+    "title": "Qanday ishlaymiz",
+    "subtitle": "Boshlang'ichdan o'sishgacha aniq va shaffof ishlab chiqish jarayoni",
     "steps": [
-      {
-        "title": "Muloqot",
-        "description": "Ehtiyojlaringizni o'rganamiz, maqsad va talablarni aniqlaymiz."
-      },
-      {
-        "title": "Dizayn",
-        "description": "UI/UX dizayn, prototip va texnik arxitektura ishlab chiqamiz."
-      },
-      {
-        "title": "Ishlab chiqish",
-        "description": "Agile metodologiya bilan iterativ rivojlantirish va testlash."
-      },
-      {
-        "title": "Qo'llab-quvvatlash",
-        "description": "Ishga tushirish, monitoring va doimiy texnik yordam."
-      }
+      { "title": "Discover", "description": "Biznesingiz, maqsadlar, foydalanuvchilar va loyiha talablarini tushunamiz." },
+      { "title": "Plan", "description": "Scope, roadmap, timeline va texnik yondashuvni belgilaymiz." },
+      { "title": "Design", "description": "Kerak bo'lganda foydalanuvchi tajribasi va interfeysni yaratamiz." },
+      { "title": "Build", "description": "Rejalashtirish, implementatsiya va code review orqali ishlab chiqamiz." },
+      { "title": "Test", "description": "Mahsulot sifat nazorati va testdan o'tkaziladi." },
+      { "title": "Launch", "description": "Mahsulotni production va release uchun tayyorlaymiz." },
+      { "title": "Grow", "description": "Launchdan keyin qo'llab-quvvatlash, yaxshilash va yangi funksiyalar bilan davom etamiz." }
     ]
   },
   "portfolio": {
-    "eyebrow": "Loyihalar",
-    "title": "So'nggi ishlarimiz",
-    "subtitle": "Turli sohalar uchun yaratgan mahsulotlarimizdan namunalar",
-    "comingSoon": "Tez orada"
+    "eyebrow": "Ishlarimiz",
+    "title": "Yaratgan loyihalarimiz",
+    "subtitle": "Fintex, logistika, ta'lim va e-commerce sohalarida o'lchanadigan natijalar",
+    "comingSoon": "Tez orada",
+    "confidentiality": "Ba'zi ishlarimiz maxfiylik shartnomalari bilan himoyalangan va ommaviy e'lon qilinmaydi."
   },
   "testimonials": {
     "eyebrow": "Fikrlar",
@@ -150,9 +237,14 @@
     "subtitle": "Biz bilan ishlash tajribasi haqida"
   },
   "tech": {
-    "eyebrow": "Stack",
-    "title": "Ishlatadigan texnologiyalar",
-    "subtitle": "Barqaror, tez va uzoq muddat qo'llab-quvvatlanadigan stack"
+    "eyebrow": "Texnologiya",
+    "title": "Texnologiya va ekspertiza",
+    "subtitle": "Nima yaratishimiz va hal qilishimiz muhim — faqat qaysi vositalarni bilishimiz emas.",
+    "categories": [
+      { "title": "Mobil", "items": ["Flutter", "Android", "iOS"] },
+      { "title": "Backend va API", "items": ["Node.js", "NestJS", "PostgreSQL", "Redis"] },
+      { "title": "Integratsiyalar", "items": ["To'lov tizimlari", "Xarita va lokatsiya", "Push bildirishnomalar", "Analitika", "Autentifikatsiya", "Cloud xizmatlar"] }
+    ]
   },
   "certificates": {
     "eyebrow": "Mijozlarimiz",
@@ -170,8 +262,8 @@
   },
   "contact": {
     "eyebrow": "Bog'lanish",
-    "title": "Loyihangiz haqida gaplashamiz",
-    "subtitle": "Qisqacha yozib qoldiring — 24 soat ichida javob beramiz.",
+    "title": "Loyiha bormi?",
+    "subtitle": "G'oyangizni muhokama qilaylik va to'g'ri texnik yechimni topaylik.",
     "form": {
       "name": "Ismingiz",
       "phone": "Telefon raqamingiz",
@@ -179,7 +271,7 @@
       "namePlaceholder": "Ismingizni kiriting",
       "phonePlaceholder": "90 123 45 67",
       "messagePlaceholder": "Loyihangiz haqida qisqacha...",
-      "submit": "Yuborish",
+      "submit": "Suhbatni boshlash",
       "success": "Xabaringiz qabul qilindi! Tez orada bog'lanamiz.",
       "error": "Yuborilmadi. Qayta urinib ko'ring."
     },
@@ -199,24 +291,24 @@
     }
   },
   "footer": {
-    "tagline": "7+ loyiha. 100% yetkazilgan.",
+    "tagline": "Ishonchli mobil dasturlash hamkoringiz",
     "rights": "Barcha huquqlar himoyalangan.",
     "links": "Havolalar",
-    "cta": "Loyihangizni boshlaymizmi?",
+    "cta": "Ishonchli mobil dasturlash hamkori kerakmi?",
     "navigation": "NAVIGATSIYA",
     "contact": "BOG'LANISH",
-    "contactText": "Vazifangizni ayting — ish vaqtida bir soat ichida javob beramiz.",
-    "ctaButton": "Konsultatsiya olish",
+    "contactText": "Mahsulot, loyiha yoki hamkorlik imkoniyati haqida yozing.",
+    "ctaButton": "Gaplashamiz",
     "privacy": "Maxfiylik",
     "terms": "Shartlar",
     "createdIn": "Toshkentda yaratilgan",
     "telegram": "@muhammadrasultg",
     "phone": "+998 93 361 57 75",
     "email": "turoncore@gmail.com",
-    "solutions": "Yechimlar",
+    "solutions": "Xizmatlar",
     "works": "Ishlarimiz",
-    "fields": "Sohalar",
-    "process": "Jarayon",
+    "fields": "Bizneslar uchun",
+    "process": "IT kompaniyalar",
     "about": "Biz haqimizda"
   },
   "audit": {
@@ -225,26 +317,11 @@
     "subtitle": "Biznesingiz sayti mijozlarni yo'qotyaptimi? Saytingizni tezlik, qulaylik, SEO xatolari va xavfsizlik bo'yicha bepul tahlil qilib beramiz.",
     "cta": "Bepul auditga yozilish",
     "features": [
-      {
-        "title": "Yuklanish tezligi",
-        "desc": "Saytning sekin ishlashi mijozlarni qochiradi. Biz tezlikni tahlil qilamiz."
-      },
-      {
-        "title": "Mobil moslashuvchanlik",
-        "desc": "Telefonlarda sayt to'g'ri ko'rinishi va qulay ishlashini tekshiramiz."
-      },
-      {
-        "title": "SEO va qidiruv tizimlari",
-        "desc": "Google va Yandex qidiruv tizimlarida saytingiz topilishini tahlil qilamiz."
-      },
-      {
-        "title": "UX/UI qulaylik",
-        "desc": "Foydalanuvchilar saytda adashib qolmasligi va oson buyurtma berishini tekshiramiz."
-      },
-      {
-        "title": "Xavfsizlik",
-        "desc": "Sayt xavfsizligi va SSL sertifikati to'g'ri sozlanganligini tekshiramiz."
-      }
+      { "title": "Yuklanish tezligi", "desc": "Saytning sekin ishlashi mijozlarni qochiradi. Biz tezlikni tahlil qilamiz." },
+      { "title": "Mobil moslashuvchanlik", "desc": "Telefonlarda sayt to'g'ri ko'rinishi va qulay ishlashini tekshiramiz." },
+      { "title": "SEO va qidiruv tizimlari", "desc": "Google va Yandex qidiruv tizimlarida saytingiz topilishini tahlil qilamiz." },
+      { "title": "UX/UI qulaylik", "desc": "Foydalanuvchilar saytda adashib qolmasligi va oson buyurtma berishini tekshiramiz." },
+      { "title": "Xavfsizlik", "desc": "Sayt xavfsizligi va SSL sertifikati to'g'ri sozlanganligini tekshiramiz." }
     ],
     "form": {
       "website": "Veb-saytingiz manzili",
@@ -274,5 +351,53 @@
     "privacy": "Sizning ma'lumotlaringiz xavfsiz. Spam yo'q.",
     "success": "Arizangiz muvaffaqiyatli yuborildi! Tez orada bog'lanamiz.",
     "error": "Yuborilmadi. Qayta urinib ko'ring."
+  },
+  "why": {
+    "eyebrow": "Nega biz?",
+    "title": "Nega aynan TuronCore?",
+    "subtitle": "Mobil ekspertiza, tajribali muhandislar va ishonchli jarayon.",
+    "items": [
+      { "num": "01", "title": "Mobilga yo'naltirilgan ekspertiza", "desc": "Mobil dasturlash bizning asosiy yo'nalishlarimizdan biri." },
+      { "num": "02", "title": "Tajribali jamoa", "desc": "Jamoamiz real mahsulotlar ustida ishlash va murakkab dasturlash muammolarini hal qilish tajribasiga ega." },
+      { "num": "03", "title": "Ishonchli jarayon", "desc": "Har bir loyiha tuzilgan va boshqariladigan ishlab chiqish jarayonidan o'tadi." },
+      { "num": "04", "title": "Shaffof muloqot", "desc": "Mijozlar va hamkorlar loyiha davomida xabardor bo'lib turadilar." },
+      { "num": "05", "title": "Sifat standartlari", "desc": "Arxitektura, code review, test va sifat nazorati kabi professional muhandislik amaliyotlariga amal qilamiz." },
+      { "num": "06", "title": "Uzoq muddatli hamkorlik", "desc": "Faqat loyihani topshirib ketmaymiz — uzoq muddatli munosabatlar qurishni maqsad qilamiz." }
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Ko'p so'raladigan savollar",
+    "subtitle": "Biznes egalari va hamkorlarimiz tomonidan eng ko'p beriladigan savollarga javoblar.",
+    "items": [
+      {
+        "q": "Mobil ilova yaratish qancha turadi?",
+        "a": "Narx mahsulot scope, murakkabligi, funksiyalar va texnik talablarga bog'liq. Loyihani tushunganimizdan keyin smeta beramiz."
+      },
+      {
+        "q": "Ishlab chiqish qancha vaqt oladi?",
+        "a": "Vaqt loyiha scope ga bog'liq. Kichik MVP va katta mahsulot turli muddat talab qiladi."
+      },
+      {
+        "q": "Mavjud mobil ilovalar bilan ishlaysizmi?",
+        "a": "Ha. Mavjud ilovalarni yaxshilash, modernizatsiya qilish, qo'llab-quvvatlash, optimallashtirish va rivojlantirishni davom ettiramiz."
+      },
+      {
+        "q": "IT kompaniyalar bilan ishlaysizmi?",
+        "a": "Ha. White-label dasturlash, texnik hamkorlik va dedicated mobil jamoalar orqali IT kompaniyalar bilan ishlaymiz."
+      },
+      {
+        "q": "Mavjud dasturlash jamoamiz bilan ishlashingiz mumkinmi?",
+        "a": "Ha. TuronCore mavjud jamoangiz bilan integratsiyalashib, qo'shimcha mobil dasturlash ekspertizasini taqdim etishi mumkin."
+      },
+      {
+        "q": "Ishga tushgandan keyin qo'llab-quvvatlash bormi?",
+        "a": "Ha, barcha loyihalarimizga kafolatli texnik yordam va post-launch qo'llab-quvvatlash xizmatlarini taqdim etamiz."
+      },
+      {
+        "q": "Hamkorlikni qanday boshlaymiz?",
+        "a": "Kontakt formamiz yoki Telegram orqali yozing. 24 soat ichida bog'lanib, maqsadlaringizni muhokama qilish uchun uchrashuv belgilaymiz."
+      }
+    ]
   }
 }

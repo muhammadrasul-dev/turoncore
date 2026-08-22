@@ -1,0 +1,65 @@
+---
+import type { Translations } from '../i18n/ui';
+import SectionHeading from './ui/SectionHeading.astro';
+import Button from './ui/Button.astro';
+import GeometricBg from './GeometricBg.astro';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="for-businesses" class="section relative overflow-hidden">
+  <GeometricBg grid={true} intensity="soft" />
+
+  <div class="shell relative z-10">
+    <div class="mx-auto max-w-3xl text-center">
+      <SectionHeading
+        eyebrow={t.forBusinesses.eyebrow}
+        title={t.forBusinesses.title}
+        subtitle={t.forBusinesses.subtitle}
+        align="center"
+      />
+    </div>
+
+    <div class="reveal mt-14 md:mt-16" style="--rd:120ms">
+      <p class="text-center text-xs font-semibold uppercase tracking-[0.2em] text-faint">
+        {t.forBusinesses.processLabel}
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-2">
+        {
+          t.forBusinesses.steps.map((step, i) => (
+            <div class="flex items-center gap-2">
+              <span class="surface rounded-full px-4 py-2.5 text-sm font-semibold text-ink md:px-5">
+                {step}
+              </span>
+              {i < t.forBusinesses.steps.length - 1 && (
+                <span class="hidden text-faint md:inline" aria-hidden="true">→</span>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="reveal mt-12 flex justify-center" style="--rd:200ms">
+      <Button href="#contact" variant="primary" size="lg" class="group">
+        {t.forBusinesses.cta}
+        <svg
+          class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h13M13 6l6 6-6 6" />
+        </svg>
+      </Button>
+    </div>
+  </div>
+</section>

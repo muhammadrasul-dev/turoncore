@@ -12,7 +12,7 @@ const { lang, t } = Astro.props;
 
 <div
   id="contact-modal-backdrop"
-  class="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-4 md:p-6 bg-[#05070b]/60 sm:backdrop-blur-md opacity-0 pointer-events-none"
+  class="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-4 md:p-6 bg-ink/45 sm:backdrop-blur-md opacity-0 pointer-events-none"
   role="dialog"
   aria-modal="true"
   aria-labelledby="modal-title"
@@ -154,8 +154,8 @@ const { lang, t } = Astro.props;
               <label for="modal-phone" class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted">
                 {t.modal.formPhone}
               </label>
-              <div class="relative">
-                <div class="pointer-events-none absolute inset-y-0 left-4 z-10 flex items-center gap-2">
+              <label class="field phone-field">
+                <span class="phone-prefix" aria-hidden="true">
                   <svg class="h-3.5 w-5 rounded-[2px] shadow-xs" viewBox="0 0 125 60" fill="none">
                     <rect width="125" height="20" fill="#00a3da"/>
                     <rect y="20" width="125" height="2" fill="#ff4b5a"/>
@@ -163,18 +163,20 @@ const { lang, t } = Astro.props;
                     <rect y="38" width="125" height="2" fill="#ff4b5a"/>
                     <rect y="40" width="125" height="20" fill="#1fc153"/>
                   </svg>
-                  <span class="text-sm font-semibold text-muted">+998</span>
-                  <span class="h-4 w-px bg-hairline/80"></span>
-                </div>
+                  <span>+998</span>
+                  <span class="phone-prefix-line"></span>
+                </span>
                 <input
                   type="tel"
                   id="modal-phone"
                   name="phone"
                   required
+                  autocomplete="tel"
+                  inputmode="numeric"
                   placeholder={t.modal.formPhonePlaceholder}
-                  class="field pl-24"
+                  class="phone-field-input"
                 />
-              </div>
+              </label>
             </div>
 
             <div>
@@ -372,6 +374,13 @@ const { lang, t } = Astro.props;
 
     let successTimer: number | undefined;
     if (form) {
+      const phoneInput = form.querySelector('input[name="phone"]') as HTMLInputElement | null;
+      if (phoneInput) {
+        phoneInput.addEventListener('input', () => {
+          phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 9);
+        }, { signal });
+      }
+
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 

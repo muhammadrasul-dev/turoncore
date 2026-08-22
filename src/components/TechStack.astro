@@ -7,9 +7,6 @@ interface Props {
 }
 
 const { t } = Astro.props;
-
-const rowOne = ['Flutter', 'Dart', 'Swift', 'Kotlin', 'React Native', 'Firebase', 'GraphQL'];
-const rowTwo = ['React', 'TypeScript', 'Astro', 'Node.js', 'PostgreSQL', 'Tailwind CSS', 'Docker', 'Figma'];
 ---
 
 <section id="tech" class="section relative overflow-hidden">
@@ -21,34 +18,22 @@ const rowTwo = ['React', 'TypeScript', 'Astro', 'Node.js', 'PostgreSQL', 'Tailwi
       align="center"
       class="mb-12 md:mb-16"
     />
-  </div>
 
-  <div class="marquee-host edge-fade reveal space-y-4">
-    <div class="marquee-track" style="--speed:52s">
+    <div class="grid gap-8 md:grid-cols-3 md:gap-6">
       {
-        [0, 1].map((set) => (
-          <div class="flex shrink-0 gap-4 pr-4" aria-hidden={set === 1 ? 'true' : undefined}>
-            {rowOne.map((tech) => (
-              <span class="surface flex shrink-0 items-center gap-2.5 rounded-full px-6 py-3.5 text-[0.95rem] font-semibold text-muted transition-colors duration-300 hover:text-accent">
-                <span class="h-1.5 w-1.5 rounded-full bg-accent" />
-                {tech}
-              </span>
-            ))}
-          </div>
-        ))
-      }
-    </div>
-
-    <div class="marquee-track-rev" style="--speed:62s">
-      {
-        [0, 1].map((set) => (
-          <div class="flex shrink-0 gap-4 pr-4" aria-hidden={set === 1 ? 'true' : undefined}>
-            {rowTwo.map((tech) => (
-              <span class="surface flex shrink-0 items-center gap-2.5 rounded-full px-6 py-3.5 text-[0.95rem] font-semibold text-muted transition-colors duration-300 hover:text-accent">
-                <span class="h-1.5 w-1.5 rounded-full bg-accent" />
-                {tech}
-              </span>
-            ))}
+        t.tech.categories.map((category, i) => (
+          <div
+            class="reveal surface border border-hairline/30 p-6 md:p-8"
+            style={`--rd:${i * 100}ms`}
+          >
+            <h3 class="text-sm font-bold uppercase tracking-wider text-accent">{category.title}</h3>
+            <div class="mt-5 flex flex-wrap gap-2">
+              {
+                category.items.map((item) => (
+                  <span class="chip px-3 py-1.5 text-[0.8rem] font-semibold">{item}</span>
+                ))
+              }
+            </div>
           </div>
         ))
       }

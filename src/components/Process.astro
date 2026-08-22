@@ -20,23 +20,23 @@ const { t } = Astro.props;
 
     <div class="relative">
       <div
-        class="pointer-events-none absolute left-0 right-0 top-7 hidden h-px md:block"
-        style="background:linear-gradient(90deg, transparent, var(--c-hairline) 12%, var(--c-hairline) 88%, transparent)"
+        class="pointer-events-none absolute left-0 right-0 top-7 hidden h-px lg:block"
+        style="background:linear-gradient(90deg, transparent, var(--c-hairline) 8%, var(--c-hairline) 92%, transparent)"
         aria-hidden="true"
       >
       </div>
 
-      <ol class="grid gap-12 md:grid-cols-4 md:gap-8">
+      <ol class="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 lg:gap-4">
         {
           t.process.steps.map((step, i) => (
-            <li class="group relative reveal" style={`--rd:${i * 110}ms`}>
-              <div class="flex items-center gap-4 md:block">
+            <li class="group relative reveal" style={`--rd:${i * 80}ms`}>
+              <div class="flex items-center gap-4 lg:block">
                 <span class="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-bg-soft text-lg font-extrabold text-accent shadow-[inset_0_1px_0_var(--sheen),var(--shadow-sm)] transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-accent group-hover:text-accent-ink">
                   <span class="tabular font-display">{String(i + 1).padStart(2, '0')}</span>
                 </span>
-                <h3 class="text-lg font-bold text-ink md:mt-7">{step.title}</h3>
+                <h3 class="text-base font-bold text-ink lg:mt-6">{step.title}</h3>
               </div>
-              <p class="mt-3 text-[0.95rem] leading-relaxed text-muted md:mt-3">
+              <p class="mt-3 text-[0.875rem] leading-relaxed text-muted lg:mt-3">
                 {step.description}
               </p>
             </li>

@@ -113,8 +113,8 @@ const contactItems = [
               <label for="phone" class="mb-2 block text-sm font-medium text-muted">
                 {t.contact.form.phone}
               </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-4 flex items-center gap-2 pointer-events-none z-10">
+              <label class="field phone-field">
+                <span class="phone-prefix" aria-hidden="true">
                   <svg class="h-3.5 w-5 rounded-[2px] shadow-xs" viewBox="0 0 125 60" fill="none">
                     <rect width="125" height="20" fill="#00a3da"/>
                     <rect y="20" width="125" height="2" fill="#ff4b5a"/>
@@ -122,19 +122,20 @@ const contactItems = [
                     <rect y="38" width="125" height="2" fill="#ff4b5a"/>
                     <rect y="40" width="125" height="20" fill="#1fc153"/>
                   </svg>
-                  <span class="text-sm font-semibold text-muted">+998</span>
-                  <span class="h-4 w-px bg-hairline/80"></span>
-                </div>
+                  <span>+998</span>
+                  <span class="phone-prefix-line"></span>
+                </span>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
                   required
                   autocomplete="tel"
+                  inputmode="numeric"
                   placeholder={t.contact.form.phonePlaceholder}
-                  class="field pl-24"
+                  class="phone-field-input"
                 />
-              </div>
+              </label>
             </div>
           </div>
 

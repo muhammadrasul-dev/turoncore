@@ -83,17 +83,17 @@ const organizationSchema = {
     },
     {
       '@type': 'Service',
-      '@id': `${siteUrl}#services`,
+      '@id': `${siteUrl}#what-we-do`,
       name: t.meta.serviceName,
       provider: {
         '@id': `${siteUrl}#organization`,
       },
       areaServed: t.meta.areaServed,
       serviceType: t.meta.serviceTypes,
-      description: t.services.subtitle,
+      description: t.whatWeDo.subtitle,
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: t.services.title,
+        name: t.whatWeDo.title,
         itemListElement: t.meta.serviceTypes.map((service: string) => ({
           '@type': 'Offer',
           itemOffered: {
@@ -117,8 +117,7 @@ const organizationSchema = {
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content="TuronCore" />
     <meta name="application-name" content="TuronCore" />
-    <meta name="theme-color" content="#05070b" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f3f5f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#f3f5f7" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonical.toString()} />
@@ -126,6 +125,18 @@ const organizationSchema = {
     <link rel="alternate" hreflang="x-default" href={defaultLocaleUrl} />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
+
+    <noscript>
+      <style>
+        .reveal, .reveal-scale {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        #page-preloader {
+          display: none !important;
+        }
+      </style>
+    </noscript>
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="TuronCore" />
@@ -145,12 +156,12 @@ const organizationSchema = {
     <script is:inline>
       (function () {
         try {
+          document.documentElement.classList.remove('dark');
+          localStorage.removeItem('theme');
           if (sessionStorage.getItem('tc-ready') === '1') {
             document.documentElement.classList.add('app-ready');
           }
         } catch (e) {}
-        var saved = localStorage.getItem('theme');
-        document.documentElement.classList.toggle('dark', saved ? saved === 'dark' : false);
       })();
     </script>
   </head>
@@ -158,17 +169,15 @@ const organizationSchema = {
     <!-- Premium Layout Preloader Overlay -->
     <div
       id="page-preloader"
-      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#05070b] transition-all duration-[800ms] cubic-bezier(0.16, 1, 0.3, 1)"
+      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-bg transition-all duration-[800ms] cubic-bezier(0.16, 1, 0.3, 1)"
     >
       <div class="relative flex flex-col items-center">
-        <!-- Circular spinner with premium glows -->
         <div class="relative h-14 w-14">
           <div class="absolute inset-0 rounded-full border-t-2 border-r-2 border-accent animate-spin"></div>
           <div class="absolute inset-2 rounded-full border-b-2 border-l-2 border-accent-bright animate-spin" style="animation-direction: reverse; animation-duration: 0.8s"></div>
         </div>
-        <!-- Soft, clean loading text -->
-        <div class="mt-6 font-display text-[0.85rem] font-bold uppercase tracking-[0.2em] text-[#64748b]">
-          Turon<span class="text-white">Core</span>
+        <div class="mt-6 font-display text-[0.85rem] font-bold uppercase tracking-[0.2em] text-muted">
+          Turon<span class="text-ink">Core</span>
         </div>
       </div>
     </div>

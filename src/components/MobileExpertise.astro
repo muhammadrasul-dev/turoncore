@@ -1,0 +1,51 @@
+---
+import type { Translations } from '../i18n/ui';
+import SectionHeading from './ui/SectionHeading.astro';
+import GeometricBg from './GeometricBg.astro';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="mobile-expertise" class="section band feather-top feather-bottom relative overflow-hidden">
+  <GeometricBg grid={false} intensity="soft" />
+
+  <div class="shell relative z-10">
+    <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div>
+        <SectionHeading
+          eyebrow={t.mobileExpertise.eyebrow}
+          title={t.mobileExpertise.title}
+          subtitle={t.mobileExpertise.subtitle}
+        />
+
+        <div class="reveal mt-8 flex flex-wrap gap-2" style="--rd:200ms">
+          {
+            t.mobileExpertise.technologies.map((tech) => (
+              <span class="chip px-4 py-2 text-sm font-semibold">{tech}</span>
+            ))
+          }
+        </div>
+      </div>
+
+      <ul class="grid gap-3 sm:grid-cols-2">
+        {
+          t.mobileExpertise.capabilities.map((cap, i) => (
+            <li
+              class="reveal surface flex items-start gap-3 rounded-2xl border border-hairline/30 p-4 transition-colors duration-300 hover:border-accent/25"
+              style={`--rd:${i * 60}ms`}
+            >
+              <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent text-[10px] font-bold">
+                ✓
+              </span>
+              <span class="text-sm font-medium text-ink leading-snug">{cap}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

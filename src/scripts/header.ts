@@ -1,39 +1,122 @@
 let menuAbort: AbortController | null = null;
 
+type NavMode = 'full' | 'compact';
+
 export function initMobileMenu() {
+  const header = document.getElementById('site-header');
+  const bar = document.getElementById('header-bar');
   const toggle = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-menu');
+  const backdrop = document.getElementById('nav-backdrop');
   const top = document.getElementById('bar-top');
   const mid = document.getElementById('bar-mid');
   const bot = document.getElementById('bar-bot');
 
-  if (!toggle || !menu) return;
+  if (!header || !bar || !toggle || !menu) return;
 
   menuAbort?.abort();
   menuAbort = new AbortController();
   const signal = menuAbort.signal;
 
+  let fitting = false;
+  let fitRaf = 0;
+  let scrollLockedByMenu = false;
+
+  const lockScroll = (lock: boolean) => {
+    if (lock) {
+      scrollLockedByMenu = true;
+      document.documentElement.classList.add('lenis-stopped');
+      document.documentElement.style.overflow = 'hidden';
+      return;
+    }
+
+    if (!scrollLockedByMenu) return;
+    scrollLockedByMenu = false;
+    document.documentElement.classList.remove('lenis-stopped');
+    document.documentElement.style.overflow = '';
+  };
+
   const setState = (open: boolean) => {
     menu.classList.toggle('open', open);
+    menu.setAttribute('aria-hidden', String(!open));
+    header.classList.toggle('is-menu-open', open);
     toggle.setAttribute('aria-expanded', String(open));
+    backdrop?.setAttribute('aria-hidden', String(!open));
     top?.classList.toggle('translate-y-[6px]', open);
     top?.classList.toggle('rotate-45', open);
     mid?.classList.toggle('opacity-0', open);
     bot?.classList.toggle('-translate-y-[6px]', open);
     bot?.classList.toggle('-rotate-45', open);
+    lockScroll(open);
+  };
+
+  const applyMode = (mode: NavMode) => {
+    header.classList.add('nav-ready');
+    header.classList.toggle('nav-mode-full', mode === 'full');
+    header.classList.toggle('nav-mode-compact', mode === 'compact');
+  };
+
+  const fits = () => {
+    const available = window.innerWidth - 24;
+    return bar.scrollWidth <= available;
+  };
+
+  const measureMode = (): NavMode => {
+    if (window.innerWidth < 768) return 'compact';
+
+    applyMode('full');
+    if (fits()) return 'full';
+
+    return 'compact';
+  };
+
+  const scheduleFit = () => {
+    if (fitRaf) return;
+    fitRaf = window.requestAnimationFrame(() => {
+      fitRaf = 0;
+      updateNavFit();
+    });
+  };
+
+  let observer: ResizeObserver;
+
+  const updateNavFit = () => {
+    if (fitting) return;
+    fitting = true;
+    observer.disconnect();
+
+    const next = measureMode();
+    applyMode(next);
+    if (next !== 'compact' && menu.classList.contains('open')) setState(false);
+
+    observer.observe(bar);
+    fitting = false;
   };
 
   toggle.addEventListener('click', () => setState(!menu.classList.contains('open')), { signal });
   menu.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => setState(false), { signal });
   });
+  backdrop?.addEventListener('click', () => setState(false), { signal });
   window.addEventListener(
-    'resize',
-    () => {
-      if (window.innerWidth >= 1024) setState(false);
+    'keydown',
+    (event) => {
+      if (event.key === 'Escape') setState(false);
     },
     { signal }
   );
+  window.addEventListener('resize', scheduleFit, { signal });
+
+  observer = new ResizeObserver(scheduleFit);
+  observer.observe(bar);
+  signal.addEventListener('abort', () => {
+    observer.disconnect();
+    if (fitRaf) window.cancelAnimationFrame(fitRaf);
+    lockScroll(false);
+  });
+
+  setState(false);
+  updateNavFit();
 }
 
 let headerScrollAbort: AbortController | null = null;

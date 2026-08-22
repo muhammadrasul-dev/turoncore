@@ -9,7 +9,7 @@ const { class: className = '', grid = true, intensity = 'normal' } = Astro.props
 const scale = intensity === 'soft' ? 0.55 : 1;
 ---
 
-<div class:list={['mesh', className]} aria-hidden="true">
+<div class:list={['mesh', className]} data-mesh-intensity={intensity} aria-hidden="true">
   <div
     class="orb anim-drift-a"
     style={`top:-18%;left:-10%;width:60vw;height:60vw;max-width:760px;max-height:760px;background:radial-gradient(circle at 40% 40%, color-mix(in oklab, var(--c-accent) ${28 * scale}%, transparent), transparent 68%)`}
@@ -26,6 +26,7 @@ const scale = intensity === 'soft' ? 0.55 : 1;
   >
   </div>
 
+  <div class="cursor-spot" data-cursor-spot></div>
   {grid && <div class="dotgrid"></div>}
   <div class="noise"></div>
 </div>

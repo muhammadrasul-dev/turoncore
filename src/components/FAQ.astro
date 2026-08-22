@@ -1,0 +1,51 @@
+---
+import type { Translations } from '../i18n/ui';
+import SectionHeading from './ui/SectionHeading.astro';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="faq" class="section relative overflow-hidden">
+  <div class="shell relative z-10">
+    <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div>
+        <span class="eyebrow reveal">{t.faq.eyebrow}</span>
+        <h2 class="headline reveal mt-5 text-ink">{t.faq.title}</h2>
+        <p class="lede reveal mt-5 text-muted">{t.faq.subtitle}</p>
+        <div class="reveal mt-8" style="--rd:120ms">
+          <a
+            href="#contact"
+            class="btn btn-soft px-6 py-3 text-sm font-semibold"
+          >
+            {t.footer.ctaButton}
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal flex flex-col divide-y divide-hairline/30" style="--rd:140ms">
+        {
+          t.faq.items.map((item, i) => (
+            <details class="group py-6 transition-all duration-300">
+              <summary class="flex justify-between items-center cursor-pointer font-display text-base font-bold text-ink hover:text-accent select-none list-none [&::-webkit-details-marker]:hidden">
+                <span class="pr-6 leading-normal">{item.q}</span>
+                <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent transition-transform duration-300 group-open:rotate-45">
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-4 text-sm leading-relaxed text-muted max-w-2xl transition-all duration-300">
+                <p>{item.a}</p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

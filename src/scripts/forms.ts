@@ -62,6 +62,13 @@ export function bindLeadForm(
   form.dataset.bound = '1';
   let timer: number | undefined;
 
+  const phoneInput = form.querySelector('input[name="phone"]') as HTMLInputElement | null;
+  if (phoneInput) {
+    phoneInput.addEventListener('input', () => {
+      phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 9);
+    });
+  }
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (!form.checkValidity()) {

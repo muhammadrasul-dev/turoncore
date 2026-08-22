@@ -8,95 +8,68 @@ interface Props {
 }
 
 const { t } = Astro.props;
-
-const metrics = [
-  { value: '5+', label: t.about.stats.projects },
-  { value: '7+', label: t.about.stats.clients },
-  { value: '2+', label: t.about.stats.years },
-];
 ---
 
-<section id="hero" class="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-16 md:pt-32">
-  <GeometricBg />
+<section
+  id="hero"
+  class="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20 md:pt-32 lg:pt-36"
+>
+  <GeometricBg grid={false} />
 
-  <div class="shell relative">
-    <div class="max-w-4xl">
-      <div>
-        <span
-          class="reveal inline-flex items-center gap-2 rounded-full bg-accent-soft px-3.5 py-1.5 text-xs font-semibold tracking-wide text-accent"
-        >
-          <span class="relative flex h-1.5 w-1.5">
-            <span
-              class="absolute inline-flex h-full w-full rounded-full bg-accent"
-              style="animation: pulse-ring 2.4s ease-out infinite"></span>
-            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent"></span>
-          </span>
-          {t.hero.badge}
+  <div class="shell relative z-10 w-full">
+    <div class="mx-auto flex max-w-4xl flex-col items-center text-center">
+      <span
+        class="reveal inline-flex items-center gap-2 rounded-full bg-accent-soft px-3.5 py-1.5 text-xs font-semibold tracking-wide text-accent"
+      >
+        <span class="relative flex h-1.5 w-1.5">
+          <span
+            class="absolute inline-flex h-full w-full rounded-full bg-accent"
+            style="animation: pulse-ring 2.4s ease-out infinite"></span>
+          <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent"></span>
         </span>
+        {t.hero.badge}
+      </span>
 
-        <h1
-          class="display reveal mt-7 text-ink"
-          style="--rd:80ms"
-          data-hero-typewriter
-          data-phrases={JSON.stringify(t.hero.typewriterPhrases)}
-        >
-          {t.hero.title}
-          <span class="block min-h-[1.25em] md:min-h-[1.2em]">
-            <span class="accent-text" data-hero-typewriter-text>{t.hero.titleHighlight}</span><span
-              class="hero-typewriter-cursor inline-block w-[3px] h-[0.9em] bg-accent ml-2.5 align-middle"
-              data-hero-typewriter-cursor></span>
-          </span>
-        </h1>
+      <h1
+        class="display reveal mt-7 text-[clamp(2.35rem,1.05rem+4.2vw,4.25rem)] leading-[1.1] text-ink"
+        style="--rd:80ms"
+      >
+        {t.hero.title}
+        <span class="accent-text block">{t.hero.titleHighlight}</span>
+      </h1>
 
-        <p class="lede reveal mt-7 max-w-2xl" style="--rd:160ms">
-          {t.hero.subtitle}
-        </p>
+      <p class="lede reveal mt-6 max-w-2xl" style="--rd:160ms">
+        {t.hero.subtitle}
+      </p>
 
-        <div class="reveal mt-10 flex flex-wrap items-center gap-3" style="--rd:240ms">
-          <Button href="#contact" variant="primary" size="lg">
-            {t.hero.ctaPrimary}
-            <svg
-              class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M5 12h13M13 6l6 6-6 6"></path>
-            </svg>
-          </Button>
-          <Button href="#audit" variant="soft" size="lg">
-            {t.audit.cta}
-          </Button>
-          <Button href="#services" variant="ghost" size="lg">
-            {t.hero.ctaSecondary}
-          </Button>
-        </div>
-
-        <dl class="reveal mt-14 flex flex-wrap gap-x-12 gap-y-6" style="--rd:320ms">
-          {
-            metrics.map((metric) => (
-              <div>
-                <dt class="tabular font-display text-3xl font-extrabold text-ink md:text-4xl">
-                  {metric.value}
-                </dt>
-                <dd class="mt-1 text-sm text-faint">{metric.label}</dd>
-              </div>
-            ))
-          }
-        </dl>
+      <div class="reveal mt-9 flex flex-wrap items-center justify-center gap-4.5" style="--rd:240ms">
+        <Button href="#for-businesses" variant="primary" size="lg" class="group">
+          {t.hero.ctaPrimary}
+          <svg
+            class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h13M13 6l6 6-6 6"></path>
+          </svg>
+        </Button>
+        <Button href="#for-it-companies" variant="soft" size="lg">
+          {t.hero.ctaSecondary}
+        </Button>
       </div>
     </div>
   </div>
 
   <a
-    href="#services"
+    href="#trust"
     class="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-faint transition-colors duration-300 hover:text-accent md:flex"
-    aria-label="Scroll"
+    aria-label={t.common.scroll}
   >
-    <span class="text-[0.65rem] font-semibold uppercase tracking-[0.22em]">Scroll</span>
+    <span class="text-[0.65rem] font-semibold uppercase tracking-[0.22em]">{t.common.scroll}</span>
     <span class="relative h-9 w-px overflow-hidden bg-hairline">
       <span class="absolute inset-x-0 top-0 h-3 bg-accent" style="animation: scroll-hint 2s ease-in-out infinite"
       ></span>
@@ -105,19 +78,6 @@ const metrics = [
 </section>
 
 <style>
-  @keyframes blink {
-    0%, 49% {
-      opacity: 1;
-    }
-    50%, 100% {
-      opacity: 0;
-    }
-  }
-
-  .hero-typewriter-cursor {
-    animation: blink 1s step-end infinite;
-  }
-
   @keyframes scroll-hint {
     0% {
       transform: translateY(-100%);
@@ -128,91 +88,3 @@ const metrics = [
     }
   }
 </style>
-
-<script>
-  function initHeroTypewriter() {
-    const container = document.querySelector('[data-hero-typewriter]');
-    if (!container) return;
-
-    const textElement = container.querySelector('[data-hero-typewriter-text]') as HTMLElement;
-    const cursor = container.querySelector('[data-hero-typewriter-cursor]') as HTMLElement;
-    
-    if (!textElement || !cursor) return;
-
-    const phrasesAttr = container.getAttribute('data-phrases');
-    if (!phrasesAttr) return;
-    
-    let phrases: string[] = [];
-    try {
-      phrases = JSON.parse(phrasesAttr);
-    } catch (e) {
-      console.error('Failed to parse typewriter phrases:', e);
-      return;
-    }
-
-    if (phrases.length === 0) return;
-
-    let phraseIndex = 0;
-    let charIndex = phrases[0].length; // start with first phrase fully typed
-    let isDeleting = false;
-    let isPaused = false;
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-    function type() {
-      const currentPhrase = phrases[phraseIndex];
-
-      if (!isDeleting) {
-        textElement.textContent = currentPhrase.substring(0, charIndex);
-        charIndex++;
-
-        if (charIndex > currentPhrase.length) {
-          isPaused = true;
-          timeoutId = setTimeout(() => {
-            isPaused = false;
-            isDeleting = true;
-            type();
-          }, 3000); // Wait 3 seconds at the end of the phrase
-          return;
-        }
-      } else {
-        textElement.textContent = currentPhrase.substring(0, charIndex);
-        charIndex--;
-
-        if (charIndex < 0) {
-          isDeleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          charIndex = 0;
-          timeoutId = setTimeout(type, 300); // pause before next phrase
-          return;
-        }
-      }
-
-      const typingSpeed = isDeleting ? 35 : 65;
-      if (!isPaused) {
-        timeoutId = setTimeout(type, typingSpeed);
-      }
-    }
-
-    // Start with slight delay
-    timeoutId = setTimeout(type, 1500);
-
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }
-
-  let cleanupHeroTypewriter: (() => void) | undefined;
-
-  function setup() {
-    if (cleanupHeroTypewriter) cleanupHeroTypewriter();
-    cleanupHeroTypewriter = initHeroTypewriter();
-  }
-
-  // Initial load
-  setup();
-  
-  // Astro view transitions swap event
-  document.addEventListener('astro:after-swap', setup);
-</script>

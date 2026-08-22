@@ -1,6 +1,5 @@
 ---
 import type { Lang, Translations } from '../i18n/ui';
-import { getCollection } from 'astro:content';
 import SectionHeading from './ui/SectionHeading.astro';
 
 interface Props {
@@ -10,13 +9,337 @@ interface Props {
 
 const { lang, t } = Astro.props;
 
-const allProjects = await getCollection('portfolio');
-const projects = allProjects
-  .filter((p) => p.data.locale === lang)
-  .sort((a, b) => a.data.order - b.data.order);
+interface CaseStudy {
+  id: string;
+  title: string;
+  businessPurpose: string;
+  platform: string;
+  resultShort: string;
+  image: string;
+  challenge: string;
+  solution: string;
+  features: string[];
+  metrics: { value: string; label: string }[];
+  stack: string[];
+}
+
+const data: Record<Lang, CaseStudy[]> = {
+  uz: [
+    {
+      id: 'autoteacher',
+      title: 'AvtoTeacher',
+      businessPurpose: 'Avtomaktab o\'quv jarayonini boshqarish va imtihonga tayyorlash platformasi.',
+      platform: 'Mobile (iOS & Android)',
+      resultShort: '10K+ yuklanishlar • 4.9 Reyting',
+      image: '/images/portfolio/autoteacher.png',
+      challenge: 'Avtomaktab o\'quvchilarining nazariy va amaliy mashg\'ulotlarni o\'zlashtirishini masofadan nazorat qilish va davlat imtihonidan o\'tish ko\'rsatkichlarini oshirish.',
+      solution: 'O\'quvchilar uchun interaktiv imtihon simulyatsiyasi va video darslar, o\'qituvchilar uchun esa har bir talabaning o\'zlashtirish ko\'rsatkichlarini tahlil qiluvchi admin panelga ega mobil tizim yaratildi.',
+      features: [
+        'Haqiqiy davlat imtihoni simulyatori (3D savollar integratsiyasi)',
+        'O\'quvchi dars jadvallari va o\'qituvchilar bilan jonli chat',
+        'Offline rejimda ishlovchi darsliklar va videodarslar',
+        'O\'quv markazlari uchun kengaytirilgan tahliliy boshqaruv paneli'
+      ],
+      metrics: [
+        { value: '10K+', label: 'Yuklanishlar' },
+        { value: '92%', label: 'Imtihon topshirish ko\'rsatkichi' },
+        { value: '4.9', label: 'Play Store reytingi' }
+      ],
+      stack: ['Flutter', 'Dart', 'Firebase', 'Node.js', 'PostgreSQL']
+    },
+    {
+      id: 'onefin',
+      title: '1Fin',
+      businessPurpose: 'Tezkor va xavfsiz to\'lovlar, pul o\'tkazmalari va shaxsiy moliya boshqaruvi.',
+      platform: 'Mobile (iOS & Android)',
+      resultShort: '50K+ foydalanuvchilar • 150ms tezlik',
+      image: '/images/portfolio/1fin.png',
+      challenge: 'Mijozlar pul o\'tkazmalari va to\'lovlarni millisekundlar ichida, o\'ta xavfsiz va minimal komissiya bilan amalga oshiradigan fintex infratuzilmasini yaratish.',
+      solution: 'PCI-DSS xavfsizlik standartlariga to\'liq javob beruvchi, biometric identifikatsiya va bank API\'lari bilan integratsiyalashgan yuqori unumdorlikka ega mobil ilova va backend tizimi qurildi.',
+      features: [
+        'Karta-karta (P2P) o\'ta tezkor o\'tkazmalar',
+        'Kommunal, davlat va 200+ xizmatlar uchun to\'lovlar',
+        'FaceID / TouchID va PIN kod himoya tizimi',
+        'Shaxsiy xarajatlar tahlili va byudjet rejalashtiruvchi'
+      ],
+      metrics: [
+        { value: '50K+', label: 'Faol foydalanuvchilar' },
+        { value: '150ms', label: 'Tranzaksiya vaqti' },
+        { value: '99.9%', label: 'Tizim barqarorligi (Uptime)' }
+      ],
+      stack: ['Flutter', 'Kotlin', 'Swift', 'NestJS', 'PostgreSQL', 'Redis']
+    },
+    {
+      id: 'fasgo',
+      title: 'Fasgo',
+      businessPurpose: 'Oziq-ovqat va restoran buyurtmalarini real vaqtda yetkazib berish xizmati.',
+      platform: 'Mobile & Admin Web',
+      resultShort: '15K+ buyurtmalar • 24 daqiqa yetkazish',
+      image: '/images/portfolio/fasgo.png',
+      challenge: 'Restoranlar, kuryerlar va yakuniy mijozlar o\'rtasidagi muloqotni real vaqtda muvofiqlashtirish hamda kuryerlik marshrutlarini optimallashtirish.',
+      solution: 'Web-socket texnologiyasi asosida kuryerlarning joylashuvini jonli ko\'rsatuvchi mijoz ilovasi, kuryer mobil dasturi va restoranlar uchun admin panel loyihalashtirildi.',
+      features: [
+        'GPS orqali kuryer marshrutini jonli xaritada kuzatish',
+        'Aqlli buyurtma taqsimlash algoritmi (Google Maps API)',
+        'Tezkor Push-bildirishnomalar va ovozli ogohlantirishlar',
+        'Kuryer va restoranlar uchun avtomatlashtirilgan hisob-kitoblar'
+      ],
+      metrics: [
+        { value: '15K+', label: 'Muvaffaqiyatli buyurtmalar' },
+        { value: '24 daq', label: 'O\'rtacha yetkazish vaqti' },
+        { value: '18%', label: 'Marshrut xarajatlari qisqarishi' }
+      ],
+      stack: ['React Native', 'Flutter', 'Node.js', 'Socket.io', 'Google Maps API']
+    },
+    {
+      id: 'yubomarket',
+      title: 'YuboMarket',
+      businessPurpose: 'Sotuvchilar va xaridorlar uchun to\'liq e-commerce marketpleys platformasi.',
+      platform: 'Web & Mobile',
+      resultShort: '100K+ oylik trafik • 1.1s yuklanish',
+      image: '/images/portfolio/yubomarket.png',
+      challenge: 'Bir vaqtning o\'zida minglab tovarlar va yuzlab sotuvchilar ishlaydigan, yuklanish tezligi va qidiruv tizimi o\'ta yuqori bo\'lgan barqaror marketpleys yaratish.',
+      solution: 'Server-Side Rendering (SSR) va kuchli kesh boshqaruvi orqali sahifalari soniyadan kam vaqtda yuklanadigan, sotuvchilar uchun alohida savdo boshqaruv portali taqdim etildi.',
+      features: [
+        'Sotuvchilar uchun mukammal do\'kon boshqaruvi (Vendor Portal)',
+        'Aqlli qidiruv va filtrlash (Elasticsearch)',
+        'Mahalliy va xalqaro to\'lov tizimlari (Click, Payme, Visa) integratsiyasi',
+        'Avtomatlashtirilgan kuryerlik va yetkazib berish integratsiyasi'
+      ],
+      metrics: [
+        { value: '100K+', label: 'Oylik tashrif buyuruvchilar' },
+        { value: '1.1s', label: 'Veb-sayt yuklanish vaqti' },
+        { value: '4.2%', label: 'Savdo konversiyasi o\'sishi' }
+      ],
+      stack: ['Next.js', 'TailwindCSS', 'NestJS', 'PostgreSQL', 'Redis', 'Docker']
+    }
+  ],
+  en: [
+    {
+      id: 'autoteacher',
+      title: 'AvtoTeacher',
+      businessPurpose: 'A driving school education management and state exam preparation platform.',
+      platform: 'Mobile (iOS & Android)',
+      resultShort: '10K+ Downloads • 4.9 Rating',
+      image: '/images/portfolio/autoteacher.png',
+      challenge: 'Monitoring driving school students\' theoretical and practical progress remotely and increasing state exam pass rates.',
+      solution: 'A unified mobile system was built featuring interactive exam simulations and video lectures for students, combined with an analytical admin panel for instructors to track student progress.',
+      features: [
+        'Real state exam simulator with interactive 3D question sets',
+        'Student class schedules and live chat with instructors',
+        'Offline-friendly textbooks and integrated video lectures',
+        'Comprehensive analytical dashboard for driving schools'
+      ],
+      metrics: [
+        { value: '10K+', label: 'Total Downloads' },
+        { value: '92%', label: 'Exam Pass Rate' },
+        { value: '4.9', label: 'Play Store Rating' }
+      ],
+      stack: ['Flutter', 'Dart', 'Firebase', 'Node.js', 'PostgreSQL']
+    },
+    {
+      id: 'onefin',
+      title: '1Fin',
+      businessPurpose: 'Fast and secure mobile payments, transfers, and personal finance management.',
+      platform: 'Mobile (iOS & Android)',
+      resultShort: '50K+ Users • 150ms Speed',
+      image: '/images/portfolio/1fin.png',
+      challenge: 'Building a secure fintech infrastructure capable of executing card transfers and payments within milliseconds with minimal commission.',
+      solution: 'A high-performance mobile application and backend architecture were constructed, fully compliant with PCI-DSS security standards, integrating biometrics and banking APIs.',
+      features: [
+        'Ultra-fast Peer-to-Peer (P2P) card transfers',
+        'Integrated payments for utilities, state services, and 200+ providers',
+        'Secure FaceID, TouchID, and PIN code protection',
+        'Personal spending analytics and automated budget planner'
+      ],
+      metrics: [
+        { value: '50K+', label: 'Active Users' },
+        { value: '150ms', label: 'Transaction Time' },
+        { value: '99.9%', label: 'System Uptime' }
+      ],
+      stack: ['Flutter', 'Kotlin', 'Swift', 'NestJS', 'PostgreSQL', 'Redis']
+    },
+    {
+      id: 'fasgo',
+      title: 'Fasgo',
+      businessPurpose: 'Real-time logistics and food delivery platform for restaurants and couriers.',
+      platform: 'Mobile & Admin Web',
+      resultShort: '15K+ Orders • 24 mins Delivery',
+      image: '/images/portfolio/fasgo.png',
+      challenge: 'Coordinating live operations between restaurants, couriers, and end customers, while optimizing routing and delivery dispatch times.',
+      solution: 'A real-time socket-based ecosystem was engineered, featuring a client tracking app, courier mobile app, restaurant panel, and a central administration dispatch dashboard.',
+      features: [
+        'Live courier GPS tracking on interactive maps',
+        'Automated routing algorithms powered by Google Maps API',
+        'Instant push notifications and real-time audio alerts',
+        'Automated automated payouts for couriers and restaurants'
+      ],
+      metrics: [
+        { value: '15K+', label: 'Successful Orders' },
+        { value: '24 min', label: 'Average Delivery Time' },
+        { value: '18%', label: 'Route Cost Reduction' }
+      ],
+      stack: ['React Native', 'Flutter', 'Node.js', 'Socket.io', 'Google Maps API']
+    },
+    {
+      id: 'yubomarket',
+      title: 'YuboMarket',
+      businessPurpose: 'Multi-vendor e-commerce marketplace platform for sellers and buyers.',
+      platform: 'Web & Mobile',
+      resultShort: '100K+ Monthly Traffic • 1.1s Load',
+      image: '/images/portfolio/yubomarket.png',
+      challenge: 'Constructing a highly scalable marketplace hosting thousands of items and hundreds of sellers, without sacrificing search speed or loading performance.',
+      solution: 'Leveraging Server-Side Rendering (SSR) and advanced caching architectures, we delivered an ultra-fast shopping experience and a full vendor merchant dashboard.',
+      features: [
+        'Comprehensive vendor merchant store management panel',
+        'Advanced instant search and granular filtering (Elasticsearch)',
+        'Local and global payment gateways (Click, Payme, Visa) integration',
+        'Automated courier delivery integrations'
+      ],
+      metrics: [
+        { value: '100K+', label: 'Monthly Visitors' },
+        { value: '1.1s', label: 'Website Page Load' },
+        { value: '4.2%', label: 'Conversion Rate Growth' }
+      ],
+      stack: ['Next.js', 'TailwindCSS', 'NestJS', 'PostgreSQL', 'Redis', 'Docker']
+    }
+  ],
+  ru: [
+    {
+      id: 'autoteacher',
+      title: 'AvtoTeacher',
+      businessPurpose: 'Платформа для управления автошколой и подготовки к государственным экзаменам.',
+      platform: 'Mobile (iOS & Android)',
+      resultShort: '10K+ скачиваний • 4.9 Рейтинг',
+      image: '/images/portfolio/autoteacher.png',
+      challenge: 'Удаленный контроль успеваемости теоретических и практических занятий учащихся автошкол и повышение показателей сдачи госаккредитации.',
+      solution: 'Создана единая мобильная система с интерактивными тестами и видеолекциями для учащихся, а также аналитическая панель для инструкторов по успеваемости.',
+      features: [
+        'Симулятор реального экзамена с интеграцией интерактивных 3D вопросов',
+        'Расписание занятий учащихся и живой чат с инструкторами',
+        'Учебники и встроенные видеолекции, работающие в автономном режиме',
+        'Многофункциональная аналитическая панель для администраторов'
+      ],
+      metrics: [
+        { value: '10K+', label: 'Скачиваний' },
+        { value: '92%', label: 'Успешная сдача экзаменов' },
+        { value: '4.9', label: 'Рейтинг в Play Store' }
+      ],
+      stack: ['Flutter', 'Dart', 'Firebase', 'Node.js', 'PostgreSQL']
+    },
+    {
+      id: 'onefin',
+      title: '1Fin',
+      businessPurpose: 'Быстрые платежи, карточные переводы и личное финансовое планирование.',
+      platform: 'Mobile (iOS & Android)',
+      resultShort: '50K+ пользователей • 150мс скорость',
+      image: '/images/portfolio/1fin.png',
+      challenge: 'Создание надежной финтех-инфраструктуры, способной осуществлять карточные переводы и платежи за миллисекунды с минимальной комиссией.',
+      solution: 'Разработано высокопроизводительное мобильное приложение и серверная архитектура, соответствующие стандартам PCI-DSS, с биометрией и API-интеграцией.',
+      features: [
+        'Сверхбыстрые Peer-to-Peer (P2P) переводы между картами',
+        'Оплата коммунальных, госуслуг и интеграция 200+ провайдеров',
+        'Система защиты по FaceID / TouchID и PIN-коду',
+        'Аналитика расходов и автоматический планировщик бюджета'
+      ],
+      metrics: [
+        { value: '50K+', label: 'Активных пользователей' },
+        { value: '150мс', label: 'Время транзакции' },
+        { value: '99.9%', label: 'Стабильность системы (Uptime)' }
+      ],
+      stack: ['Flutter', 'Kotlin', 'Swift', 'NestJS', 'PostgreSQL', 'Redis']
+    },
+    {
+      id: 'fasgo',
+      title: 'Fasgo',
+      businessPurpose: 'Логистика и доставка еды из ресторанов в режиме реального времени.',
+      platform: 'Mobile & Admin Web',
+      resultShort: '15K+ заказов • 24 мин доставка',
+      image: '/images/portfolio/fasgo.png',
+      challenge: 'Координация операций в реальном времени между ресторанами, курьерами и конечными клиентами, а также оптимизация курьерских маршрутов.',
+      solution: 'Спроектирована экосистема на базе Web-socket с отслеживанием курьеров на карте, мобильным приложением для курьеров и панелями для ресторанов.',
+      features: [
+        'Отслеживание курьера по GPS на интерактивной карте вживую',
+        'Алгоритм умного назначения заказов (Google Maps API)',
+        'Мгновенные звуковые и Push-уведомления о заказах',
+        'Автоматические финансовые взаиморасчеты для курьеров и ресторанов'
+      ],
+      metrics: [
+        { value: '15K+', label: 'Успешных заказов' },
+        { value: '24 мин', label: 'Время доставки' },
+        { value: '18%', label: 'Сокращение логистических затрат' }
+      ],
+      stack: ['React Native', 'Flutter', 'Node.js', 'Socket.io', 'Google Maps API']
+    },
+    {
+      id: 'yubomarket',
+      title: 'YuboMarket',
+      businessPurpose: 'Мультиплатформенный e-commerce маркетплейс для продавцов и покупателей.',
+      platform: 'Web & Mobile',
+      resultShort: '100K+ трафик • 1.1с загрузка',
+      image: '/images/portfolio/yubomarket.png',
+      challenge: 'Создание масштабируемого маркетплейса с тысячами товаров и сотнями продавцов без ущерба для скорости поиска и быстродействия страниц.',
+      solution: 'Благодаря рендерингу на стороне сервера (SSR) и системе кэширования Redis, сайт загружается менее чем за секунду. Внедрен полноценный кабинет продавца.',
+      features: [
+        'Многофункциональный личный кабинет продавца (Vendor Portal)',
+        'Быстрый мгновенный поиск с гибкими фильтрами (Elasticsearch)',
+        'Интеграция с местными и международными платежными системами',
+        'Автоматизированная интеграция с курьерскими службами'
+      ],
+      metrics: [
+        { value: '100K+', label: 'Посетителей в месяц' },
+        { value: '1.1с', label: 'Время загрузки сайта' },
+        { value: '4.2%', label: 'Рост торговой конверсии' }
+      ],
+      stack: ['Next.js', 'TailwindCSS', 'NestJS', 'PostgreSQL', 'Redis', 'Docker']
+    }
+  ]
+};
+
+const ctaText = {
+  uz: {
+    details: 'Case Study ko\'rish',
+    close: 'Yopish',
+    challenge: 'Muammo',
+    solution: 'Yechim',
+    features: 'Asosiy imkoniyatlar',
+    result: 'Biznes natija',
+    stack: 'Texnologiyalar',
+    ctaHeading: 'Shunga o\'xshash loyiha kerakmi?',
+    ctaSub: 'Sizning biznesingizga ham mos keladigan maxsus raqamli yechim yaratib beramiz.',
+    ctaButton: 'Loyihani muhokama qilish'
+  },
+  en: {
+    details: 'View Case Study',
+    close: 'Close',
+    challenge: 'Challenge',
+    solution: 'Solution',
+    features: 'Key Features',
+    result: 'Business Result',
+    stack: 'Tech Stack',
+    ctaHeading: 'Need a similar project?',
+    ctaSub: 'We will design and develop a tailored digital solution fitting your exact business needs.',
+    ctaButton: 'Discuss this project'
+  },
+  ru: {
+    details: 'Смотреть Case Study',
+    close: 'Закрыть',
+    challenge: 'Проблема',
+    solution: 'Решение',
+    features: 'Ключевые возможности',
+    result: 'Результат для бизнеса',
+    stack: 'Технологии',
+    ctaHeading: 'Нужен похожий проект?',
+    ctaSub: 'Мы разработаем индивидуальное цифровое решение под точные потребности вашего бизнеса.',
+    ctaButton: 'Обсудить проект'
+  }
+};
+
+const currentStudies = data[lang];
+const tCta = ctaText[lang];
 
 const palettes = [
-  'linear-gradient(135deg, #0f9b7a 0%, #0b3b52 100%)',
+  'linear-gradient(135deg, #0d9b70 0%, #0b3b52 100%)',
   'linear-gradient(135deg, #5b47c9 0%, #131a3a 100%)',
   'linear-gradient(135deg, #c9663f 0%, #2a1630 100%)',
   'linear-gradient(135deg, #1f7fd4 0%, #0b2340 100%)',
@@ -32,104 +355,290 @@ const palettes = [
       class="mb-12 md:mb-16"
     />
 
-    <div class="grid gap-5 md:grid-cols-2 md:gap-6">
+    <div class="grid gap-6 md:grid-cols-2 md:gap-8">
       {
-        projects.map((project, i) => {
-          const Component = project.data.link ? 'a' : 'article';
-          const linkProps = project.data.link
-            ? { href: project.data.link, target: '_blank', rel: 'noopener noreferrer' }
-            : {};
-          return (
-            <Component
-              {...linkProps}
-              class="group surface spot js-spot lift reveal overflow-hidden p-3"
-              style={`--rd:${(i % 2) * 110}ms`}
-            >
+        currentStudies.map((project, i) => (
+          <article
+            class="group surface spot js-spot lift reveal overflow-hidden p-3 flex flex-col justify-between"
+            style={`--rd:${(i % 2) * 110}ms`}
+          >
+            <div>
               <div
-                class="relative aspect-[16/10] overflow-hidden rounded-[calc(var(--r-lg)-0.55rem)]"
+                class="relative aspect-[16/10] overflow-hidden rounded-[calc(var(--r-lg)-0.55rem)] flex items-center justify-center"
                 style={`background:${palettes[i % palettes.length]}`}
               >
-                {project.data.image ? (
-                  <img
-                    src={project.data.image}
-                    alt={project.data.title}
-                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
-                  />
-                ) : (
-                  <div
-                    class="absolute inset-0 opacity-30 transition-transform duration-[1.2s] group-hover:scale-110"
-                    style="background-image:radial-gradient(rgba(255,255,255,.35) 1px, transparent 1px);background-size:22px 22px"
-                    aria-hidden="true"
-                  />
-                )}
-                <div
-                  class="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent"
-                  aria-hidden="true"
-                />
-
+                <!-- Stylized Geometric Vector Representation to act as product preview -->
+                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                
                 <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[0.7rem] font-semibold tracking-wide text-white backdrop-blur-md">
-                  {project.data.category}
+                  {project.platform}
                 </span>
 
                 <span class="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-black/25 px-3 py-1 text-[0.7rem] font-semibold text-white/90 backdrop-blur-md">
-                  <svg class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10 1.8l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.5l5.4-.8L10 1.8z" />
-                  </svg>
-                  5.0
+                  {project.resultShort.split('•')[1] || project.resultShort}
                 </span>
 
-                <span class="absolute bottom-4 left-5 font-display text-[3.5rem] font-extrabold leading-none text-white/15 tabular">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-
-                {project.data.link && (
-                  <span class="absolute bottom-4 right-4 inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-[0.7rem] font-medium text-white backdrop-blur-md transition-all duration-300 group-hover:bg-white/20">
-                    <svg
-                      class="h-3 w-3"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
-                    </svg>
+                <!-- Display structured big visual text rather than heavy broken images -->
+                <div class="z-10 text-center px-6">
+                  <span class="block font-display text-[2.5rem] md:text-[3.2rem] font-black text-white/90 tracking-tight leading-none drop-shadow-md">
+                    {project.title}
                   </span>
-                )}
-              </div>
-
-              <div class="flex items-end justify-between gap-6 px-4 pb-4 pt-6">
-                <div>
-                  <h3 class="text-xl font-bold text-ink transition-colors duration-300 group-hover:text-accent md:text-[1.35rem]">
-                    {project.data.title}
-                  </h3>
-                  <p class="mt-2 max-w-md text-[0.95rem] leading-relaxed text-muted">
-                    {project.data.description}
-                  </p>
+                  <span class="block text-[0.75rem] font-medium text-white/80 tracking-widest uppercase mt-2">
+                    {project.resultShort.split('•')[0]}
+                  </span>
                 </div>
 
-                <span
-                  class="tile h-11 w-11 shrink-0 transition-transform duration-500 group-hover:-rotate-45"
-                  aria-hidden="true"
-                >
-                  <svg
-                    class="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M5 12h13M13 6l6 6-6 6" />
-                  </svg>
+                <span class="absolute bottom-4 left-5 font-display text-[3.5rem] font-extrabold leading-none text-white/10 tabular">
+                  {String(i + 1).padStart(2, '0')}
                 </span>
               </div>
-            </Component>
-          );
-        })
+
+              <div class="px-4 pt-6">
+                <h3 class="text-xl font-bold text-ink transition-colors duration-300 group-hover:text-accent md:text-[1.35rem]">
+                  {project.title}
+                </h3>
+                <p class="mt-2 text-[0.925rem] leading-relaxed text-muted">
+                  {project.businessPurpose}
+                </p>
+              </div>
+            </div>
+
+            <div class="px-4 pb-3 pt-6 flex items-center justify-between border-t border-hairline/20 mt-6">
+              <button
+                type="button"
+                data-open-case={project.id}
+                class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-bright transition-colors cursor-pointer"
+              >
+                {tCta.details}
+                <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h13M13 6l6 6-6 6" />
+                </svg>
+              </button>
+
+              <span class="text-xs font-semibold text-faint uppercase font-mono tracking-wider">
+                {project.stack[0]} + {project.stack[1]}
+              </span>
+            </div>
+          </article>
+        ))
       }
     </div>
+
+    <p class="reveal mt-10 text-center text-sm leading-relaxed text-faint max-w-2xl mx-auto" style="--rd:300ms">
+      {t.portfolio.confidentiality}
+    </p>
   </div>
 </section>
+
+<!-- Premium Interactive Details Drawer/Modal Overlay -->
+<div id="case-study-overlay" class="fixed inset-0 z-[100] flex items-center justify-end bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-500">
+  <div id="case-study-drawer" class="w-full max-w-2xl h-full bg-bg border-l border-hairline shadow-2xl flex flex-col justify-between translate-x-full transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)">
+    <!-- Header -->
+    <div class="p-6 md:p-8 border-b border-hairline flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="h-2.5 w-2.5 rounded-full bg-accent animate-pulse"></span>
+        <h3 id="drawer-title" class="font-display text-2.5xl font-black text-ink">Project Title</h3>
+      </div>
+      <button id="close-drawer" type="button" class="flex h-9 w-9 items-center justify-center rounded-full bg-inset text-muted hover:text-ink hover:bg-inset-2 transition-colors cursor-pointer" aria-label="Close">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 scroll-bar">
+      <!-- Short summary badge -->
+      <div class="p-4.5 rounded-2xl bg-accent-soft/40 border border-accent/15">
+        <span class="block text-[0.65rem] font-bold text-accent uppercase tracking-widest font-mono">Scope & Platform</span>
+        <span id="drawer-platform" class="block text-sm font-semibold text-ink mt-1">Platform details</span>
+      </div>
+
+      <!-- Challenge -->
+      <div class="space-y-3">
+        <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-red-400"></span>
+          {tCta.challenge}
+        </h4>
+        <p id="drawer-challenge" class="text-sm leading-relaxed text-muted">Challenge text</p>
+      </div>
+
+      <!-- Solution -->
+      <div class="space-y-3">
+        <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
+          {tCta.solution}
+        </h4>
+        <p id="drawer-solution" class="text-sm leading-relaxed text-muted">Solution text</p>
+      </div>
+
+      <!-- Key features -->
+      <div class="space-y-3.5">
+        <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-accent-bright"></span>
+          {tCta.features}
+        </h4>
+        <ul id="drawer-features" class="space-y-2.5 pl-0 list-none m-0">
+          <!-- Populated dynamically -->
+        </ul>
+      </div>
+
+      <!-- Metrics / Results -->
+      <div class="space-y-4">
+        <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
+          {tCta.result}
+        </h4>
+        <div id="drawer-metrics" class="grid grid-cols-3 gap-3">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Stack -->
+      <div class="space-y-3.5">
+        <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-faint"></span>
+          {tCta.stack}
+        </h4>
+        <div id="drawer-stack" class="flex flex-wrap gap-2">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="p-6 md:p-8 bg-inset/30 border-t border-hairline flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <h4 class="text-[0.95rem] font-bold text-ink">{tCta.ctaHeading}</h4>
+        <p class="text-xs text-muted mt-1 max-w-sm">{tCta.ctaSub}</p>
+      </div>
+      <button
+        id="drawer-cta"
+        type="button"
+        class="btn btn-primary px-5 py-2.5 text-xs font-bold shrink-0 cursor-pointer"
+      >
+        {tCta.ctaButton}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ currentStudies, tCta }}>
+  function setupPortfolioDrawer() {
+    const overlay = document.getElementById('case-study-overlay');
+    const drawer = document.getElementById('case-study-drawer');
+    const closeBtn = document.getElementById('close-drawer');
+    const openBtns = document.querySelectorAll('[data-open-case]');
+    const ctaBtn = document.getElementById('drawer-cta');
+
+    if (!overlay || !drawer) return;
+
+    let activeProject = null;
+
+    function openDrawer(projectId) {
+      const project = currentStudies.find(p => p.id === projectId);
+      if (!project) return;
+
+      activeProject = project;
+
+      // Populate values
+      document.getElementById('drawer-title').textContent = project.title;
+      document.getElementById('drawer-platform').textContent = project.platform + ' • ' + project.resultShort;
+      document.getElementById('drawer-challenge').textContent = project.challenge;
+      document.getElementById('drawer-solution').textContent = project.solution;
+
+      // Populate features
+      const featuresUl = document.getElementById('drawer-features');
+      featuresUl.innerHTML = '';
+      project.features.forEach(feat => {
+        const li = document.createElement('li');
+        li.className = 'relative pl-6 text-sm text-muted leading-relaxed';
+        li.innerHTML = `<span class="absolute left-0 top-[3px] flex h-4.5 w-4.5 items-center justify-center rounded-full bg-accent/10 text-accent font-bold text-[9px]">✓</span>${feat}`;
+        featuresUl.appendChild(li);
+      });
+
+      // Populate metrics
+      const metricsDiv = document.getElementById('drawer-metrics');
+      metricsDiv.innerHTML = '';
+      project.metrics.forEach(m => {
+        const box = document.createElement('div');
+        box.className = 'rounded-xl bg-inset/40 border border-hairline/25 p-3.5 text-center';
+        box.innerHTML = `
+          <span class="block font-display text-xl md:text-2xl font-black accent-text leading-none">${m.value}</span>
+          <span class="block text-[0.625rem] font-bold text-faint uppercase tracking-wider mt-1.5 leading-tight">${m.label}</span>
+        `;
+        metricsDiv.appendChild(box);
+      });
+
+      // Populate stack
+      const stackDiv = document.getElementById('drawer-stack');
+      stackDiv.innerHTML = '';
+      project.stack.forEach(tech => {
+        const chip = document.createElement('span');
+        chip.className = 'chip text-[0.675rem] px-2.5 py-1 font-semibold';
+        chip.textContent = tech;
+        stackDiv.appendChild(chip);
+      });
+
+      // Show drawer
+      overlay.classList.remove('pointer-events-none');
+      overlay.classList.add('opacity-100');
+      drawer.classList.remove('translate-x-full');
+      document.documentElement.classList.add('lenis-stopped');
+    }
+
+    function closeDrawer() {
+      overlay.classList.remove('opacity-100');
+      overlay.classList.add('pointer-events-none');
+      drawer.classList.add('translate-x-full');
+      document.documentElement.classList.remove('lenis-stopped');
+      activeProject = null;
+    }
+
+    openBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = btn.getAttribute('data-open-case');
+        if (id) openDrawer(id);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeDrawer();
+    });
+
+    // ESC key closes drawer
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+
+    ctaBtn.addEventListener('click', () => {
+      closeDrawer();
+      setTimeout(() => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+          
+          // Populate form field if it exists
+          const messageField = document.querySelector('textarea[name="message"]') || document.getElementById('contact-message');
+          if (messageField && activeProject) {
+            const autofill = {
+              uz: `Men "${activeProject.title}" loyihangizga o'xshash mahsulot yaratmoqchiman.`,
+              en: `I am interested in building a product similar to your "${activeProject.title}" project.`,
+              ru: `Я хотел бы создать продукт, похожий на ваш проект "${activeProject.title}".`
+            };
+            const currentLang = document.documentElement.lang || 'uz';
+            messageField.value = autofill[currentLang] || autofill.uz;
+          }
+        }
+      }, 550);
+    });
+  }
+
+  // Setup on page load
+  setupPortfolioDrawer();
+
+  // Handle Astro swap event (View transitions)
+  document.addEventListener('astro:after-swap', setupPortfolioDrawer);
+</script>

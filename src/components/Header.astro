@@ -1,7 +1,6 @@
 ---
 import type { Lang, Translations } from '../i18n/ui';
 import LangSwitcher from './LangSwitcher.astro';
-import ThemeToggle from './ThemeToggle.astro';
 import Logo from './ui/Logo.astro';
 
 interface Props {
@@ -12,31 +11,30 @@ interface Props {
 const { lang, t } = Astro.props;
 
 const navItems = [
-  { href: '#services', label: t.nav.services },
-  { href: '#about', label: t.nav.about },
-  { href: '#process', label: t.nav.process },
-  { href: '#portfolio', label: t.nav.portfolio },
-  { href: '#tech', label: t.nav.tech },
+  { href: '#what-we-do', label: t.nav.services },
+  { href: '#portfolio', label: t.nav.ourWork },
+  { href: '#why', label: t.nav.about },
+  { href: '#contact', label: t.nav.contact },
 ];
 ---
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-50 pt-3 md:pt-5 transition-all duration-500">
-  <div class="shell">
+  <div class="header-shell relative mx-auto w-fit max-w-[calc(100%-1.5rem)] px-0">
     <div
       id="header-bar"
-      class="relative flex items-center justify-between gap-4 rounded-full px-4 py-2.5 md:px-5 md:py-3 transition-all duration-500"
+      class="relative z-20 flex w-fit flex-nowrap items-center gap-2 rounded-full px-3 py-2 md:gap-4 md:px-4 md:py-2.5 transition-all duration-500"
     >
       <a href={`/${lang}/`} class="group flex shrink-0 items-center" aria-label="TuronCore">
         <Logo class="transition-transform duration-500 group-hover:scale-[1.03]" />
       </a>
 
-      <nav class="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
+      <nav id="primary-nav" class="min-w-0 flex-nowrap items-center justify-center gap-1" aria-label="Primary">
         {
           navItems.map((item) => (
             <a
               href={item.href}
               data-navlink={item.href}
-              class="relative rounded-full px-3 py-2 text-[0.8rem] font-medium text-muted transition-colors duration-300 hover:text-ink whitespace-nowrap"
+              class="relative shrink-0 rounded-full px-3 py-2 text-sm font-medium text-muted transition-colors duration-300 hover:text-ink whitespace-nowrap md:px-3.5 md:text-[0.95rem] xl:px-4"
             >
               <span class="relative z-10">{item.label}</span>
               <span
@@ -48,21 +46,13 @@ const navItems = [
         }
       </nav>
 
-      <div class="flex items-center gap-2">
+      <div class="flex shrink-0 items-center gap-2">
         <LangSwitcher lang={lang} />
-        <ThemeToggle />
-
-        <a
-          href="#contact"
-          class="btn btn-primary hidden px-5 py-2.5 text-sm md:inline-flex"
-        >
-          {t.nav.contact}
-        </a>
 
         <button
           id="mobile-menu-toggle"
           type="button"
-          class="flex h-9 w-9 items-center justify-center rounded-full bg-inset text-ink transition-colors duration-300 lg:hidden"
+          class="header-toggle flex h-9 w-9 items-center justify-center rounded-full bg-inset text-ink transition-colors duration-300"
           aria-label="Menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -85,44 +75,42 @@ const navItems = [
       </div>
     </div>
 
-    <nav
-      id="mobile-menu"
-      class="surface mt-2 grid grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-500 lg:hidden"
-      style="--rd:0ms"
-      aria-label="Mobile"
-    >
-      <div class="min-h-0">
-        <div class="flex flex-col gap-1 p-3">
-          {
-            [...navItems, { href: '#contact', label: t.nav.contact }].map((item) => (
-              <a
-                href={item.href}
-                class="rounded-2xl px-4 py-3 text-[0.95rem] font-medium text-muted transition-colors duration-300 hover:bg-accent-soft hover:text-accent"
-              >
-                {item.label}
-              </a>
-            ))
-          }
+    <nav id="mobile-menu" class="nav-panel" aria-label="Menu" aria-hidden="true">
+      <div class="nav-panel-inner">
+        {
+          navItems.map((item, index) => (
+            <a href={item.href} class="nav-panel-link" style={`--i: ${index}`}>
+              {item.label}
+            </a>
+          ))
+        }
+        <div class="nav-panel-foot" style={`--i: ${navItems.length}`}>
+          <a href="#contact" class="btn btn-primary nav-panel-cta">
+            {t.nav.startProject}
+          </a>
         </div>
       </div>
     </nav>
   </div>
+
+  <div id="nav-backdrop" class="nav-backdrop" aria-hidden="true"></div>
 </header>
 
 <style>
   #header-bar {
-    box-shadow: none;
-    background: transparent;
-    backdrop-filter: none;
-  }
-
-  :global(#site-header.scrolled) #header-bar {
     background: var(--c-surface);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     box-shadow:
       inset 0 1px 0 var(--sheen),
       var(--shadow-sm);
+  }
+
+  :global(#site-header.scrolled) #header-bar,
+  :global(#site-header.is-menu-open) #header-bar {
+    box-shadow:
+      inset 0 1px 0 var(--sheen),
+      var(--shadow-md);
   }
 
   :global(a[data-navlink].active) {
@@ -133,20 +121,137 @@ const navItems = [
     opacity: 1;
   }
 
-  #mobile-menu:not(.open) {
-    opacity: 0;
-    background: transparent;
-    box-shadow: none;
-    pointer-events: none;
+  #primary-nav {
+    display: none;
   }
 
-  #mobile-menu {
+  .header-toggle {
+    display: flex;
+  }
+
+  @media (min-width: 1024px) {
+    #primary-nav {
+      display: flex;
+    }
+
+    .header-toggle {
+      display: none;
+    }
+  }
+
+  :global(#site-header.nav-ready.nav-mode-full) #primary-nav {
+    display: flex;
+  }
+
+  :global(#site-header.nav-ready.nav-mode-full) .header-toggle,
+  :global(#site-header.nav-ready.nav-mode-compact) #primary-nav {
+    display: none;
+  }
+
+  :global(#site-header.nav-ready.nav-mode-compact) .header-toggle {
+    display: flex;
+  }
+
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: rgba(8, 19, 31, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  :global(#site-header.is-menu-open) .nav-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-panel {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: flex-end;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px) scale(0.98);
+    transform-origin: top right;
     transition:
-      grid-template-rows 0.5s var(--ease),
-      opacity 0.35s var(--ease);
+      opacity 0.28s var(--ease),
+      transform 0.32s var(--ease),
+      visibility 0s linear 0.3s;
   }
 
   :global(#mobile-menu.open) {
-    grid-template-rows: 1fr;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition:
+      opacity 0.28s var(--ease),
+      transform 0.32s var(--ease),
+      visibility 0s;
+  }
+
+  .nav-panel-inner {
+    width: min(20.5rem, calc(100vw - 1.5rem));
+    padding: 0.45rem;
+    border-radius: var(--r-lg);
+    background: var(--c-surface-2);
+    box-shadow:
+      inset 0 1px 0 var(--sheen),
+      var(--shadow-md);
+  }
+
+  .nav-panel-link {
+    display: block;
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--c-muted);
+    transition:
+      background 0.25s var(--ease),
+      color 0.25s var(--ease);
+  }
+
+  .nav-panel-link:hover {
+    background: var(--c-accent-soft);
+    color: var(--c-accent);
+  }
+
+  .nav-panel-cta {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-panel-foot {
+    margin-top: 0.25rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--c-hairline);
+  }
+
+  :global(#mobile-menu.open) .nav-panel-link,
+  :global(#mobile-menu.open) .nav-panel-foot {
+    animation: nav-item-in 0.42s var(--ease) both;
+    animation-delay: calc(var(--i, 0) * 45ms + 50ms);
+  }
+
+  @keyframes nav-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 </style>

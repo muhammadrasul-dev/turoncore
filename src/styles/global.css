@@ -2,10 +2,8 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/manrope";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 /* ==========================================================================
-   Design tokens
+   Design tokens — single light palette
    ========================================================================== */
 
 :root {
@@ -38,31 +36,6 @@
   --r-xl: 34px;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.dark {
-  color-scheme: dark;
-
-  --c-bg: #05070b;
-  --c-bg-soft: #090c12;
-  --c-surface: rgba(255, 255, 255, 0.035);
-  --c-surface-2: rgba(255, 255, 255, 0.065);
-  --c-inset: rgba(255, 255, 255, 0.07);
-  --c-inset-2: rgba(255, 255, 255, 0.11);
-  --c-text: #edf2f6;
-  --c-muted: #98a7b6;
-  --c-faint: #616f7d;
-  --c-accent: #2fe0a4;
-  --c-accent-bright: #66f2c4;
-  --c-accent-ink: #04150f;
-  --c-accent-soft: rgba(47, 224, 164, 0.1);
-  --c-glow: rgba(47, 224, 164, 0.2);
-  --c-hairline: rgba(255, 255, 255, 0.07);
-
-  --sheen: rgba(255, 255, 255, 0.08);
-  --shadow-sm: 0 10px 28px -16px rgba(0, 0, 0, 0.7);
-  --shadow-md: 0 28px 56px -22px rgba(0, 0, 0, 0.8);
-  --shadow-lg: 0 56px 110px -40px rgba(0, 0, 0, 0.9);
 }
 
 @theme {
@@ -212,10 +185,6 @@ p {
 /* Soft tonal band used instead of section borders */
 .band {
   background: var(--c-bg-soft);
-}
-
-.dark .band {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.022), rgba(255, 255, 255, 0.008));
 }
 
 /* Feathered separator — replaces hard 1px rules */
@@ -475,12 +444,53 @@ p {
   color: var(--c-faint);
 }
 
-.field:focus {
+.field:focus,
+.field:focus-within {
   outline: none;
   background: var(--c-inset-2);
   box-shadow:
     inset 0 1px 0 var(--sheen),
     0 0 0 2px var(--c-accent);
+}
+
+/* Phone field: prefix sits beside the input so +998 never overlaps the placeholder */
+.phone-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: text;
+}
+
+.phone-prefix {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  color: var(--c-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.phone-prefix-line {
+  width: 1px;
+  height: 1rem;
+  background: var(--c-hairline);
+}
+
+.phone-field-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+
+.phone-field-input::placeholder {
+  color: var(--c-faint);
 }
 
 /* ==========================================================================
@@ -519,6 +529,35 @@ p {
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+.cursor-spot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36rem;
+  height: 36rem;
+  margin-left: -18rem;
+  margin-top: -18rem;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--c-accent) 26%, transparent),
+    transparent 68%
+  );
+  opacity: 0.72;
+  will-change: transform;
+  transform: translate3d(28vw, 22vh, 0);
+}
+
+.mesh[data-mesh-intensity="normal"] .cursor-spot {
+  width: 46rem;
+  height: 46rem;
+  margin-left: -23rem;
+  margin-top: -23rem;
+  opacity: 0.92;
+}
+
 
 .edge-fade {
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
