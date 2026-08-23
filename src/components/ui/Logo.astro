@@ -1,15 +1,78 @@
 ---
 interface Props {
   class?: string;
+  /** Surface behind the logo. auto follows html.dark or a parent .on-dark */
+  on?: 'light' | 'dark' | 'auto';
 }
 
-const { class: className = '' } = Astro.props;
+const { class: className = '', on = 'light' } = Astro.props;
+const showLight = on !== 'dark';
+const showDark = on !== 'light';
 ---
 
-<div class:list={['inline-flex items-center', className]}>
-  <img
-    src="/logos/logo-light-bg.png"
-    alt="TuronCore"
-    class="h-8 w-auto object-contain md:h-9"
-  />
-</div>
+<span class:list={['tc-logo inline-flex shrink-0 items-center', className]} data-on={on}>
+  {
+    showLight && (
+      <img
+        class="tc-logo-img tc-logo-on-light"
+        src="/logos/logo-light-bg.png"
+        alt="TuronCore"
+        width="1043"
+        height="225"
+        decoding="async"
+      />
+    )
+  }
+  {
+    showDark && (
+      <img
+        class="tc-logo-img tc-logo-on-dark"
+        src="/logos/logo-dark-bg.png"
+        alt={showLight ? '' : 'TuronCore'}
+        width="759"
+        height="164"
+        decoding="async"
+        aria-hidden={showLight ? 'true' : undefined}
+      />
+    )
+  }
+</span>
+
+<style>
+  .tc-logo-img {
+    height: 2rem;
+    width: auto;
+    max-width: none;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  @media (min-width: 768px) {
+    .tc-logo-img {
+      height: 2.25rem;
+    }
+  }
+
+  .tc-logo-on-dark {
+    display: none;
+  }
+
+  .tc-logo[data-on='dark'] .tc-logo-on-light {
+    display: none;
+  }
+
+  .tc-logo[data-on='dark'] .tc-logo-on-dark {
+    display: block;
+  }
+
+  :global(html.dark) .tc-logo[data-on='auto'] .tc-logo-on-light,
+  :global(.on-dark) .tc-logo[data-on='auto'] .tc-logo-on-light {
+    display: none;
+  }
+
+  :global(html.dark) .tc-logo[data-on='auto'] .tc-logo-on-dark,
+  :global(.on-dark) .tc-logo[data-on='auto'] .tc-logo-on-dark {
+    display: block;
+  }
+</style>

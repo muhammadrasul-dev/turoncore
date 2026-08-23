@@ -1,0 +1,17 @@
+---
+interface Props {
+  class?: string;
+  alt?: string;
+}
+
+const { class: className = 'h-8 w-8', alt = 'TuronCore' } = Astro.props;
+---
+
+<img
+  src="/logos/icon.png"
+  alt={alt}
+  width="688"
+  height="688"
+  decoding="async"
+  class:list={['object-contain', className]}
+/>
