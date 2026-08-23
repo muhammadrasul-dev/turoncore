@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { languages } from '../i18n/ui';
+import { getLocalizedPath, languages } from '../i18n/ui';
 
 const hrefLangMap = {
   uz: 'uz-UZ',
@@ -21,8 +21,10 @@ export const GET: APIRoute = ({ site }) => {
   const localizedUrls = languages.map(({ code }) => ({
     code,
     hrefLang: hrefLangMap[code],
-    url: new URL(`/${code}/`, baseUrl).toString(),
+    url: new URL(getLocalizedPath('/', code), baseUrl).toString(),
   }));
+
+  const defaultUrl = localizedUrls.find((item) => item.code === 'uz')?.url ?? new URL('/', baseUrl).toString();
 
   const alternateLinks = localizedUrls
     .map(
@@ -37,7 +39,7 @@ export const GET: APIRoute = ({ site }) => {
   <url>
     <loc>${escapeXml(url)}</loc>
     ${alternateLinks}
-    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(new URL('/uz/', baseUrl).toString())}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(defaultUrl)}" />
   </url>`
     )
     .join('');

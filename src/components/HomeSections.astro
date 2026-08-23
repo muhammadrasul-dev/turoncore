@@ -1,0 +1,35 @@
+---
+import Hero from './Hero.astro';
+import ClientLogos from './ClientLogos.astro';
+import WhatWeDo from './WhatWeDo.astro';
+import MobileExpertise from './MobileExpertise.astro';
+import ForBusinesses from './ForBusinesses.astro';
+import ForITCompanies from './ForITCompanies.astro';
+import WhyTuronCore from './WhyTuronCore.astro';
+import Process from './Process.astro';
+import Portfolio from './Portfolio.astro';
+import TechStack from './TechStack.astro';
+import FAQ from './FAQ.astro';
+import Contact from './Contact.astro';
+import type { Lang, Translations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+---
+
+<Hero t={t} />
+<ClientLogos t={t} />
+<WhatWeDo t={t} />
+<MobileExpertise t={t} />
+<ForBusinesses t={t} />
+<ForITCompanies t={t} />
+<WhyTuronCore t={t} />
+<Process t={t} />
+<Portfolio lang={lang} t={t} />
+<TechStack t={t} />
+<FAQ t={t} />
+<Contact t={t} />

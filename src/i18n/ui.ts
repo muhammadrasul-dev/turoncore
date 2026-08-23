@@ -24,7 +24,17 @@ export function getLangFromUrl(url: URL): Lang {
   return 'uz';
 }
 
+export function getHomePath(lang: Lang): string {
+  return lang === 'uz' ? '/' : `/${lang}/`;
+}
+
 export function getLocalizedPath(path: string, lang: Lang): string {
-  const cleanPath = path.replace(/^\/(uz|ru|en)/, '') || '/';
-  return `/${lang}${cleanPath === '/' ? '/' : cleanPath}`;
+  const cleanPath = path.replace(/^\/(uz|ru|en)(?=\/|$)/, '') || '/';
+  const normalized = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+
+  if (lang === 'uz') {
+    return normalized === '/' ? '/' : normalized;
+  }
+
+  return `/${lang}${normalized === '/' ? '/' : normalized}`;
 }

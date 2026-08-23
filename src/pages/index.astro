@@ -1,3 +1,12 @@
 ---
-return Astro.redirect('/uz/', 302);
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeSections from '../components/HomeSections.astro';
+import { getTranslations } from '../i18n/ui';
+
+const lang = 'uz';
+const t = getTranslations(lang);
 ---
+
+<BaseLayout lang={lang} t={t}>
+  <HomeSections lang={lang} t={t} />
+</BaseLayout>

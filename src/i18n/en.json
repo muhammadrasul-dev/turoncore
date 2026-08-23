@@ -230,6 +230,7 @@
     "title": "Projects we've built",
     "subtitle": "Real products with measurable results across fintech, logistics, education, and e-commerce",
     "comingSoon": "Coming Soon",
+    "inProcess": "In process",
     "confidentiality": "Some of our work is protected by confidentiality agreements and cannot be publicly disclosed."
   },
   "testimonials": {
@@ -381,7 +382,8 @@
     "submit": "Start a conversation",
     "privacy": "Your information is kept confidential.",
     "success": "Your message has been received. We'll get back to you soon.",
-    "error": "Could not send. Please try again."
+    "error": "Could not send. Please try again.",
+    "close": "Close"
   },
   "why": {
     "eyebrow": "Why Us?",
@@ -403,11 +405,11 @@
     "items": [
       {
         "q": "How much does it cost to build a mobile app?",
-        "a": "The cost depends on the product's scope, complexity, features, and technical requirements. We provide an estimate after understanding the project."
+        "a": "The price mainly depends on the size of the project. We build the mobile app itself starting from 25 million UZS. We give an exact estimate after reviewing the project."
       },
       {
         "q": "How long does development take?",
-        "a": "The timeline depends on the project scope. A smaller MVP and a large-scale product require different development timelines."
+        "a": "The timeline depends on the size of the project. On average, an MVP is ready in 4–6 weeks."
       },
       {
         "q": "Do you work with existing mobile applications?",

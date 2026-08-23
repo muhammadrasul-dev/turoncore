@@ -1,26 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/Hero.astro';
-import ClientLogos from '../../components/ClientLogos.astro';
-import WhatWeDo from '../../components/WhatWeDo.astro';
-import MobileExpertise from '../../components/MobileExpertise.astro';
-import ForBusinesses from '../../components/ForBusinesses.astro';
-import ForITCompanies from '../../components/ForITCompanies.astro';
-import WhyTuronCore from '../../components/WhyTuronCore.astro';
-import Process from '../../components/Process.astro';
-import Portfolio from '../../components/Portfolio.astro';
-import TechStack from '../../components/TechStack.astro';
-import Testimonials from '../../components/Testimonials.astro';
-import FAQ from '../../components/FAQ.astro';
-import Contact from '../../components/Contact.astro';
+import HomeSections from '../../components/HomeSections.astro';
 import { getTranslations, type Lang } from '../../i18n/ui';
 
 export function getStaticPaths() {
-  return [
-    { params: { lang: 'uz' } },
-    { params: { lang: 'ru' } },
-    { params: { lang: 'en' } },
-  ];
+  return [{ params: { lang: 'ru' } }, { params: { lang: 'en' } }];
 }
 
 const { lang } = Astro.params as { lang: Lang };
@@ -28,17 +12,5 @@ const t = getTranslations(lang);
 ---
 
 <BaseLayout lang={lang} t={t}>
-  <Hero t={t} />
-  <ClientLogos t={t} />
-  <WhatWeDo t={t} />
-  <MobileExpertise t={t} />
-  <ForBusinesses t={t} />
-  <ForITCompanies t={t} />
-  <WhyTuronCore t={t} />
-  <Process t={t} />
-  <Portfolio lang={lang} t={t} />
-  <TechStack t={t} />
-  <Testimonials lang={lang} t={t} />
-  <FAQ t={t} />
-  <Contact t={t} />
+  <HomeSections lang={lang} t={t} />
 </BaseLayout>

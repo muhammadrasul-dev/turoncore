@@ -230,6 +230,7 @@
     "title": "Yaratgan loyihalarimiz",
     "subtitle": "Fintex, logistika, ta'lim va e-commerce sohalarida o'lchanadigan natijalar",
     "comingSoon": "Tez orada",
+    "inProcess": "Jarayonda",
     "confidentiality": "Ba'zi ishlarimiz maxfiylik shartnomalari bilan himoyalangan va ommaviy e'lon qilinmaydi."
   },
   "testimonials": {
@@ -273,7 +274,7 @@
       "interestOptions": [
         "Mobil mahsulot ishlab chiqish",
         "Mobil dasturlash hamkorligi",
-        "Dedicated mobil jamoa",
+        "Ajratilgan mobil jamoa",
         "Web va qo'llab-quvvatlovchi tizimlar",
         "Mahsulot discovery va konsalting",
         "Hali aniq emas"
@@ -348,7 +349,7 @@
     "eyebrow": "Bog'lanish",
     "title": "Keling, gaplashamiz 👋",
     "subtitle": "Loyiha, hamkorlik yoki texnik ehtiyojingiz haqida yozing. Jamoamiz siz bilan bog'lanib, eng to'g'ri yechimni birgalikda ko'rib chiqadi.",
-    "positioning": "Mobile Development Partner",
+    "positioning": "Mobil dasturlash hamkori",
     "telegramBtn": "Telegramda yozish",
     "callBtn": "Qo'ng'iroq qilish",
     "orLeaveRequest": "Yoki tezkor murojaat qoldiring",
@@ -360,9 +361,9 @@
     "formInterestPlaceholder": "Yo'nalishni tanlang...",
     "formInterestOptions": [
       { "value": "Mobile App Development", "label": "Mobil ilova ishlab chiqish" },
-      { "value": "Web Development", "label": "Web development" },
+      { "value": "Web Development", "label": "Veb-dasturlash" },
       { "value": "Existing Product Development", "label": "Mavjud mahsulotni rivojlantirish" },
-      { "value": "Dedicated Mobile Team", "label": "Dedicated Mobile Team" },
+      { "value": "Dedicated Mobile Team", "label": "Ajratilgan mobil jamoa" },
       { "value": "B2B Partnership", "label": "B2B hamkorlik" },
       { "value": "Technical Consulting", "label": "Texnik konsultatsiya" },
       { "value": "Other", "label": "Boshqa" }
@@ -372,7 +373,8 @@
     "submit": "Suhbatni boshlash",
     "privacy": "Ma'lumotlaringiz maxfiy saqlanadi.",
     "success": "Xabaringiz qabul qilindi. Tez orada bog'lanamiz.",
-    "error": "Yuborilmadi. Qayta urinib ko'ring."
+    "error": "Yuborilmadi. Qayta urinib ko'ring.",
+    "close": "Yopish"
   },
   "why": {
     "eyebrow": "Nega biz?",
@@ -394,11 +396,11 @@
     "items": [
       {
         "q": "Mobil ilova yaratish qancha turadi?",
-        "a": "Narx mahsulot scope, murakkabligi, funksiyalar va texnik talablarga bog'liq. Loyihani tushunganimizdan keyin smeta beramiz."
+        "a": "Narx asosan loyihaning katta-kichikligiga bog'liq. Mobil ilovaning o'zini 25 million so'mdan boshlab yaratib beramiz. Aniq smetani loyihani ko'rib chiqqach beramiz."
       },
       {
         "q": "Ishlab chiqish qancha vaqt oladi?",
-        "a": "Vaqt loyiha scope ga bog'liq. Kichik MVP va katta mahsulot turli muddat talab qiladi."
+        "a": "Muddat loyihaning katta-kichikligiga bog'liq. O'rtacha 4–6 haftada MVP tayyor bo'ladi."
       },
       {
         "q": "Mavjud mobil ilovalar bilan ishlaysizmi?",

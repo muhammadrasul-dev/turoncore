@@ -3,6 +3,7 @@ import { initReveal } from './reveal.ts';
 import { initSpotlight } from './spotlight.ts';
 import { initCounters } from './counter.ts';
 import { bindLeadForm } from './forms.ts';
+import { initContactModal } from './modal.ts';
 
 let floatingAbort: AbortController | null = null;
 
@@ -202,6 +203,7 @@ export function bindPage() {
   initCounters();
   bindForms();
   bindFloatingContact();
+  initContactModal();
 
   const lenis = (window as unknown as { lenis?: { resize?: () => void } }).lenis;
   lenis?.resize?.();

@@ -1,5 +1,5 @@
 ---
-import type { Lang, Translations } from '../i18n/ui';
+import { getHomePath, type Lang, type Translations } from '../i18n/ui';
 import LangSwitcher from './LangSwitcher.astro';
 import Logo from './ui/Logo.astro';
 
@@ -24,7 +24,7 @@ const navItems = [
       id="header-bar"
       class="relative z-20 flex w-fit flex-nowrap items-center gap-2 rounded-full px-3 py-2 md:gap-4 md:px-4 md:py-2.5 transition-all duration-500"
     >
-      <a href={`/${lang}/`} class="group flex shrink-0 items-center" aria-label="TuronCore">
+      <a href={getHomePath(lang)} class="group flex shrink-0 items-center" aria-label="TuronCore">
         <Logo class="transition-transform duration-500 group-hover:scale-[1.03]" />
       </a>
 

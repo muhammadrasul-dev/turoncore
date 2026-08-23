@@ -1,4 +1,5 @@
 import { bindPage } from './page.ts';
+import { destroyContactModal } from './modal.ts';
 
 const pageCache = new Map<string, string>();
 const inflight = new Map<string, Promise<string>>();
@@ -80,7 +81,14 @@ function closeAllLangMenus() {
   });
 }
 
+function langFromPath(pathname: string) {
+  const first = pathname.split('/').filter(Boolean)[0];
+  if (first === 'ru' || first === 'en') return first;
+  return 'uz';
+}
+
 function applyPageHtml(html: string, href: string, pushHistory: boolean) {
+  destroyContactModal();
   const doc = new DOMParser().parseFromString(html, 'text/html');
   document.documentElement.classList.add('lang-swapping');
 
@@ -89,6 +97,7 @@ function applyPageHtml(html: string, href: string, pushHistory: boolean) {
   swapSection(document.getElementById('main'), doc.getElementById('main'));
   swapSection(document.querySelector('footer'), doc.querySelector('footer'));
   swapSection(document.getElementById('floating-contact'), doc.getElementById('floating-contact'));
+  swapSection(document.getElementById('contact-modal-root'), doc.getElementById('contact-modal-root'));
 
   const newLang = doc.documentElement.getAttribute('lang') || 'uz';
   document.documentElement.setAttribute('lang', newLang);
@@ -175,10 +184,8 @@ function bindLangListeners() {
 
   window.addEventListener('popstate', () => {
     const href = `${window.location.pathname}${window.location.search}`;
-    if (!/^\/(uz|ru|en)(\/|$)/.test(href)) return;
-
     const currentLang = document.documentElement.getAttribute('lang');
-    const nextLang = href.split('/').filter(Boolean)[0];
+    const nextLang = langFromPath(window.location.pathname);
     if (currentLang === nextLang) return;
 
     switchLanguage(href, false).catch(() => {

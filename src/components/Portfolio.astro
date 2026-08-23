@@ -14,7 +14,11 @@ interface CaseStudy {
   title: string;
   businessPurpose: string;
   platform: string;
-  resultShort: string;
+  // Download count; empty when the project is still in process
+  stat: string;
+  inProcess: boolean;
+  // Short point shown on the card
+  highlight: string;
   image: string;
   challenge: string;
   solution: string;
@@ -23,275 +27,496 @@ interface CaseStudy {
   stack: string[];
 }
 
+const flutterDart = ['Flutter', 'Dart'];
+
 const data: Record<Lang, CaseStudy[]> = {
   uz: [
+    {
+      id: 'yubomarket',
+      title: 'YuboMarket',
+      businessPurpose: 'Sotuvchi (biznes) va xaridor rollari bitta ilovada ishlaydigan e-commerce marketpleys.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '10K+',
+      inProcess: false,
+      highlight: 'Biznes va mijoz — bitta ilova',
+      image: '/images/portfolio/yubomarket.png',
+      challenge: 'Sotuvchi va xaridor oqimlarini alohida ilovalarga bo\'lmasdan, bitta mahsulotda boshqarish.',
+      solution: 'Flutter va Dart asosida biznes va mijoz rollari bir ilovada ishlaydigan marketpleys qurildi. Rolga qarab interfeys va huquqlar ajratiladi.',
+      features: [
+        'Biznes va mijoz rollari bitta ilovada',
+        'Do\'kon boshqaruvi va mahsulot katalogi',
+        'Buyurtma va to\'lov oqimi',
+        'iOS va Android — Flutter / Dart'
+      ],
+      metrics: [
+        { value: '10K+', label: 'Yuklanishlar' },
+        { value: '2 rol', label: 'Bitta ilovada' }
+      ],
+      stack: flutterDart
+    },
+    {
+      id: 'nasiya',
+      title: 'Nasiya savdo',
+      businessPurpose: 'Mahsulotlarni nasiyaga, bo\'lib-bo\'lib to\'lab xarid qilish va sotish platformasi.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '1k+',
+      inProcess: false,
+      highlight: 'Nasiya va to\'lov grafigi',
+      image: '/images/portfolio/nasiya.png',
+      challenge: 'Sotuvchi va xaridor o\'rtasida nasiya shartlari, to\'lov jadvali va qoldiqni shaffof yuritish.',
+      solution: 'Flutter asosida nasiya arizasi, to\'lov grafigi va eslatmalari bo\'lgan mobil ilova qurildi.',
+      features: [
+        'Nasiya arizasi va shartlari',
+        'To\'lov grafigi va qoldiq nazorati',
+        'Sotuvchi va xaridor oqimlari',
+        'iOS va Android — Flutter / Dart'
+      ],
+      metrics: [
+        { value: '1k+', label: 'Yuklanishlar' },
+        { value: 'Nasiya', label: 'To\'lov modeli' }
+      ],
+      stack: flutterDart
+    },
+    {
+      id: 'yagumarket',
+      title: 'YaguMarket',
+      businessPurpose: 'Hududiy onlayn bozor — yaqin-atrofdagi mahsulotlarni sotish va xarid qilish.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '500+',
+      inProcess: false,
+      highlight: 'Search va map optimizatsiya',
+      image: '/images/portfolio/yagumarket.png',
+      challenge: 'Mahalliy e\'lonlar ichida tez qidiruv va xaritada joylashuvni og\'irliksiz ko\'rsatish.',
+      solution: 'Qidiruv va xarita qatlamlari alohida optimizatsiya qilindi: natijalar tez chiqadi, xarita katta ma\'lumotda ham yengil ishlaydi.',
+      features: [
+        'Qidiruv (search) optimizatsiyasi',
+        'Xarita (map) optimizatsiyasi',
+        'Hududiy e\'lonlar va filtrlash',
+        'iOS va Android — Flutter / Dart'
+      ],
+      metrics: [
+        { value: '500+', label: 'Yuklanishlar' },
+        { value: 'Search + Map', label: 'Optimizatsiya' }
+      ],
+      stack: flutterDart
+    },
+    {
+      id: 'onefin',
+      title: '1Fin',
+      businessPurpose: 'To\'lovlar, pul o\'tkazmalari va chat bitta mahsulotda — mobil va web.',
+      platform: 'Mobile & Web',
+      stat: '100+',
+      inProcess: false,
+      highlight: 'Mobile + Web • Real-time chat',
+      image: '/images/portfolio/1fin.png',
+      challenge: 'Mobil va web ni bir joyda ushlab, chatni kechikishsiz ishlatish.',
+      solution: 'Mobil va web bitta mahsulot sifatida qurildi. Chat uchun real-time optimizatsiyalar qo\'llandi. Native qismlar Kotlin va Swift bilan mustahkamlandi.',
+      features: [
+        'Mobil va web bir joyda',
+        'Chat uchun real-time optimizatsiyalar',
+        'To\'lovlar va pul o\'tkazmalari',
+        'Flutter, Dart, Kotlin va Swift'
+      ],
+      metrics: [
+        { value: '100+', label: 'Yuklanishlar' },
+        { value: 'Mobile + Web', label: 'Platforma' }
+      ],
+      stack: ['Flutter', 'Dart', 'Kotlin', 'Swift']
+    },
     {
       id: 'autoteacher',
       title: 'AvtoTeacher',
       businessPurpose: 'Avtomaktab o\'quv jarayonini boshqarish va imtihonga tayyorlash platformasi.',
       platform: 'Mobile (iOS & Android)',
-      resultShort: '10K+ yuklanishlar • 4.9 Reyting',
+      stat: '100+',
+      inProcess: false,
+      highlight: 'Interactive UI • Local-first',
       image: '/images/portfolio/autoteacher.png',
-      challenge: 'Avtomaktab o\'quvchilarining nazariy va amaliy mashg\'ulotlarni o\'zlashtirishini masofadan nazorat qilish va davlat imtihonidan o\'tish ko\'rsatkichlarini oshirish.',
-      solution: 'O\'quvchilar uchun interaktiv imtihon simulyatsiyasi va video darslar, o\'qituvchilar uchun esa har bir talabaning o\'zlashtirish ko\'rsatkichlarini tahlil qiluvchi admin panelga ega mobil tizim yaratildi.',
+      challenge: 'O\'quv materiallari va mashqlarni tarmoqqa bog\'lanmasdan ham ishlatish, interfeysni esa tushunarli va tezkor qilish.',
+      solution: 'Interactive UI va local-first yondashuv: asosiy kontent qurilmada saqlanadi, tarmoq bo\'lmasa ham o\'qish davom etadi.',
       features: [
-        'Haqiqiy davlat imtihoni simulyatori (3D savollar integratsiyasi)',
-        'O\'quvchi dars jadvallari va o\'qituvchilar bilan jonli chat',
-        'Offline rejimda ishlovchi darsliklar va videodarslar',
-        'O\'quv markazlari uchun kengaytirilgan tahliliy boshqaruv paneli'
+        'Interactive UI — imtihon va mashqlar',
+        'Local-first: offline rejimda ishlash',
+        'Dars jadvallari va o\'qituvchi bilan bog\'lanish',
+        'Avtomaktab boshqaruv paneli'
       ],
       metrics: [
-        { value: '10K+', label: 'Yuklanishlar' },
-        { value: '92%', label: 'Imtihon topshirish ko\'rsatkichi' },
-        { value: '4.9', label: 'Play Store reytingi' }
+        { value: '100+', label: 'Yuklanishlar' },
+        { value: 'Local-first', label: 'Ishlash usuli' }
       ],
-      stack: ['Flutter', 'Dart', 'Firebase', 'Node.js', 'PostgreSQL']
-    },
-    {
-      id: 'onefin',
-      title: '1Fin',
-      businessPurpose: 'Tezkor va xavfsiz to\'lovlar, pul o\'tkazmalari va shaxsiy moliya boshqaruvi.',
-      platform: 'Mobile (iOS & Android)',
-      resultShort: '50K+ foydalanuvchilar • 150ms tezlik',
-      image: '/images/portfolio/1fin.png',
-      challenge: 'Mijozlar pul o\'tkazmalari va to\'lovlarni millisekundlar ichida, o\'ta xavfsiz va minimal komissiya bilan amalga oshiradigan fintex infratuzilmasini yaratish.',
-      solution: 'PCI-DSS xavfsizlik standartlariga to\'liq javob beruvchi, biometric identifikatsiya va bank API\'lari bilan integratsiyalashgan yuqori unumdorlikka ega mobil ilova va backend tizimi qurildi.',
-      features: [
-        'Karta-karta (P2P) o\'ta tezkor o\'tkazmalar',
-        'Kommunal, davlat va 200+ xizmatlar uchun to\'lovlar',
-        'FaceID / TouchID va PIN kod himoya tizimi',
-        'Shaxsiy xarajatlar tahlili va byudjet rejalashtiruvchi'
-      ],
-      metrics: [
-        { value: '50K+', label: 'Faol foydalanuvchilar' },
-        { value: '150ms', label: 'Tranzaksiya vaqti' },
-        { value: '99.9%', label: 'Tizim barqarorligi (Uptime)' }
-      ],
-      stack: ['Flutter', 'Kotlin', 'Swift', 'NestJS', 'PostgreSQL', 'Redis']
+      stack: flutterDart
     },
     {
       id: 'fasgo',
       title: 'Fasgo',
-      businessPurpose: 'Oziq-ovqat va restoran buyurtmalarini real vaqtda yetkazib berish xizmati.',
-      platform: 'Mobile & Admin Web',
-      resultShort: '15K+ buyurtmalar • 24 daqiqa yetkazish',
+      businessPurpose: 'Mijoz, kuryer va restoran uchun yetkazib berish ekotizimi.',
+      platform: 'Mobile (3 ekotizim)',
+      stat: '',
+      inProcess: true,
+      highlight: '3 ta ekotizim',
       image: '/images/portfolio/fasgo.png',
-      challenge: 'Restoranlar, kuryerlar va yakuniy mijozlar o\'rtasidagi muloqotni real vaqtda muvofiqlashtirish hamda kuryerlik marshrutlarini optimallashtirish.',
-      solution: 'Web-socket texnologiyasi asosida kuryerlarning joylashuvini jonli ko\'rsatuvchi mijoz ilovasi, kuryer mobil dasturi va restoranlar uchun admin panel loyihalashtirildi.',
+      challenge: 'Mijoz, kuryer va restoran oqimlarini bir-biriga bog\'lab, real vaqtda ishlaydigan uch tomonlama tizim qurish.',
+      solution: 'Flutter asosida uchta ekotizim — mijoz ilovasi, kuryer ilovasi va restoran paneli — bir platformada ishlab chiqilmoqda.',
       features: [
-        'GPS orqali kuryer marshrutini jonli xaritada kuzatish',
-        'Aqlli buyurtma taqsimlash algoritmi (Google Maps API)',
-        'Tezkor Push-bildirishnomalar va ovozli ogohlantirishlar',
-        'Kuryer va restoranlar uchun avtomatlashtirilgan hisob-kitoblar'
+        'Mijoz ilovasi — buyurtma va kuzatuv',
+        'Kuryer ilovasi — marshrut va yetkazish',
+        'Restoran paneli — buyurtmalarni qabul qilish',
+        'Uchala tomon bitta ekotizimda'
       ],
       metrics: [
-        { value: '15K+', label: 'Muvaffaqiyatli buyurtmalar' },
-        { value: '24 daq', label: 'O\'rtacha yetkazish vaqti' },
-        { value: '18%', label: 'Marshrut xarajatlari qisqarishi' }
+        { value: '3', label: 'Ekotizim' },
+        { value: 'Jarayonda', label: 'Holat' }
       ],
-      stack: ['React Native', 'Flutter', 'Node.js', 'Socket.io', 'Google Maps API']
+      stack: flutterDart
     },
     {
-      id: 'yubomarket',
-      title: 'YuboMarket',
-      businessPurpose: 'Sotuvchilar va xaridorlar uchun to\'liq e-commerce marketpleys platformasi.',
-      platform: 'Web & Mobile',
-      resultShort: '100K+ oylik trafik • 1.1s yuklanish',
-      image: '/images/portfolio/yubomarket.png',
-      challenge: 'Bir vaqtning o\'zida minglab tovarlar va yuzlab sotuvchilar ishlaydigan, yuklanish tezligi va qidiruv tizimi o\'ta yuqori bo\'lgan barqaror marketpleys yaratish.',
-      solution: 'Server-Side Rendering (SSR) va kuchli kesh boshqaruvi orqali sahifalari soniyadan kam vaqtda yuklanadigan, sotuvchilar uchun alohida savdo boshqaruv portali taqdim etildi.',
+      id: 'yangitv',
+      title: 'YangiTV',
+      businessPurpose: 'Video kontent va tomosha oqimini boshqarish uchun media platforma.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '',
+      inProcess: true,
+      highlight: 'Real-time video controller',
+      image: '/images/portfolio/yaqintv.png',
+      challenge: 'Video oqimini kechikishsiz boshqarish — play, seek va live sync.',
+      solution: 'Flutter asosida real-time video controller ishlab chiqilmoqda: tomosha va boshqaruv bir vaqtda, past kechikish bilan.',
       features: [
-        'Sotuvchilar uchun mukammal do\'kon boshqaruvi (Vendor Portal)',
-        'Aqlli qidiruv va filtrlash (Elasticsearch)',
-        'Mahalliy va xalqaro to\'lov tizimlari (Click, Payme, Visa) integratsiyasi',
-        'Avtomatlashtirilgan kuryerlik va yetkazib berish integratsiyasi'
+        'Real-time video controller',
+        'Video oqimini boshqarish (play, seek, sync)',
+        'Media katalog va tomosha oqimi',
+        'iOS va Android — Flutter / Dart'
       ],
       metrics: [
-        { value: '100K+', label: 'Oylik tashrif buyuruvchilar' },
-        { value: '1.1s', label: 'Veb-sayt yuklanish vaqti' },
-        { value: '4.2%', label: 'Savdo konversiyasi o\'sishi' }
+        { value: 'Real-time', label: 'Video controller' },
+        { value: 'Jarayonda', label: 'Holat' }
       ],
-      stack: ['Next.js', 'TailwindCSS', 'NestJS', 'PostgreSQL', 'Redis', 'Docker']
+      stack: flutterDart
     }
   ],
   en: [
     {
-      id: 'autoteacher',
-      title: 'AvtoTeacher',
-      businessPurpose: 'A driving school education management and state exam preparation platform.',
+      id: 'yubomarket',
+      title: 'YuboMarket',
+      businessPurpose: 'An e-commerce marketplace where business and customer roles work in one app.',
       platform: 'Mobile (iOS & Android)',
-      resultShort: '10K+ Downloads • 4.9 Rating',
-      image: '/images/portfolio/autoteacher.png',
-      challenge: 'Monitoring driving school students\' theoretical and practical progress remotely and increasing state exam pass rates.',
-      solution: 'A unified mobile system was built featuring interactive exam simulations and video lectures for students, combined with an analytical admin panel for instructors to track student progress.',
+      stat: '10K+',
+      inProcess: false,
+      highlight: 'Business and client — one app',
+      image: '/images/portfolio/yubomarket.png',
+      challenge: 'Managing seller and buyer flows in a single product instead of splitting them into separate apps.',
+      solution: 'Built with Flutter and Dart so business and client roles live in one app. The interface and permissions change by role.',
       features: [
-        'Real state exam simulator with interactive 3D question sets',
-        'Student class schedules and live chat with instructors',
-        'Offline-friendly textbooks and integrated video lectures',
-        'Comprehensive analytical dashboard for driving schools'
+        'Business and client roles in one app',
+        'Store management and product catalog',
+        'Order and payment flow',
+        'iOS and Android — Flutter / Dart'
       ],
       metrics: [
-        { value: '10K+', label: 'Total Downloads' },
-        { value: '92%', label: 'Exam Pass Rate' },
-        { value: '4.9', label: 'Play Store Rating' }
+        { value: '10K+', label: 'Downloads' },
+        { value: '2 roles', label: 'In one app' }
       ],
-      stack: ['Flutter', 'Dart', 'Firebase', 'Node.js', 'PostgreSQL']
+      stack: flutterDart
+    },
+    {
+      id: 'nasiya',
+      title: 'Nasiya savdo',
+      businessPurpose: 'A platform for buying and selling products on installment (nasiya).',
+      platform: 'Mobile (iOS & Android)',
+      stat: '1k+',
+      inProcess: false,
+      highlight: 'Installment payments',
+      image: '/images/portfolio/nasiya.png',
+      challenge: 'Keeping installment terms, payment schedules, and remaining balance clear for both seller and buyer.',
+      solution: 'A Flutter app was built with installment applications, payment schedules, and reminders.',
+      features: [
+        'Installment application and terms',
+        'Payment schedule and remaining balance',
+        'Seller and buyer flows',
+        'iOS and Android — Flutter / Dart'
+      ],
+      metrics: [
+        { value: '1k+', label: 'Downloads' },
+        { value: 'Nasiya', label: 'Payment model' }
+      ],
+      stack: flutterDart
+    },
+    {
+      id: 'yagumarket',
+      title: 'YaguMarket',
+      businessPurpose: 'A local online market for buying and selling products nearby.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '500+',
+      inProcess: false,
+      highlight: 'Search and map optimization',
+      image: '/images/portfolio/yagumarket.png',
+      challenge: 'Fast search across local listings and a map that stays light with a large dataset.',
+      solution: 'Search and map layers were optimized separately so results stay fast and the map stays light.',
+      features: [
+        'Search optimization',
+        'Map optimization',
+        'Local listings and filters',
+        'iOS and Android — Flutter / Dart'
+      ],
+      metrics: [
+        { value: '500+', label: 'Downloads' },
+        { value: 'Search + Map', label: 'Optimization' }
+      ],
+      stack: flutterDart
     },
     {
       id: 'onefin',
       title: '1Fin',
-      businessPurpose: 'Fast and secure mobile payments, transfers, and personal finance management.',
-      platform: 'Mobile (iOS & Android)',
-      resultShort: '50K+ Users • 150ms Speed',
+      businessPurpose: 'Payments, transfers, and chat in one product — mobile and web.',
+      platform: 'Mobile & Web',
+      stat: '100+',
+      inProcess: false,
+      highlight: 'Mobile + Web • Real-time chat',
       image: '/images/portfolio/1fin.png',
-      challenge: 'Building a secure fintech infrastructure capable of executing card transfers and payments within milliseconds with minimal commission.',
-      solution: 'A high-performance mobile application and backend architecture were constructed, fully compliant with PCI-DSS security standards, integrating biometrics and banking APIs.',
+      challenge: 'Keeping mobile and web in one product while making chat feel instant.',
+      solution: 'Mobile and web were built as one product. Chat uses real-time optimizations. Native parts use Kotlin and Swift.',
       features: [
-        'Ultra-fast Peer-to-Peer (P2P) card transfers',
-        'Integrated payments for utilities, state services, and 200+ providers',
-        'Secure FaceID, TouchID, and PIN code protection',
-        'Personal spending analytics and automated budget planner'
+        'Mobile and web in one place',
+        'Real-time optimizations for chatting',
+        'Payments and money transfers',
+        'Flutter, Dart, Kotlin, and Swift'
       ],
       metrics: [
-        { value: '50K+', label: 'Active Users' },
-        { value: '150ms', label: 'Transaction Time' },
-        { value: '99.9%', label: 'System Uptime' }
+        { value: '100+', label: 'Downloads' },
+        { value: 'Mobile + Web', label: 'Platform' }
       ],
-      stack: ['Flutter', 'Kotlin', 'Swift', 'NestJS', 'PostgreSQL', 'Redis']
+      stack: ['Flutter', 'Dart', 'Kotlin', 'Swift']
+    },
+    {
+      id: 'autoteacher',
+      title: 'AvtoTeacher',
+      businessPurpose: 'A driving-school platform for study management and exam prep.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '100+',
+      inProcess: false,
+      highlight: 'Interactive UI • Local-first',
+      image: '/images/portfolio/autoteacher.png',
+      challenge: 'Letting students use materials and practice without a network, with a clear and fast interface.',
+      solution: 'Interactive UI and a local-first approach: core content lives on the device, so study continues offline.',
+      features: [
+        'Interactive UI for exams and practice',
+        'Local-first: works offline',
+        'Class schedules and instructor contact',
+        'Driving-school admin panel'
+      ],
+      metrics: [
+        { value: '100+', label: 'Downloads' },
+        { value: 'Local-first', label: 'How it works' }
+      ],
+      stack: flutterDart
     },
     {
       id: 'fasgo',
       title: 'Fasgo',
-      businessPurpose: 'Real-time logistics and food delivery platform for restaurants and couriers.',
-      platform: 'Mobile & Admin Web',
-      resultShort: '15K+ Orders • 24 mins Delivery',
+      businessPurpose: 'A delivery ecosystem for customer, courier, and restaurant.',
+      platform: 'Mobile (3 ecosystems)',
+      stat: '',
+      inProcess: true,
+      highlight: '3 ecosystems',
       image: '/images/portfolio/fasgo.png',
-      challenge: 'Coordinating live operations between restaurants, couriers, and end customers, while optimizing routing and delivery dispatch times.',
-      solution: 'A real-time socket-based ecosystem was engineered, featuring a client tracking app, courier mobile app, restaurant panel, and a central administration dispatch dashboard.',
+      challenge: 'Connecting customer, courier, and restaurant flows into one live three-sided system.',
+      solution: 'Three Flutter ecosystems — customer app, courier app, and restaurant panel — are being built on one platform.',
       features: [
-        'Live courier GPS tracking on interactive maps',
-        'Automated routing algorithms powered by Google Maps API',
-        'Instant push notifications and real-time audio alerts',
-        'Automated automated payouts for couriers and restaurants'
+        'Customer app — order and tracking',
+        'Courier app — route and delivery',
+        'Restaurant panel — accept orders',
+        'All three sides in one ecosystem'
       ],
       metrics: [
-        { value: '15K+', label: 'Successful Orders' },
-        { value: '24 min', label: 'Average Delivery Time' },
-        { value: '18%', label: 'Route Cost Reduction' }
+        { value: '3', label: 'Ecosystems' },
+        { value: 'In process', label: 'Status' }
       ],
-      stack: ['React Native', 'Flutter', 'Node.js', 'Socket.io', 'Google Maps API']
+      stack: flutterDart
     },
     {
-      id: 'yubomarket',
-      title: 'YuboMarket',
-      businessPurpose: 'Multi-vendor e-commerce marketplace platform for sellers and buyers.',
-      platform: 'Web & Mobile',
-      resultShort: '100K+ Monthly Traffic • 1.1s Load',
-      image: '/images/portfolio/yubomarket.png',
-      challenge: 'Constructing a highly scalable marketplace hosting thousands of items and hundreds of sellers, without sacrificing search speed or loading performance.',
-      solution: 'Leveraging Server-Side Rendering (SSR) and advanced caching architectures, we delivered an ultra-fast shopping experience and a full vendor merchant dashboard.',
+      id: 'yangitv',
+      title: 'YangiTV',
+      businessPurpose: 'A media platform for video content and playback control.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '',
+      inProcess: true,
+      highlight: 'Real-time video controller',
+      image: '/images/portfolio/yaqintv.png',
+      challenge: 'Controlling the video stream with low delay — play, seek, and live sync.',
+      solution: 'A real-time video controller is being built in Flutter so playback and control stay in sync with low delay.',
       features: [
-        'Comprehensive vendor merchant store management panel',
-        'Advanced instant search and granular filtering (Elasticsearch)',
-        'Local and global payment gateways (Click, Payme, Visa) integration',
-        'Automated courier delivery integrations'
+        'Real-time video controller',
+        'Stream control (play, seek, sync)',
+        'Media catalog and watch flow',
+        'iOS and Android — Flutter / Dart'
       ],
       metrics: [
-        { value: '100K+', label: 'Monthly Visitors' },
-        { value: '1.1s', label: 'Website Page Load' },
-        { value: '4.2%', label: 'Conversion Rate Growth' }
+        { value: 'Real-time', label: 'Video controller' },
+        { value: 'In process', label: 'Status' }
       ],
-      stack: ['Next.js', 'TailwindCSS', 'NestJS', 'PostgreSQL', 'Redis', 'Docker']
+      stack: flutterDart
     }
   ],
   ru: [
     {
-      id: 'autoteacher',
-      title: 'AvtoTeacher',
-      businessPurpose: 'Платформа для управления автошколой и подготовки к государственным экзаменам.',
+      id: 'yubomarket',
+      title: 'YuboMarket',
+      businessPurpose: 'E-commerce маркетплейс, где роли бизнеса и клиента работают в одном приложении.',
       platform: 'Mobile (iOS & Android)',
-      resultShort: '10K+ скачиваний • 4.9 Рейтинг',
-      image: '/images/portfolio/autoteacher.png',
-      challenge: 'Удаленный контроль успеваемости теоретических и практических занятий учащихся автошкол и повышение показателей сдачи госаккредитации.',
-      solution: 'Создана единая мобильная система с интерактивными тестами и видеолекциями для учащихся, а также аналитическая панель для инструкторов по успеваемости.',
+      stat: '10K+',
+      inProcess: false,
+      highlight: 'Бизнес и клиент — одно приложение',
+      image: '/images/portfolio/yubomarket.png',
+      challenge: 'Вести потоки продавца и покупателя в одном продукте, без отдельных приложений.',
+      solution: 'На Flutter и Dart собран маркетплейс, где роли бизнеса и клиента живут в одном приложении. Интерфейс и права зависят от роли.',
       features: [
-        'Симулятор реального экзамена с интеграцией интерактивных 3D вопросов',
-        'Расписание занятий учащихся и живой чат с инструкторами',
-        'Учебники и встроенные видеолекции, работающие в автономном режиме',
-        'Многофункциональная аналитическая панель для администраторов'
+        'Роли бизнеса и клиента в одном приложении',
+        'Управление магазином и каталог товаров',
+        'Заказы и оплата',
+        'iOS и Android — Flutter / Dart'
       ],
       metrics: [
         { value: '10K+', label: 'Скачиваний' },
-        { value: '92%', label: 'Успешная сдача экзаменов' },
-        { value: '4.9', label: 'Рейтинг в Play Store' }
+        { value: '2 роли', label: 'В одном приложении' }
       ],
-      stack: ['Flutter', 'Dart', 'Firebase', 'Node.js', 'PostgreSQL']
+      stack: flutterDart
+    },
+    {
+      id: 'nasiya',
+      title: 'Nasiya savdo',
+      businessPurpose: 'Платформа покупки и продажи товаров в рассрочку (nasiya).',
+      platform: 'Mobile (iOS & Android)',
+      stat: '1k+',
+      inProcess: false,
+      highlight: 'Рассрочка и график платежей',
+      image: '/images/portfolio/nasiya.png',
+      challenge: 'Прозрачно вести условия рассрочки, график платежей и остаток для продавца и покупателя.',
+      solution: 'На Flutter собрано мобильное приложение с заявкой на рассрочку, графиком платежей и напоминаниями.',
+      features: [
+        'Заявка на рассрочку и условия',
+        'График платежей и контроль остатка',
+        'Потоки продавца и покупателя',
+        'iOS и Android — Flutter / Dart'
+      ],
+      metrics: [
+        { value: '1k+', label: 'Скачиваний' },
+        { value: 'Nasiya', label: 'Модель оплаты' }
+      ],
+      stack: flutterDart
+    },
+    {
+      id: 'yagumarket',
+      title: 'YaguMarket',
+      businessPurpose: 'Локальный онлайн-рынок для покупки и продажи товаров рядом.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '500+',
+      inProcess: false,
+      highlight: 'Search и map оптимизация',
+      image: '/images/portfolio/yagumarket.png',
+      challenge: 'Быстрый поиск по локальным объявлениям и лёгкая карта на большом объёме данных.',
+      solution: 'Слои поиска и карты оптимизированы отдельно: выдача остаётся быстрой, карта — лёгкой.',
+      features: [
+        'Оптимизация поиска (search)',
+        'Оптимизация карты (map)',
+        'Локальные объявления и фильтры',
+        'iOS и Android — Flutter / Dart'
+      ],
+      metrics: [
+        { value: '500+', label: 'Скачиваний' },
+        { value: 'Search + Map', label: 'Оптимизация' }
+      ],
+      stack: flutterDart
     },
     {
       id: 'onefin',
       title: '1Fin',
-      businessPurpose: 'Быстрые платежи, карточные переводы и личное финансовое планирование.',
-      platform: 'Mobile (iOS & Android)',
-      resultShort: '50K+ пользователей • 150мс скорость',
+      businessPurpose: 'Платежи, переводы и чат в одном продукте — mobile и web.',
+      platform: 'Mobile & Web',
+      stat: '100+',
+      inProcess: false,
+      highlight: 'Mobile + Web • Real-time chat',
       image: '/images/portfolio/1fin.png',
-      challenge: 'Создание надежной финтех-инфраструктуры, способной осуществлять карточные переводы и платежи за миллисекунды с минимальной комиссией.',
-      solution: 'Разработано высокопроизводительное мобильное приложение и серверная архитектура, соответствующие стандартам PCI-DSS, с биометрией и API-интеграцией.',
+      challenge: 'Держать mobile и web в одном продукте и сделать чат без задержки.',
+      solution: 'Mobile и web собраны как один продукт. Для чата применены real-time оптимизации. Нативные части усилены Kotlin и Swift.',
       features: [
-        'Сверхбыстрые Peer-to-Peer (P2P) переводы между картами',
-        'Оплата коммунальных, госуслуг и интеграция 200+ провайдеров',
-        'Система защиты по FaceID / TouchID и PIN-коду',
-        'Аналитика расходов и автоматический планировщик бюджета'
+        'Mobile и web в одном месте',
+        'Real-time оптимизации для чата',
+        'Платежи и денежные переводы',
+        'Flutter, Dart, Kotlin и Swift'
       ],
       metrics: [
-        { value: '50K+', label: 'Активных пользователей' },
-        { value: '150мс', label: 'Время транзакции' },
-        { value: '99.9%', label: 'Стабильность системы (Uptime)' }
+        { value: '100+', label: 'Скачиваний' },
+        { value: 'Mobile + Web', label: 'Платформа' }
       ],
-      stack: ['Flutter', 'Kotlin', 'Swift', 'NestJS', 'PostgreSQL', 'Redis']
+      stack: ['Flutter', 'Dart', 'Kotlin', 'Swift']
+    },
+    {
+      id: 'autoteacher',
+      title: 'AvtoTeacher',
+      businessPurpose: 'Платформа автошколы для учёбы и подготовки к экзамену.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '100+',
+      inProcess: false,
+      highlight: 'Interactive UI • Local-first',
+      image: '/images/portfolio/autoteacher.png',
+      challenge: 'Дать доступ к материалам и практике без сети, с понятным и быстрым интерфейсом.',
+      solution: 'Interactive UI и local-first: основной контент хранится на устройстве, учёба продолжается офлайн.',
+      features: [
+        'Interactive UI — экзамены и упражнения',
+        'Local-first: работа офлайн',
+        'Расписание и связь с инструктором',
+        'Панель управления автошколой'
+      ],
+      metrics: [
+        { value: '100+', label: 'Скачиваний' },
+        { value: 'Local-first', label: 'Как работает' }
+      ],
+      stack: flutterDart
     },
     {
       id: 'fasgo',
       title: 'Fasgo',
-      businessPurpose: 'Логистика и доставка еды из ресторанов в режиме реального времени.',
-      platform: 'Mobile & Admin Web',
-      resultShort: '15K+ заказов • 24 мин доставка',
+      businessPurpose: 'Экосистема доставки для клиента, курьера и ресторана.',
+      platform: 'Mobile (3 экосистемы)',
+      stat: '',
+      inProcess: true,
+      highlight: '3 экосистемы',
       image: '/images/portfolio/fasgo.png',
-      challenge: 'Координация операций в реальном времени между ресторанами, курьерами и конечными клиентами, а также оптимизация курьерских маршрутов.',
-      solution: 'Спроектирована экосистема на базе Web-socket с отслеживанием курьеров на карте, мобильным приложением для курьеров и панелями для ресторанов.',
+      challenge: 'Связать потоки клиента, курьера и ресторана в одну живую трёхстороннюю систему.',
+      solution: 'На Flutter разрабатываются три экосистемы — приложение клиента, приложение курьера и панель ресторана — на одной платформе.',
       features: [
-        'Отслеживание курьера по GPS на интерактивной карте вживую',
-        'Алгоритм умного назначения заказов (Google Maps API)',
-        'Мгновенные звуковые и Push-уведомления о заказах',
-        'Автоматические финансовые взаиморасчеты для курьеров и ресторанов'
+        'Приложение клиента — заказ и отслеживание',
+        'Приложение курьера — маршрут и доставка',
+        'Панель ресторана — приём заказов',
+        'Все три стороны в одной экосистеме'
       ],
       metrics: [
-        { value: '15K+', label: 'Успешных заказов' },
-        { value: '24 мин', label: 'Время доставки' },
-        { value: '18%', label: 'Сокращение логистических затрат' }
+        { value: '3', label: 'Экосистемы' },
+        { value: 'В процессе', label: 'Статус' }
       ],
-      stack: ['React Native', 'Flutter', 'Node.js', 'Socket.io', 'Google Maps API']
+      stack: flutterDart
     },
     {
-      id: 'yubomarket',
-      title: 'YuboMarket',
-      businessPurpose: 'Мультиплатформенный e-commerce маркетплейс для продавцов и покупателей.',
-      platform: 'Web & Mobile',
-      resultShort: '100K+ трафик • 1.1с загрузка',
-      image: '/images/portfolio/yubomarket.png',
-      challenge: 'Создание масштабируемого маркетплейса с тысячами товаров и сотнями продавцов без ущерба для скорости поиска и быстродействия страниц.',
-      solution: 'Благодаря рендерингу на стороне сервера (SSR) и системе кэширования Redis, сайт загружается менее чем за секунду. Внедрен полноценный кабинет продавца.',
+      id: 'yangitv',
+      title: 'YangiTV',
+      businessPurpose: 'Медиа-платформа для видеоконтента и управления просмотром.',
+      platform: 'Mobile (iOS & Android)',
+      stat: '',
+      inProcess: true,
+      highlight: 'Real-time video controller',
+      image: '/images/portfolio/yaqintv.png',
+      challenge: 'Управлять видеопотоком без задержки — play, seek и live sync.',
+      solution: 'На Flutter разрабатывается real-time video controller: просмотр и управление идут вместе, с низкой задержкой.',
       features: [
-        'Многофункциональный личный кабинет продавца (Vendor Portal)',
-        'Быстрый мгновенный поиск с гибкими фильтрами (Elasticsearch)',
-        'Интеграция с местными и международными платежными системами',
-        'Автоматизированная интеграция с курьерскими службами'
+        'Real-time video controller',
+        'Управление потоком (play, seek, sync)',
+        'Медиа-каталог и просмотр',
+        'iOS и Android — Flutter / Dart'
       ],
       metrics: [
-        { value: '100K+', label: 'Посетителей в месяц' },
-        { value: '1.1с', label: 'Время загрузки сайта' },
-        { value: '4.2%', label: 'Рост торговой конверсии' }
+        { value: 'Real-time', label: 'Video controller' },
+        { value: 'В процессе', label: 'Статус' }
       ],
-      stack: ['Next.js', 'TailwindCSS', 'NestJS', 'PostgreSQL', 'Redis', 'Docker']
+      stack: flutterDart
     }
   ]
 };
@@ -337,12 +562,16 @@ const ctaText = {
 
 const currentStudies = data[lang];
 const tCta = ctaText[lang];
+const inProcessLabel = t.portfolio.inProcess;
 
 const palettes = [
   'linear-gradient(135deg, #0d9b70 0%, #0b3b52 100%)',
   'linear-gradient(135deg, #5b47c9 0%, #131a3a 100%)',
   'linear-gradient(135deg, #c9663f 0%, #2a1630 100%)',
   'linear-gradient(135deg, #1f7fd4 0%, #0b2340 100%)',
+  'linear-gradient(135deg, #c9a227 0%, #2a1f0b 100%)',
+  'linear-gradient(135deg, #b03a5b 0%, #2a1020 100%)',
+  'linear-gradient(135deg, #2a9d8f 0%, #1a3650 100%)',
 ];
 ---
 
@@ -355,36 +584,34 @@ const palettes = [
       class="mb-12 md:mb-16"
     />
 
-    <div class="grid gap-6 md:grid-cols-2 md:gap-8">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
       {
         currentStudies.map((project, i) => (
           <article
             class="group surface spot js-spot lift reveal overflow-hidden p-3 flex flex-col justify-between"
-            style={`--rd:${(i % 2) * 110}ms`}
+            style={`--rd:${(i % 3) * 90}ms`}
           >
             <div>
               <div
                 class="relative aspect-[16/10] overflow-hidden rounded-[calc(var(--r-lg)-0.55rem)] flex items-center justify-center"
                 style={`background:${palettes[i % palettes.length]}`}
               >
-                <!-- Stylized Geometric Vector Representation to act as product preview -->
                 <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                
+
                 <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[0.7rem] font-semibold tracking-wide text-white backdrop-blur-md">
                   {project.platform}
                 </span>
 
                 <span class="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-black/25 px-3 py-1 text-[0.7rem] font-semibold text-white/90 backdrop-blur-md">
-                  {project.resultShort.split('•')[1] || project.resultShort}
+                  {project.inProcess ? inProcessLabel : project.stat}
                 </span>
 
-                <!-- Display structured big visual text rather than heavy broken images -->
                 <div class="z-10 text-center px-6">
-                  <span class="block font-display text-[2.5rem] md:text-[3.2rem] font-black text-white/90 tracking-tight leading-none drop-shadow-md">
+                  <span class="block font-display text-[2rem] md:text-[2.4rem] font-black text-white/90 tracking-tight leading-none drop-shadow-md">
                     {project.title}
                   </span>
-                  <span class="block text-[0.75rem] font-medium text-white/80 tracking-widest uppercase mt-2">
-                    {project.resultShort.split('•')[0]}
+                  <span class="block text-[0.75rem] font-medium text-white/80 tracking-wide mt-2 max-w-[16rem] mx-auto">
+                    {project.highlight}
                   </span>
                 </div>
 
@@ -430,14 +657,12 @@ const palettes = [
   </div>
 </section>
 
-<!-- Premium Interactive Details Drawer/Modal Overlay -->
 <div id="case-study-overlay" class="fixed inset-0 z-[100] flex items-center justify-end bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-500">
-  <div id="case-study-drawer" class="w-full max-w-2xl h-full bg-bg border-l border-hairline shadow-2xl flex flex-col justify-between translate-x-full transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)">
-    <!-- Header -->
+  <div id="case-study-drawer" class="w-full max-w-2xl h-full bg-bg border-l border-hairline shadow-2xl flex flex-col justify-between translate-x-full transition-transform duration-500">
     <div class="p-6 md:p-8 border-b border-hairline flex items-center justify-between">
       <div class="flex items-center gap-3">
         <span class="h-2.5 w-2.5 rounded-full bg-accent animate-pulse"></span>
-        <h3 id="drawer-title" class="font-display text-2.5xl font-black text-ink">Project Title</h3>
+        <h3 id="drawer-title" class="font-display text-2xl font-black text-ink">Project Title</h3>
       </div>
       <button id="close-drawer" type="button" class="flex h-9 w-9 items-center justify-center rounded-full bg-inset text-muted hover:text-ink hover:bg-inset-2 transition-colors cursor-pointer" aria-label="Close">
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -447,15 +672,12 @@ const palettes = [
       </button>
     </div>
 
-    <!-- Scrollable Content -->
-    <div class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 scroll-bar">
-      <!-- Short summary badge -->
-      <div class="p-4.5 rounded-2xl bg-accent-soft/40 border border-accent/15">
+    <div class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8">
+      <div class="p-4 rounded-2xl bg-accent-soft/40 border border-accent/15">
         <span class="block text-[0.65rem] font-bold text-accent uppercase tracking-widest font-mono">Scope & Platform</span>
         <span id="drawer-platform" class="block text-sm font-semibold text-ink mt-1">Platform details</span>
       </div>
 
-      <!-- Challenge -->
       <div class="space-y-3">
         <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
           <span class="h-1.5 w-1.5 rounded-full bg-red-400"></span>
@@ -464,7 +686,6 @@ const palettes = [
         <p id="drawer-challenge" class="text-sm leading-relaxed text-muted">Challenge text</p>
       </div>
 
-      <!-- Solution -->
       <div class="space-y-3">
         <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
           <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
@@ -473,41 +694,34 @@ const palettes = [
         <p id="drawer-solution" class="text-sm leading-relaxed text-muted">Solution text</p>
       </div>
 
-      <!-- Key features -->
       <div class="space-y-3.5">
         <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
           <span class="h-1.5 w-1.5 rounded-full bg-accent-bright"></span>
           {tCta.features}
         </h4>
         <ul id="drawer-features" class="space-y-2.5 pl-0 list-none m-0">
-          <!-- Populated dynamically -->
         </ul>
       </div>
 
-      <!-- Metrics / Results -->
       <div class="space-y-4">
         <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
           <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
           {tCta.result}
         </h4>
-        <div id="drawer-metrics" class="grid grid-cols-3 gap-3">
-          <!-- Populated dynamically -->
+        <div id="drawer-metrics" class="grid grid-cols-2 gap-3">
         </div>
       </div>
 
-      <!-- Stack -->
       <div class="space-y-3.5">
         <h4 class="text-sm font-bold text-ink uppercase tracking-wider font-display flex items-center gap-2">
           <span class="h-1.5 w-1.5 rounded-full bg-faint"></span>
           {tCta.stack}
         </h4>
         <div id="drawer-stack" class="flex flex-wrap gap-2">
-          <!-- Populated dynamically -->
         </div>
       </div>
     </div>
 
-    <!-- Footer CTA -->
     <div class="p-6 md:p-8 bg-inset/30 border-t border-hairline flex flex-col md:flex-row items-center justify-between gap-4">
       <div>
         <h4 class="text-[0.95rem] font-bold text-ink">{tCta.ctaHeading}</h4>
@@ -524,7 +738,7 @@ const palettes = [
   </div>
 </div>
 
-<script define:vars={{ currentStudies, tCta }}>
+<script define:vars={{ currentStudies, tCta, inProcessLabel }}>
   function setupPortfolioDrawer() {
     const overlay = document.getElementById('case-study-overlay');
     const drawer = document.getElementById('case-study-drawer');
@@ -532,9 +746,13 @@ const palettes = [
     const openBtns = document.querySelectorAll('[data-open-case]');
     const ctaBtn = document.getElementById('drawer-cta');
 
-    if (!overlay || !drawer) return;
+    if (!overlay || !drawer || !closeBtn || !ctaBtn) return;
 
     let activeProject = null;
+
+    function badgeText(project) {
+      return project.inProcess ? inProcessLabel : project.stat;
+    }
 
     function openDrawer(projectId) {
       const project = currentStudies.find(p => p.id === projectId);
@@ -542,13 +760,11 @@ const palettes = [
 
       activeProject = project;
 
-      // Populate values
       document.getElementById('drawer-title').textContent = project.title;
-      document.getElementById('drawer-platform').textContent = project.platform + ' • ' + project.resultShort;
+      document.getElementById('drawer-platform').textContent = project.platform + ' • ' + badgeText(project);
       document.getElementById('drawer-challenge').textContent = project.challenge;
       document.getElementById('drawer-solution').textContent = project.solution;
 
-      // Populate features
       const featuresUl = document.getElementById('drawer-features');
       featuresUl.innerHTML = '';
       project.features.forEach(feat => {
@@ -558,9 +774,11 @@ const palettes = [
         featuresUl.appendChild(li);
       });
 
-      // Populate metrics
       const metricsDiv = document.getElementById('drawer-metrics');
       metricsDiv.innerHTML = '';
+      metricsDiv.className = project.metrics.length === 2
+        ? 'grid grid-cols-2 gap-3'
+        : 'grid grid-cols-3 gap-3';
       project.metrics.forEach(m => {
         const box = document.createElement('div');
         box.className = 'rounded-xl bg-inset/40 border border-hairline/25 p-3.5 text-center';
@@ -571,7 +789,6 @@ const palettes = [
         metricsDiv.appendChild(box);
       });
 
-      // Populate stack
       const stackDiv = document.getElementById('drawer-stack');
       stackDiv.innerHTML = '';
       project.stack.forEach(tech => {
@@ -581,8 +798,7 @@ const palettes = [
         stackDiv.appendChild(chip);
       });
 
-      // Show drawer
-      overlay.classList.remove('pointer-events-none');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
       overlay.classList.add('opacity-100');
       drawer.classList.remove('translate-x-full');
       document.documentElement.classList.add('lenis-stopped');
@@ -590,14 +806,13 @@ const palettes = [
 
     function closeDrawer() {
       overlay.classList.remove('opacity-100');
-      overlay.classList.add('pointer-events-none');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
       drawer.classList.add('translate-x-full');
       document.documentElement.classList.remove('lenis-stopped');
-      activeProject = null;
     }
 
     openBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-open-case');
         if (id) openDrawer(id);
       });
@@ -608,25 +823,24 @@ const palettes = [
       if (e.target === overlay) closeDrawer();
     });
 
-    // ESC key closes drawer
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeDrawer();
     });
 
     ctaBtn.addEventListener('click', () => {
+      const project = activeProject;
       closeDrawer();
       setTimeout(() => {
         const contactSection = document.getElementById('contact');
         if (contactSection) {
           contactSection.scrollIntoView({ behavior: 'smooth' });
-          
-          // Populate form field if it exists
+
           const messageField = document.querySelector('textarea[name="message"]') || document.getElementById('contact-message');
-          if (messageField && activeProject) {
+          if (messageField && project) {
             const autofill = {
-              uz: `Men "${activeProject.title}" loyihangizga o'xshash mahsulot yaratmoqchiman.`,
-              en: `I am interested in building a product similar to your "${activeProject.title}" project.`,
-              ru: `Я хотел бы создать продукт, похожий на ваш проект "${activeProject.title}".`
+              uz: `Men "${project.title}" loyihangizga o'xshash mahsulot yaratmoqchiman.`,
+              en: `I am interested in building a product similar to your "${project.title}" project.`,
+              ru: `Я хотел бы создать продукт, похожий на ваш проект "${project.title}".`
             };
             const currentLang = document.documentElement.lang || 'uz';
             messageField.value = autofill[currentLang] || autofill.uz;
@@ -636,9 +850,6 @@ const palettes = [
     });
   }
 
-  // Setup on page load
   setupPortfolioDrawer();
-
-  // Handle Astro swap event (View transitions)
   document.addEventListener('astro:after-swap', setupPortfolioDrawer);
 </script>
