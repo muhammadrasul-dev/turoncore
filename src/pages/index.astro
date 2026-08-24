@@ -2,11 +2,21 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeSections from '../components/HomeSections.astro';
 import { getTranslations } from '../i18n/ui';
+import { localePath } from '../lib/routes';
+import { faqPageSchema } from '../lib/seo';
 
 const lang = 'uz';
 const t = getTranslations(lang);
+const site = Astro.site ?? new URL('https://turoncore.uz');
+const homeUrl = new URL(localePath('/', lang), site).toString();
 ---
 
-<BaseLayout lang={lang} t={t}>
+<BaseLayout
+  lang={lang}
+  t={t}
+  path="/"
+  breadcrumbs={[{ name: t.common.home, url: homeUrl }]}
+  extraSchema={[faqPageSchema(t.faq.items)]}
+>
   <HomeSections lang={lang} t={t} />
 </BaseLayout>

@@ -1,0 +1,50 @@
+---
+import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
+import { getServices } from '../lib/content';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+const services = await getServices(lang);
+const home = getLocalizedPath('/', lang);
+---
+
+<section class="section relative overflow-hidden pt-32 md:pt-36">
+  <div class="shell">
+    <Breadcrumbs
+      items={[
+        { name: t.common.home, href: home },
+        { name: t.pages.servicesTitle },
+      ]}
+    />
+    <div class="mt-8">
+      <PageHero title={t.pages.servicesTitle} lead={t.pages.servicesLead} />
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service, i) => (
+          <article class="surface reveal flex flex-col border border-hairline/30 p-8" style={`--rd:${i * 70}ms`}>
+            <h2 class="text-xl font-bold text-ink">{service.data.title}</h2>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">{service.data.description}</p>
+            <a
+              href={getLocalizedPath(`/services/${service.data.pageSlug}`, lang)}
+              class="mt-6 text-sm font-semibold text-accent"
+            >
+              {t.common.learnMore}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <CtaBand lang={lang} title={t.footer.contactText} cta={t.common.discuss} />
+  </div>
+</section>

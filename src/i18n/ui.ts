@@ -25,16 +25,17 @@ export function getLangFromUrl(url: URL): Lang {
 }
 
 export function getHomePath(lang: Lang): string {
-  return lang === 'uz' ? '/' : `/${lang}/`;
+  return lang === 'uz' ? '/' : `/${lang}`;
 }
 
 export function getLocalizedPath(path: string, lang: Lang): string {
   const cleanPath = path.replace(/^\/(uz|ru|en)(?=\/|$)/, '') || '/';
   const normalized = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+  const withoutSlash = normalized.length > 1 ? normalized.replace(/\/$/, '') : normalized;
 
   if (lang === 'uz') {
-    return normalized === '/' ? '/' : normalized;
+    return withoutSlash;
   }
 
-  return `/${lang}${normalized === '/' ? '/' : normalized}`;
+  return withoutSlash === '/' ? `/${lang}` : `/${lang}${withoutSlash}`;
 }

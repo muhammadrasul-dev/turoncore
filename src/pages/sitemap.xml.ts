@@ -1,11 +1,7 @@
 import type { APIRoute } from 'astro';
-import { getLocalizedPath, languages } from '../i18n/ui';
+import { sitemapUrlGroups } from '../lib/site-urls';
 
-const hrefLangMap = {
-  uz: 'uz-UZ',
-  ru: 'ru-RU',
-  en: 'en',
-} as const;
+export const prerender = true;
 
 function escapeXml(value: string) {
   return value
@@ -17,31 +13,30 @@ function escapeXml(value: string) {
 }
 
 export const GET: APIRoute = ({ site }) => {
-  const baseUrl = site ?? new URL('https://turoncore.uz');
-  const localizedUrls = languages.map(({ code }) => ({
-    code,
-    hrefLang: hrefLangMap[code],
-    url: new URL(getLocalizedPath('/', code), baseUrl).toString(),
-  }));
+  const baseUrl = site?.toString() ?? 'https://turoncore.uz';
+  const groups = sitemapUrlGroups(baseUrl);
 
-  const defaultUrl = localizedUrls.find((item) => item.code === 'uz')?.url ?? new URL('/', baseUrl).toString();
+  const entries = groups
+    .map((group) => {
+      const alternates = group.localized
+        .map(
+          ({ hrefLang, url }) =>
+            `<xhtml:link rel="alternate" hreflang="${hrefLang}" href="${escapeXml(url)}" />`
+        )
+        .join('');
 
-  const alternateLinks = localizedUrls
-    .map(
-      ({ hrefLang, url }) =>
-        `<xhtml:link rel="alternate" hreflang="${hrefLang}" href="${escapeXml(url)}" />`
-    )
-    .join('');
-
-  const entries = localizedUrls
-    .map(
-      ({ url }) => `
+      return group.localized
+        .map(
+          ({ url }) => `
   <url>
     <loc>${escapeXml(url)}</loc>
-    ${alternateLinks}
-    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(defaultUrl)}" />
+    <lastmod>${group.lastmod}</lastmod>
+    ${alternates}
+    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(group.defaultUrl)}" />
   </url>`
-    )
+        )
+        .join('');
+    })
     .join('');
 
   return new Response(

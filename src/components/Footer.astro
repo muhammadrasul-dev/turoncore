@@ -1,5 +1,5 @@
 ---
-import { getHomePath, type Lang, type Translations } from '../i18n/ui';
+import { getHomePath, getLocalizedPath, type Lang, type Translations } from '../i18n/ui';
 import Logo from './ui/Logo.astro';
 
 interface Props {
@@ -11,12 +11,10 @@ const { lang, t } = Astro.props;
 const year = new Date().getFullYear();
 
 const footerLinks = [
-  { href: '#what-we-do', label: t.nav.services },
-  { href: '#for-businesses', label: t.nav.forBusinesses },
-  { href: '#for-it-companies', label: t.nav.forIT },
-  { href: '#portfolio', label: t.nav.ourWork },
-  { href: '#why', label: t.nav.about },
-  { href: '#contact', label: t.nav.contact },
+  { href: getLocalizedPath('/services', lang), label: t.nav.services },
+  { href: getLocalizedPath('/projects', lang), label: t.nav.ourWork },
+  { href: getLocalizedPath('/blog', lang), label: t.nav.blog },
+  { href: getLocalizedPath('/contact', lang), label: t.nav.contact },
 ];
 
 const socials = [
@@ -143,7 +141,7 @@ const socials = [
         </p>
         <div class="mt-8">
           <a
-            href="#contact"
+            href={getLocalizedPath('/contact', lang)}
             class="inline-flex items-center gap-4 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-all duration-300 hover:bg-accent-bright hover:shadow-lg hover:shadow-[var(--c-glow)] hover:-translate-y-0.5"
           >
             <span>{t.footer.ctaButton}</span>

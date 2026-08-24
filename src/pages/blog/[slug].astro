@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogArticleView from '../../views/BlogArticleView.astro';
+import { getTranslations } from '../../i18n/ui';
+import { BLOG_SLUGS, localePath } from '../../lib/routes';
+import { getArticle } from '../../lib/content';
+import { articleSchema, faqPageSchema } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return BLOG_SLUGS.map((slug) => ({ params: { slug } }));
+}
+
+const lang = 'uz';
+const t = getTranslations(lang);
+const slug = Astro.params.slug as string;
+const article = await getArticle(lang, slug);
+if (!article) throw new Error(`Missing article ${slug}`);
+
+const site = Astro.site ?? new URL('https://turoncore.uz');
+const path = `/blog/${slug}`;
+const pageUrl = new URL(localePath(path, lang), site).toString();
+const ogImage = new URL('/og.png', site).toString();
+const extraSchema: Record<string, unknown>[] = [
+  articleSchema({
+    id: `${pageUrl}#article`,
+    headline: article.data.title,
+    description: article.data.description,
+    url: pageUrl,
+    datePublished: article.data.datePublished,
+    dateModified: article.data.datePublished,
+    inLanguage: lang,
+    image: ogImage,
+    publisherId: `${site.toString().replace(/\/$/, '')}#organization`,
+  }),
+];
+if (article.data.faq.length) extraSchema.push(faqPageSchema(article.data.faq));
+---
+
+<BaseLayout
+  lang={lang}
+  t={t}
+  path={path}
+  title={article.data.seoTitle}
+  description={article.data.seoDescription}
+  breadcrumbs={[
+    { name: t.common.home, url: new URL(localePath('/', lang), site).toString() },
+    { name: t.pages.blogTitle, url: new URL(localePath('/blog', lang), site).toString() },
+    { name: article.data.title, url: pageUrl },
+  ]}
+  extraSchema={extraSchema}
+>
+  <BlogArticleView lang={lang} t={t} article={article} />
+</BaseLayout>

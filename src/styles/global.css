@@ -582,6 +582,12 @@ p {
   transform: none;
 }
 
+#hero .reveal,
+#hero .reveal-scale {
+  opacity: 1;
+  transform: none;
+}
+
 html.lang-swapping .reveal,
 html.lang-swapping .reveal-scale {
   transition: none;

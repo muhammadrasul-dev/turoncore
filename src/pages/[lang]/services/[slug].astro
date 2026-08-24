@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ServiceDetailView from '../../../views/ServiceDetailView.astro';
+import { getTranslations, type Lang } from '../../../i18n/ui';
+import { SERVICE_SLUGS, localePath } from '../../../lib/routes';
+import { getService } from '../../../lib/content';
+import { faqPageSchema, serviceSchema } from '../../../lib/seo';
+
+export function getStaticPaths() {
+  return ['ru', 'en'].flatMap((lang) => SERVICE_SLUGS.map((slug) => ({ params: { lang, slug } })));
+}
+
+const { lang, slug } = Astro.params as { lang: Lang; slug: string };
+const t = getTranslations(lang);
+const service = await getService(lang, slug);
+if (!service) throw new Error(`Missing service ${slug}`);
+
+const site = Astro.site ?? new URL('https://turoncore.uz');
+const path = `/services/${slug}`;
+const pageUrl = new URL(localePath(path, lang), site).toString();
+const extraSchema = [
+  serviceSchema({
+    id: `${pageUrl}#service`,
+    name: service.data.title,
+    description: service.data.description,
+    url: pageUrl,
+    providerId: `${site.toString().replace(/\/$/, '')}#organization`,
+    areaServed: t.meta.areaServed,
+    serviceType: service.data.title,
+  }),
+];
+if (service.data.faq.length) extraSchema.push(faqPageSchema(service.data.faq));
+---
+
+<BaseLayout
+  lang={lang}
+  t={t}
+  path={path}
+  title={service.data.seoTitle}
+  description={service.data.seoDescription}
+  breadcrumbs={[
+    { name: t.common.home, url: new URL(localePath('/', lang), site).toString() },
+    { name: t.pages.servicesTitle, url: new URL(localePath('/services', lang), site).toString() },
+    { name: service.data.title, url: pageUrl },
+  ]}
+  extraSchema={extraSchema}
+>
+  <ServiceDetailView lang={lang} t={t} service={service} />
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
+import { getArticles } from '../lib/content';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+const articles = await getArticles(lang);
+const home = getLocalizedPath('/', lang);
+---
+
+<section class="section relative overflow-hidden pt-32 md:pt-36">
+  <div class="shell max-w-3xl">
+    <Breadcrumbs
+      items={[
+        { name: t.common.home, href: home },
+        { name: t.pages.blogTitle },
+      ]}
+    />
+    <div class="mt-8">
+      <PageHero title={t.pages.blogTitle} lead={t.pages.blogLead} />
+    </div>
+
+    <ul class="mt-12 space-y-5">
+      {
+        articles.map((article) => (
+          <li>
+            <a
+              href={getLocalizedPath(`/blog/${article.data.pageSlug}`, lang)}
+              class="surface reveal block border border-hairline/30 p-6 transition-colors hover:border-accent/30"
+            >
+              <span class="text-xs font-semibold uppercase tracking-wider text-faint">
+                {article.data.datePublished}
+              </span>
+              <h2 class="mt-2 text-xl font-bold text-ink">{article.data.title}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{article.data.description}</p>
+              <span class="mt-4 inline-block text-sm font-semibold text-accent">{t.common.readArticle}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <CtaBand lang={lang} title={t.footer.contactText} cta={t.common.discuss} />
+  </div>
+</section>

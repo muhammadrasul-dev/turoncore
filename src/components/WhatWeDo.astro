@@ -1,13 +1,15 @@
 ---
-import type { Translations } from '../i18n/ui';
+import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
 import SectionHeading from './ui/SectionHeading.astro';
 import GeometricBg from './GeometricBg.astro';
 
 interface Props {
+  lang: Lang;
   t: Translations;
 }
 
-const { t } = Astro.props;
+const { lang, t } = Astro.props;
 ---
 
 <section id="what-we-do" class="section relative overflow-hidden">
@@ -46,7 +48,7 @@ const { t } = Astro.props;
             </p>
 
             <a
-              href={item.href}
+              href={getLocalizedPath(`/services/${item.slug}`, lang)}
               class="relative z-10 mt-8 inline-flex items-center gap-2 text-sm font-semibold text-accent group-hover:text-accent-bright transition-colors duration-300"
             >
               {item.cta}

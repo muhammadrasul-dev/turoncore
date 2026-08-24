@@ -1,5 +1,5 @@
 ---
-import { getHomePath, type Lang, type Translations } from '../i18n/ui';
+import { getHomePath, getLocalizedPath, type Lang, type Translations } from '../i18n/ui';
 import LangSwitcher from './LangSwitcher.astro';
 import Logo from './ui/Logo.astro';
 
@@ -11,18 +11,20 @@ interface Props {
 const { lang, t } = Astro.props;
 
 const navItems = [
-  { href: '#what-we-do', label: t.nav.services },
-  { href: '#portfolio', label: t.nav.ourWork },
-  { href: '#why', label: t.nav.about },
-  { href: '#contact', label: t.nav.contact },
+  { href: getLocalizedPath('/services', lang), label: t.nav.services },
+  { href: getLocalizedPath('/projects', lang), label: t.nav.ourWork },
+  { href: getLocalizedPath('/blog', lang), label: t.nav.blog },
+  { href: getLocalizedPath('/contact', lang), label: t.nav.contact },
 ];
+
+const contactHref = getLocalizedPath('/contact', lang);
 ---
 
-<header id="site-header" class="fixed inset-x-0 top-0 z-50 pt-3 md:pt-5 transition-all duration-500">
+<header id="site-header" class="fixed inset-x-0 top-0 z-50">
   <div class="header-shell relative mx-auto w-fit max-w-[calc(100%-1.5rem)] px-0">
     <div
       id="header-bar"
-      class="relative z-20 flex w-fit flex-nowrap items-center gap-2 rounded-full px-3 py-2 md:gap-4 md:px-4 md:py-2.5 transition-all duration-500"
+      class="relative z-20 flex w-fit flex-nowrap items-center rounded-full"
     >
       <a href={getHomePath(lang)} class="group flex shrink-0 items-center" aria-label="TuronCore">
         <Logo class="transition-transform duration-500 group-hover:scale-[1.03]" />
@@ -85,7 +87,7 @@ const navItems = [
           ))
         }
         <div class="nav-panel-foot" style={`--i: ${navItems.length}`}>
-          <a href="#contact" class="btn btn-primary nav-panel-cta">
+          <a href={contactHref} class="btn btn-primary nav-panel-cta">
             {t.nav.startProject}
           </a>
         </div>
@@ -97,7 +99,30 @@ const navItems = [
 </header>
 
 <style>
+  #site-header {
+    padding-top: 1.15rem;
+    transition: padding-top 0.55s var(--ease);
+  }
+
+  @media (min-width: 768px) {
+    #site-header {
+      padding-top: 1.65rem;
+    }
+  }
+
+  #site-header.scrolled {
+    padding-top: 0.55rem;
+  }
+
+  @media (min-width: 768px) {
+    #site-header.scrolled {
+      padding-top: 0.75rem;
+    }
+  }
+
   #header-bar {
+    gap: 0.65rem;
+    padding: 0.65rem 0.95rem;
     background: var(--c-inset);
     border: 1px solid var(--c-hairline);
     backdrop-filter: blur(20px) saturate(160%);
@@ -105,13 +130,57 @@ const navItems = [
     box-shadow:
       inset 0 1px 0 var(--sheen),
       var(--shadow-sm);
+    transition:
+      padding 0.55s var(--ease),
+      gap 0.55s var(--ease),
+      box-shadow 0.55s var(--ease);
   }
 
-  :global(#site-header.scrolled) #header-bar,
-  :global(#site-header.is-menu-open) #header-bar {
+  @media (min-width: 768px) {
+    #header-bar {
+      gap: 1.1rem;
+      padding: 0.75rem 1.2rem;
+    }
+  }
+
+  #site-header.scrolled #header-bar,
+  #site-header.is-menu-open #header-bar {
     box-shadow:
       inset 0 1px 0 var(--sheen),
       var(--shadow-md);
+  }
+
+  #site-header.scrolled #header-bar {
+    gap: 0.45rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    #site-header.scrolled #header-bar {
+      gap: 0.8rem;
+      padding: 0.45rem 0.9rem;
+    }
+  }
+
+  #site-header.scrolled :global(a[data-navlink]) {
+    padding-block: 0.4rem;
+  }
+
+  #site-header.scrolled :global([data-lang-trigger]) {
+    padding-block: 0.35rem;
+    padding-inline: 0.65rem;
+  }
+
+  #site-header.scrolled .header-toggle {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #site-header,
+    #header-bar {
+      transition: none;
+    }
   }
 
   :global(a[data-navlink].active) {
@@ -128,6 +197,10 @@ const navItems = [
 
   .header-toggle {
     display: flex;
+    transition:
+      height 0.55s var(--ease),
+      width 0.55s var(--ease),
+      background-color 0.3s var(--ease);
   }
 
   @media (min-width: 1024px) {
@@ -256,3 +329,4 @@ const navItems = [
     }
   }
 </style>
+

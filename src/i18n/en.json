@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "TuronCore — Your Reliable Development Partner",
-    "description": "TuronCore builds reliable mobile products for businesses and helps IT companies scale their mobile development capabilities. iOS, Android, and cross-platform expertise.",
+    "title": "Mobile App Development Tashkent | Flutter, iOS, Android — TuronCore",
+    "description": "Mobile app development in Tashkent: iOS, Android, and Flutter. Products for businesses, white-label and dedicated teams for IT companies. MVP in 4–6 weeks.",
     "keywords": "TuronCore, turoncore, mobile development partner, mobile app development, iOS development, Android development, Flutter, mobile product development, IT partnership, white-label development, dedicated mobile team, Tashkent, Uzbekistan",
     "imageAlt": "TuronCore mobile development partner logo",
     "serviceName": "Mobile product development and mobile development partnerships",
@@ -29,13 +29,26 @@
     "audit": "Free Audit",
     "contact": "Contact",
     "startProject": "Start a Project",
-    "sectors": "Sectors"
+    "sectors": "Sectors",
+    "blog": "Blog"
   },
   "common": {
     "learnMore": "Learn more",
     "viewProject": "View project",
     "verified": "Verified",
-    "scroll": "Scroll"
+    "scroll": "Scroll",
+    "home": "Home",
+    "relatedProjects": "Related projects",
+    "relatedArticles": "Related articles",
+    "discuss": "Discuss a project",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "features": "Key features",
+    "result": "Business result",
+    "stack": "Tech stack",
+    "published": "Published",
+    "backHome": "Back to home",
+    "readArticle": "Read article"
   },
   "floating": {
     "aria": "Contact",
@@ -54,8 +67,8 @@
   },
   "hero": {
     "badge": "TuronCore — Mobile Development",
-    "title": "Your Reliable",
-    "titleHighlight": "Development Partner",
+    "title": "Mobile app development",
+    "titleHighlight": "a trusted partner in Tashkent",
     "typewriterPhrases": [
       "Development Partner",
       "for Businesses & Startups",
@@ -93,21 +106,21 @@
         "title": "Mobile Product Development",
         "description": "We help businesses and startups turn ideas into reliable mobile products.",
         "cta": "Learn More",
-        "href": "#for-businesses"
+        "slug": "mobile-apps"
       },
       {
         "label": "PARTNER",
         "title": "Mobile Development Partnership",
         "description": "We become a trusted mobile development partner for IT companies.",
         "cta": "Explore Partnership",
-        "href": "#for-it-companies"
+        "slug": "partnership"
       },
       {
         "label": "SCALE",
         "title": "Dedicated Mobile Team",
         "description": "We provide experienced mobile development teams when your business needs to scale.",
         "cta": "Build Your Team",
-        "href": "#for-it-companies"
+        "slug": "dedicated-team"
       }
     ]
   },
@@ -432,5 +445,23 @@
         "a": "Just write to us via our contact form or Telegram. We will get back to you within 24 hours to schedule a meeting to discuss your goals."
       }
     ]
+  },
+  "pages": {
+    "servicesTitle": "Services",
+    "servicesSeoTitle": "Mobile App Development Services Tashkent | TuronCore",
+    "servicesSeoDescription": "Mobile app development, white-label partnership, dedicated teams, MVP discovery, and supporting web systems in Tashkent. iOS, Android, Flutter.",
+    "servicesLead": "Clear service models for businesses and IT companies — product, partnership, or a dedicated team.",
+    "projectsTitle": "Projects",
+    "projectsSeoTitle": "Mobile App Projects | TuronCore Portfolio",
+    "projectsSeoDescription": "Flutter apps in e-commerce, fintech, education, and delivery. YuboMarket, Nasiya, 1Fin, and more.",
+    "projectsLead": "Shipped products in fintech, logistics, education, and e-commerce.",
+    "blogTitle": "Blog",
+    "blogSeoTitle": "Mobile App Development Articles | TuronCore",
+    "blogSeoDescription": "Practical articles on app cost, Flutter vs native, MVP timelines, white-label delivery, and Play Store launches. Tashkent.",
+    "blogLead": "Clear answers to the questions clients ask most.",
+    "contactSeoTitle": "Contact | TuronCore Tashkent",
+    "contactSeoDescription": "Write about a mobile product or partnership. Phone +998 93 361 57 75, Telegram, email. Tashkent, Uzbekistan.",
+    "notFoundTitle": "Page not found",
+    "notFoundText": "This address does not exist. Go back to home, services, or projects."
   }
 }

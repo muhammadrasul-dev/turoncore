@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomeSections from '../../components/HomeSections.astro';
 import { getTranslations, type Lang } from '../../i18n/ui';
+import { localePath } from '../../lib/routes';
+import { faqPageSchema } from '../../lib/seo';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'ru' } }, { params: { lang: 'en' } }];
@@ -9,8 +11,16 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: Lang };
 const t = getTranslations(lang);
+const site = Astro.site ?? new URL('https://turoncore.uz');
+const homeUrl = new URL(localePath('/', lang), site).toString();
 ---
 
-<BaseLayout lang={lang} t={t}>
+<BaseLayout
+  lang={lang}
+  t={t}
+  path="/"
+  breadcrumbs={[{ name: t.common.home, url: homeUrl }]}
+  extraSchema={[faqPageSchema(t.faq.items)]}
+>
   <HomeSections lang={lang} t={t} />
 </BaseLayout>

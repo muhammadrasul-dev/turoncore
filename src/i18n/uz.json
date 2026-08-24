@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "TuronCore — Ishonchli dasturlash hamkori",
-    "description": "TuronCore bizneslar uchun ishonchli mobil mahsulotlar yaratadi va IT kompaniyalarga mobil dasturlash imkoniyatlarini kengaytirishda yordam beradi.",
+    "title": "Mobil ilova ishlab chiqish Toshkent | Flutter, iOS, Android — TuronCore",
+    "description": "Toshkentda mobil ilova ishlab chiqish: iOS, Android va Flutter. Bizneslar uchun mahsulot, IT kompaniyalar uchun white-label va dedicated jamoa. MVP 4–6 haftada.",
     "keywords": "TuronCore, turoncore, mobil dasturlash hamkori, mobil ilova ishlab chiqish, iOS, Android, Flutter, mobil mahsulot, IT hamkorlik, white-label, dedicated team, Toshkent, O'zbekiston",
     "imageAlt": "TuronCore mobil dasturlash hamkori logotipi",
     "serviceName": "Mobil mahsulot ishlab chiqish va mobil dasturlash hamkorligi",
@@ -29,13 +29,26 @@
     "audit": "Bepul audit",
     "contact": "Bog'lanish",
     "startProject": "Loyihani boshlash",
-    "sectors": "Sohalar"
+    "sectors": "Sohalar",
+    "blog": "Maqolalar"
   },
   "common": {
     "learnMore": "Batafsil",
     "viewProject": "Loyihani ko'rish",
     "verified": "Tasdiqlangan",
-    "scroll": "Pastga"
+    "scroll": "Pastga",
+    "home": "Bosh sahifa",
+    "relatedProjects": "Tegishli loyihalar",
+    "relatedArticles": "Mavzuga oid maqolalar",
+    "discuss": "Loyihani muhokama qilish",
+    "challenge": "Muammo",
+    "solution": "Yechim",
+    "features": "Asosiy imkoniyatlar",
+    "result": "Biznes natija",
+    "stack": "Texnologiyalar",
+    "published": "Chop etilgan",
+    "backHome": "Bosh sahifaga",
+    "readArticle": "Maqolani o'qish"
   },
   "floating": {
     "aria": "Bog'lanish",
@@ -54,8 +67,8 @@
   },
   "hero": {
     "badge": "TuronCore — Mobil dasturlash",
-    "title": "Ishonchli",
-    "titleHighlight": "dasturlash hamkoringiz",
+    "title": "Mobil ilova ishlab chiqish",
+    "titleHighlight": "Toshkentda ishonchli hamkor",
     "typewriterPhrases": [
       "dasturlash hamkoringiz",
       "bizneslar va startaplar uchun",
@@ -93,21 +106,21 @@
         "title": "Mobil mahsulot ishlab chiqish",
         "description": "Bizneslar va startaplarga g'oyalarni ishonchli mobil mahsulotlarga aylantirishda yordam beramiz.",
         "cta": "Batafsil",
-        "href": "#for-businesses"
+        "slug": "mobile-apps"
       },
       {
         "label": "PARTNER",
         "title": "Mobil dasturlash hamkorligi",
         "description": "IT kompaniyalar uchun ishonchli mobil dasturlash hamkori bo'lamiz.",
         "cta": "Hamkorlikni o'rganish",
-        "href": "#for-it-companies"
+        "slug": "partnership"
       },
       {
         "label": "SCALE",
         "title": "Dedicated mobil jamoa",
         "description": "Biznesingiz kengayganda tajribali mobil dasturlash jamoasini taqdim etamiz.",
         "cta": "Jamoangizni tuzing",
-        "href": "#for-it-companies"
+        "slug": "dedicated-team"
       }
     ]
   },
@@ -423,5 +436,23 @@
         "a": "Kontakt formamiz yoki Telegram orqali yozing. 24 soat ichida bog'lanib, maqsadlaringizni muhokama qilish uchun uchrashuv belgilaymiz."
       }
     ]
+  },
+  "pages": {
+    "servicesTitle": "Xizmatlar",
+    "servicesSeoTitle": "Mobil ilova va dasturlash xizmatlari Toshkent | TuronCore",
+    "servicesSeoDescription": "Toshkentda mobil ilova ishlab chiqish, white-label hamkorlik, dedicated jamoa, MVP discovery va web tizimlar. iOS, Android, Flutter.",
+    "servicesLead": "Biznes va IT kompaniyalar uchun aniq xizmat modellari — mahsulot, hamkorlik yoki jamoa.",
+    "projectsTitle": "Loyihalar",
+    "projectsSeoTitle": "Mobil ilova loyihalari | TuronCore portfolio",
+    "projectsSeoDescription": "E-commerce, fintex, ta'lim va yetkazib berish bo'yicha Flutter ilovalar. YuboMarket, Nasiya, 1Fin va boshqa loyihalar.",
+    "projectsLead": "Fintex, logistika, ta'lim va e-commerce sohalarida yetkazilgan mahsulotlar.",
+    "blogTitle": "Blog",
+    "blogSeoTitle": "Mobil ilova ishlab chiqish bo'yicha maqolalar | TuronCore",
+    "blogSeoDescription": "Narx, Flutter vs native, MVP muddati, white-label va Play Store chiqarish haqida amaliy maqolalar. Toshkent.",
+    "blogLead": "Mijozlar eng ko'p so'raydigan savollarga aniq javoblar.",
+    "contactSeoTitle": "Bog'lanish | TuronCore Toshkent",
+    "contactSeoDescription": "Mobil ilova yoki hamkorlik uchun yozing. Telefon +998 93 361 57 75, Telegram, email. Toshkent, O'zbekiston.",
+    "notFoundTitle": "Sahifa topilmadi",
+    "notFoundText": "Bu manzil mavjud emas. Bosh sahifa, xizmatlar yoki loyihalarga qayting."
   }
 }

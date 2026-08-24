@@ -7,6 +7,7 @@ import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://turoncore.uz',
+  trailingSlash: 'never',
   adapter: vercel(),
   i18n: {
     defaultLocale: 'uz',

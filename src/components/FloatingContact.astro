@@ -1,12 +1,14 @@
 ---
 import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
 
 interface Props {
   lang?: Lang;
   t: Translations;
 }
 
-const { t } = Astro.props;
+const { lang = 'uz', t } = Astro.props;
+const contactHref = getLocalizedPath('/contact', lang);
 
 const telegramHref = `https://t.me/${t.footer.telegram.replace('@', '')}`;
 const instagramHref = `https://instagram.com/${t.contact.placeholders.instagram.replace('@', '')}`;
@@ -26,16 +28,16 @@ const messagesEvening = t.floating.messagesEvening;
     data-messages-evening={JSON.stringify(messagesEvening)}
     aria-live="polite"
   >
-    <a id="contact-bubble-a" class="contact-bubble is-active" href="#contact">
+    <a id="contact-bubble-a" class="contact-bubble is-active" href={contactHref}>
       <span class="contact-bubble-text">{messagesDay[0]}</span>
     </a>
-    <a id="contact-bubble-b" class="contact-bubble" href="#contact" aria-hidden="true" tabindex="-1">
+    <a id="contact-bubble-b" class="contact-bubble" href={contactHref} aria-hidden="true" tabindex="-1">
       <span class="contact-bubble-text">{messagesDay[1] ?? messagesDay[0]}</span>
     </a>
   </div>
 
   <div class="contact-dock">
-    <a href="#contact" class="contact-dock-cta">{t.floating.cta}</a>
+    <a href={contactHref} class="contact-dock-cta">{t.floating.cta}</a>
 
     <div class="contact-dock-social">
       <div id="contact-popup" role="menu" aria-hidden="true">

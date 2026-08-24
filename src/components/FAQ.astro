@@ -1,12 +1,14 @@
 ---
-import type { Translations } from '../i18n/ui';
+import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
 import SectionHeading from './ui/SectionHeading.astro';
 
 interface Props {
+  lang: Lang;
   t: Translations;
 }
 
-const { t } = Astro.props;
+const { lang, t } = Astro.props;
 ---
 
 <section id="faq" class="section relative overflow-hidden">
@@ -18,7 +20,7 @@ const { t } = Astro.props;
         <p class="lede reveal mt-5 text-muted">{t.faq.subtitle}</p>
         <div class="reveal mt-8" style="--rd:120ms">
           <a
-            href="#contact"
+            href={getLocalizedPath('/contact', lang)}
             class="btn btn-soft px-6 py-3 text-sm font-semibold"
           >
             {t.footer.ctaButton}

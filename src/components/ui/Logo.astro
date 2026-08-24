@@ -20,6 +20,7 @@ const showDark = on !== 'light';
         width="1043"
         height="225"
         decoding="async"
+        fetchpriority="high"
       />
     )
   }
@@ -46,11 +47,28 @@ const showDark = on !== 'light';
     object-fit: contain;
     user-select: none;
     -webkit-user-drag: none;
+    transition: height 0.55s var(--ease);
   }
 
   @media (min-width: 768px) {
     .tc-logo-img {
       height: 2.25rem;
+    }
+  }
+
+  :global(#site-header.scrolled) .tc-logo-img {
+    height: 1.7rem;
+  }
+
+  @media (min-width: 768px) {
+    :global(#site-header.scrolled) .tc-logo-img {
+      height: 1.85rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tc-logo-img {
+      transition: none;
     }
   }
 

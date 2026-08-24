@@ -1,0 +1,89 @@
+---
+import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
+import { getProject } from '../lib/content';
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+  service: CollectionEntry<'services'>;
+}
+
+const { lang, t, service } = Astro.props;
+const { Content } = await render(service);
+const home = getLocalizedPath('/', lang);
+const servicesPath = getLocalizedPath('/services', lang);
+const related = (
+  await Promise.all(service.data.relatedProjects.map((slug) => getProject(lang, slug)))
+).filter(Boolean);
+---
+
+<section class="section relative overflow-hidden pt-32 md:pt-36">
+  <div class="shell max-w-3xl">
+    <Breadcrumbs
+      items={[
+        { name: t.common.home, href: home },
+        { name: t.pages.servicesTitle, href: servicesPath },
+        { name: service.data.title },
+      ]}
+    />
+    <div class="mt-8">
+      <PageHero title={service.data.title} lead={service.data.description} />
+    </div>
+
+    <div class="prose-content reveal mt-10 space-y-4 text-[0.98rem] leading-relaxed text-muted">
+      <Content />
+    </div>
+
+    <FaqList items={service.data.faq} />
+
+    {
+      related.length > 0 && (
+        <div class="mt-14">
+          <h2 class="headline text-ink">{t.common.relatedProjects}</h2>
+          <ul class="mt-6 grid gap-4">
+            {related.map((project) =>
+              project ? (
+                <li>
+                  <a
+                    href={getLocalizedPath(`/projects/${project.data.pageSlug}`, lang)}
+                    class="surface block border border-hairline/30 p-5 transition-colors hover:border-accent/30"
+                  >
+                    <span class="block font-semibold text-ink">{project.data.title}</span>
+                    <span class="mt-1 block text-sm text-muted">{project.data.description}</span>
+                  </a>
+                </li>
+              ) : null
+            )}
+          </ul>
+        </div>
+      )
+    }
+
+    <CtaBand lang={lang} title={t.footer.contactText} cta={t.common.discuss} />
+  </div>
+</section>
+
+<style>
+  .prose-content :global(h2) {
+    margin-top: 1.75rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--c-text);
+  }
+  .prose-content :global(ul) {
+    margin: 0.75rem 0 1rem;
+    padding-left: 1.1rem;
+    list-style: disc;
+  }
+  .prose-content :global(li) {
+    margin: 0.3rem 0;
+  }
+</style>

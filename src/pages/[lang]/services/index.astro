@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ServicesIndexView from '../../../views/ServicesIndexView.astro';
+import { getTranslations, type Lang } from '../../../i18n/ui';
+import { localePath } from '../../../lib/routes';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'ru' } }, { params: { lang: 'en' } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = getTranslations(lang);
+const site = Astro.site ?? new URL('https://turoncore.uz');
+const path = '/services';
+---
+
+<BaseLayout
+  lang={lang}
+  t={t}
+  path={path}
+  title={t.pages.servicesSeoTitle}
+  description={t.pages.servicesSeoDescription}
+  breadcrumbs={[
+    { name: t.common.home, url: new URL(localePath('/', lang), site).toString() },
+    { name: t.pages.servicesTitle, url: new URL(localePath(path, lang), site).toString() },
+  ]}
+>
+  <ServicesIndexView lang={lang} t={t} />
+</BaseLayout>

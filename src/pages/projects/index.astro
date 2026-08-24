@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectsIndexView from '../../views/ProjectsIndexView.astro';
+import { getTranslations } from '../../i18n/ui';
+import { localePath } from '../../lib/routes';
+
+const lang = 'uz';
+const t = getTranslations(lang);
+const site = Astro.site ?? new URL('https://turoncore.uz');
+---
+
+<BaseLayout
+  lang={lang}
+  t={t}
+  path="/projects"
+  title={t.pages.projectsSeoTitle}
+  description={t.pages.projectsSeoDescription}
+  breadcrumbs={[
+    { name: t.common.home, url: new URL(localePath('/', lang), site).toString() },
+    { name: t.pages.projectsTitle, url: new URL(localePath('/projects', lang), site).toString() },
+  ]}
+>
+  <ProjectsIndexView lang={lang} t={t} />
+</BaseLayout>

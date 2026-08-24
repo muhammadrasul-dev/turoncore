@@ -1,10 +1,11 @@
 ---
 import { getLocalizedPath, languages, type Lang, type Translations } from '../i18n/ui';
+import { hrefLangMap, ogLocaleMap } from '../lib/routes';
+import { breadcrumbSchema, type BreadcrumbItem } from '../lib/seo';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingContact from '../components/FloatingContact.astro';
 import ContactModal from '../components/ContactModal.astro';
-import LogoIcon from '../components/ui/LogoIcon.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -12,100 +13,102 @@ interface Props {
   t: Translations;
   title?: string;
   description?: string;
+  path?: string;
+  ogImagePath?: string;
+  robots?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  extraSchema?: Record<string, unknown>[];
 }
 
-const { lang, t, title, description } = Astro.props;
+const {
+  lang,
+  t,
+  title,
+  description,
+  path,
+  ogImagePath = '/og.png',
+  robots = 'index, follow, max-image-preview:large',
+  breadcrumbs = [],
+  extraSchema = [],
+} = Astro.props;
+
 const pageTitle = title ?? t.meta.title;
 const pageDescription = description ?? t.meta.description;
 const siteUrl = Astro.site ?? new URL(Astro.url.origin);
-const canonical = new URL(Astro.url.pathname, siteUrl);
-const defaultLocaleUrl = new URL('/', siteUrl).toString();
+const contentPath = path ?? Astro.url.pathname;
+const canonical = new URL(getLocalizedPath(contentPath, lang), siteUrl);
+const defaultLocaleUrl = new URL(getLocalizedPath(contentPath, 'uz'), siteUrl).toString();
 const alternateUrls = languages.map(({ code }) => ({
   code,
-  hrefLang: code === 'uz' ? 'uz-UZ' : code === 'ru' ? 'ru-RU' : 'en',
-  href: new URL(getLocalizedPath('/', code), siteUrl).toString(),
+  hrefLang: hrefLangMap[code],
+  href: new URL(getLocalizedPath(contentPath, code), siteUrl).toString(),
 }));
-const ogImage = new URL('/og.png', siteUrl).toString();
+const ogImage = new URL(ogImagePath, siteUrl).toString();
 const logoImage = new URL('/logos/logo-light-bg.png', siteUrl).toString();
 const telegramUrl = `https://t.me/${t.footer.telegram.replace('@', '')}`;
 const instagramUrl = `https://instagram.com/${t.contact.placeholders.instagram.replace('@', '')}`;
 const phone = t.contact.placeholders.phone.replace(/\s/g, '');
-const organizationSchema = {
+const gsc = import.meta.env.PUBLIC_GSC_VERIFICATION;
+const yandex = import.meta.env.PUBLIC_YANDEX_VERIFICATION;
+const orgId = `${siteUrl.toString().replace(/\/$/, '')}#organization`;
+const siteId = `${siteUrl.toString().replace(/\/$/, '')}#website`;
+
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': ['Organization', 'ProfessionalService'],
+    '@id': orgId,
+    name: 'TuronCore',
+    alternateName: ['Turon Core', 'turoncore', 'turon core'],
+    url: siteUrl.toString(),
+    logo: logoImage,
+    image: ogImage,
+    description: t.meta.description,
+    email: t.contact.placeholders.email,
+    telephone: phone,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: t.meta.city,
+      addressCountry: t.meta.country,
+    },
+    areaServed: t.meta.areaServed,
+    sameAs: [telegramUrl, instagramUrl, 'https://youtube.com/@turoncore'],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: phone,
+      contactType: 'sales',
+      areaServed: t.meta.areaServed,
+      availableLanguage: ['uz', 'ru', 'en'],
+    },
+  },
+  {
+    '@type': 'WebSite',
+    '@id': siteId,
+    url: siteUrl.toString(),
+    name: 'TuronCore',
+    inLanguage: lang,
+    publisher: { '@id': orgId },
+  },
+  {
+    '@type': 'WebPage',
+    '@id': `${canonical.toString()}#webpage`,
+    url: canonical.toString(),
+    name: pageTitle,
+    description: pageDescription,
+    isPartOf: { '@id': siteId },
+    about: { '@id': orgId },
+    inLanguage: lang,
+  },
+];
+
+if (breadcrumbs.length) {
+  graph.push(breadcrumbSchema(breadcrumbs));
+}
+
+graph.push(...extraSchema);
+
+const jsonLd = {
   '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${siteUrl}#organization`,
-      name: 'TuronCore',
-      alternateName: ['Turon Core', 'turoncore', 'turon core'],
-      url: siteUrl.toString(),
-      logo: logoImage,
-      image: ogImage,
-      description: pageDescription,
-      email: t.contact.placeholders.email,
-      telephone: t.contact.placeholders.phone,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: t.meta.city,
-        addressCountry: t.meta.country,
-      },
-      areaServed: t.meta.areaServed,
-      sameAs: [telegramUrl, instagramUrl, 'https://youtube.com/@turoncore'],
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: phone,
-        contactType: 'sales',
-        areaServed: t.meta.areaServed,
-        availableLanguage: ['uz', 'ru', 'en'],
-      },
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${siteUrl}#website`,
-      url: siteUrl.toString(),
-      name: 'TuronCore',
-      inLanguage: lang,
-      publisher: {
-        '@id': `${siteUrl}#organization`,
-      },
-    },
-    {
-      '@type': 'WebPage',
-      '@id': `${canonical.toString()}#webpage`,
-      url: canonical.toString(),
-      name: pageTitle,
-      description: pageDescription,
-      isPartOf: {
-        '@id': `${siteUrl}#website`,
-      },
-      about: {
-        '@id': `${siteUrl}#organization`,
-      },
-      inLanguage: lang,
-    },
-    {
-      '@type': 'Service',
-      '@id': `${siteUrl}#what-we-do`,
-      name: t.meta.serviceName,
-      provider: {
-        '@id': `${siteUrl}#organization`,
-      },
-      areaServed: t.meta.areaServed,
-      serviceType: t.meta.serviceTypes,
-      description: t.whatWeDo.subtitle,
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: t.whatWeDo.title,
-        itemListElement: t.meta.serviceTypes.map((service: string) => ({
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: service,
-          },
-        })),
-      },
-    },
-  ],
+  '@graph': graph,
 };
 ---
 
@@ -115,11 +118,12 @@ const organizationSchema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={pageDescription} />
-    <meta name="keywords" content={t.meta.keywords} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content={robots} />
     <meta name="author" content="TuronCore" />
     <meta name="application-name" content="TuronCore" />
     <meta name="theme-color" content="#f3f5f7" />
+    {gsc && <meta name="google-site-verification" content={gsc} />}
+    {yandex && <meta name="yandex-verification" content={yandex} />}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonical.toString()} />
@@ -149,73 +153,31 @@ const organizationSchema = {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={t.meta.imageAlt} />
-    <meta property="og:locale" content={lang === 'uz' ? 'uz_UZ' : lang === 'ru' ? 'ru_RU' : 'en_US'} />
+    <meta property="og:locale" content={ogLocaleMap[lang]} />
+    {
+      languages
+        .filter(({ code }) => code !== lang)
+        .map(({ code }) => <meta property="og:locale:alternate" content={ogLocaleMap[code]} />)
+    }
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={t.meta.imageAlt} />
 
-    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <script is:inline>
       (function () {
         try {
           document.documentElement.classList.remove('dark');
           localStorage.removeItem('theme');
-          if (sessionStorage.getItem('tc-ready') === '1') {
-            document.documentElement.classList.add('app-ready');
-          }
+          document.documentElement.classList.add('app-ready');
         } catch (e) {}
       })();
     </script>
   </head>
   <body class="min-h-screen bg-bg text-ink">
-    <!-- Premium Layout Preloader Overlay -->
-    <div
-      id="page-preloader"
-      class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-bg transition-all duration-[800ms] cubic-bezier(0.16, 1, 0.3, 1)"
-    >
-      <div class="relative flex flex-col items-center">
-        <LogoIcon class="h-14 w-14" />
-      </div>
-    </div>
-
-    <!-- Preloader controller script -->
-    <script is:inline>
-      (function () {
-        if (document.documentElement.classList.contains('app-ready')) {
-          const preloader = document.getElementById('page-preloader');
-          if (preloader) preloader.remove();
-          return;
-        }
-
-        document.documentElement.classList.add('lenis-stopped');
-
-        window.addEventListener('load', function () {
-          const preloader = document.getElementById('page-preloader');
-          try {
-            sessionStorage.setItem('tc-ready', '1');
-            document.documentElement.classList.add('app-ready');
-          } catch (e) {}
-          if (preloader) {
-            preloader.style.opacity = '0';
-            preloader.style.visibility = 'hidden';
-            preloader.style.transform = 'translateY(-24px)';
-
-            setTimeout(function () {
-              preloader.remove();
-              document.documentElement.classList.remove('lenis-stopped');
-              
-              const heroReveals = document.querySelectorAll('#hero .reveal, #hero .reveal-scale');
-              heroReveals.forEach(function (el) {
-                el.classList.add('visible');
-              });
-            }, 850);
-          }
-        });
-      })();
-    </script>
-
     <div id="scroll-progress"></div>
 
     <a
@@ -241,10 +203,12 @@ const organizationSchema = {
       import { bindPage } from '../scripts/page.ts';
       import { initLangSwitchers } from '../scripts/lang.ts';
       import { initSmoothScroll } from '../scripts/scroll.ts';
+      import { inject } from '@vercel/analytics';
 
+      initSmoothScroll();
       bindPage();
       initLangSwitchers();
-      initSmoothScroll();
+      inject();
     </script>
   </body>
 </html>

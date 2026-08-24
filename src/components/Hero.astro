@@ -1,13 +1,15 @@
 ---
-import type { Translations } from '../i18n/ui';
+import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
 import GeometricBg from './GeometricBg.astro';
 import Button from './ui/Button.astro';
 
 interface Props {
+  lang: Lang;
   t: Translations;
 }
 
-const { t } = Astro.props;
+const { lang, t } = Astro.props;
 ---
 
 <section
@@ -43,7 +45,7 @@ const { t } = Astro.props;
       </p>
 
       <div class="reveal mt-9 flex flex-wrap items-center justify-center gap-4.5" style="--rd:240ms">
-        <Button href="#for-businesses" variant="primary" size="lg" class="group">
+        <Button href={getLocalizedPath('/services/mobile-apps', lang)} variant="primary" size="lg" class="group">
           {t.hero.ctaPrimary}
           <svg
             class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -57,7 +59,7 @@ const { t } = Astro.props;
             <path d="M5 12h13M13 6l6 6-6 6"></path>
           </svg>
         </Button>
-        <Button href="#for-it-companies" variant="soft" size="lg">
+        <Button href={getLocalizedPath('/services/partnership', lang)} variant="soft" size="lg">
           {t.hero.ctaSecondary}
         </Button>
       </div>

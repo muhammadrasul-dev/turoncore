@@ -1,0 +1,52 @@
+---
+import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
+import { getProjects } from '../lib/content';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageHero from '../components/PageHero.astro';
+import ProjectCover from '../components/ProjectCover.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+const projects = await getProjects(lang);
+const home = getLocalizedPath('/', lang);
+---
+
+<section class="section relative overflow-hidden pt-32 md:pt-36">
+  <div class="shell">
+    <Breadcrumbs
+      items={[
+        { name: t.common.home, href: home },
+        { name: t.pages.projectsTitle },
+      ]}
+    />
+    <div class="mt-8">
+      <PageHero title={t.pages.projectsTitle} lead={t.pages.projectsLead} />
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        projects.map((project, i) => (
+          <a
+            href={getLocalizedPath(`/projects/${project.data.pageSlug}`, lang)}
+            class="group surface reveal overflow-hidden border border-hairline/30 p-3"
+            style={`--rd:${(i % 3) * 80}ms`}
+          >
+            <ProjectCover title={project.data.title} highlight={project.data.highlight} index={i} />
+            <div class="px-3 py-5">
+              <h2 class="text-xl font-bold text-ink group-hover:text-accent">{project.data.title}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{project.data.description}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <CtaBand lang={lang} title={t.footer.contactText} cta={t.common.discuss} />
+  </div>
+</section>

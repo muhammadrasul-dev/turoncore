@@ -128,9 +128,40 @@ export function initHeaderScroll() {
   headerScrollAbort?.abort();
   headerScrollAbort = new AbortController();
 
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+  const COMPACT_AT = 96;
+  const EXPAND_AT = 36;
+  let compact = header.classList.contains('scrolled');
+  let ticking = false;
+
+  const apply = () => {
+    const y = window.scrollY;
+    if (!compact && y > COMPACT_AT) {
+      compact = true;
+      header.classList.add('scrolled');
+    } else if (compact && y < EXPAND_AT) {
+      compact = false;
+      header.classList.remove('scrolled');
+    }
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(apply);
+  };
+
   window.addEventListener('scroll', onScroll, { passive: true, signal: headerScrollAbort.signal });
-  onScroll();
+
+  const lenis = (
+    window as unknown as { lenis?: { on?: (event: string, cb: () => void) => void; off?: (event: string, cb: () => void) => void } }
+  ).lenis;
+  if (lenis?.on) {
+    lenis.on('scroll', onScroll);
+    headerScrollAbort.signal.addEventListener('abort', () => lenis.off?.('scroll', onScroll));
+  }
+
+  apply();
 }
 
 let progressAbort: AbortController | null = null;
@@ -169,37 +200,17 @@ export function initActiveSection() {
   sectionObserver?.disconnect();
   sectionObserver = null;
 
-  const links = Array.from(
-    document.querySelectorAll<HTMLAnchorElement>('a[data-navlink]')
-  );
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[data-navlink]'));
   if (!links.length) return;
 
-  const map = new Map<string, HTMLAnchorElement>();
-  const targets: Element[] = [];
+  const current = (window.location.pathname.replace(/\/$/, '') || '/');
+
+  const isHome = current === '/' || current === '/ru' || current === '/en';
 
   links.forEach((link) => {
-    const id = link.dataset.navlink?.replace('#', '');
-    if (!id) return;
-    const section = document.getElementById(id);
-    if (!section) return;
-    map.set(id, link);
-    targets.push(section);
+    const href = new URL(link.getAttribute('href') || '/', window.location.origin).pathname.replace(/\/$/, '') || '/';
+    const homeLink = href === '/' || href === '/ru' || href === '/en';
+    const active = homeLink ? isHome : current === href || current.startsWith(`${href}/`);
+    link.classList.toggle('active', active);
   });
-
-  const visible = new Set<string>();
-
-  sectionObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) visible.add(entry.target.id);
-        else visible.delete(entry.target.id);
-      });
-
-      const current = targets.map((s) => s.id).find((id) => visible.has(id));
-      map.forEach((link, id) => link.classList.toggle('active', id === current));
-    },
-    { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
-  );
-
-  targets.forEach((section) => sectionObserver?.observe(section));
 }

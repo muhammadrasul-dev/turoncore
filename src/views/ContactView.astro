@@ -1,0 +1,30 @@
+---
+import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageHero from '../components/PageHero.astro';
+import Contact from '../components/Contact.astro';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+}
+
+const { lang, t } = Astro.props;
+const home = getLocalizedPath('/', lang);
+---
+
+<section class="section relative overflow-hidden pt-32 md:pt-36 pb-0">
+  <div class="shell">
+    <Breadcrumbs
+      items={[
+        { name: t.common.home, href: home },
+        { name: t.nav.contact },
+      ]}
+    />
+    <div class="mt-8">
+      <PageHero title={t.contact.title} lead={t.contact.subtitle} />
+    </div>
+  </div>
+</section>
+<Contact t={t} asPage />

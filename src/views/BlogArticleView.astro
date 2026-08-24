@@ -1,0 +1,82 @@
+---
+import type { Lang, Translations } from '../i18n/ui';
+import { getLocalizedPath } from '../i18n/ui';
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+interface Props {
+  lang: Lang;
+  t: Translations;
+  article: CollectionEntry<'blog'>;
+}
+
+const { lang, t, article } = Astro.props;
+const { Content } = await render(article);
+const home = getLocalizedPath('/', lang);
+const blogPath = getLocalizedPath('/blog', lang);
+const servicePath = article.data.relatedService
+  ? getLocalizedPath(`/services/${article.data.relatedService}`, lang)
+  : null;
+---
+
+<article class="section relative overflow-hidden pt-32 md:pt-36">
+  <div class="shell max-w-3xl">
+    <Breadcrumbs
+      items={[
+        { name: t.common.home, href: home },
+        { name: t.pages.blogTitle, href: blogPath },
+        { name: article.data.title },
+      ]}
+    />
+    <div class="mt-8">
+      <PageHero title={article.data.title} lead={article.data.description} />
+    </div>
+    <p class="reveal mt-4 text-sm text-faint">
+      {t.common.published}: {article.data.datePublished}
+    </p>
+
+    <div class="prose-content reveal mt-10 space-y-4 text-[1.02rem] leading-relaxed text-muted">
+      <Content />
+    </div>
+
+    <FaqList items={article.data.faq} />
+
+    {
+      servicePath && (
+        <p class="reveal mt-8 text-sm">
+          <a href={servicePath} class="font-semibold text-accent">
+            {t.nav.services}
+          </a>
+        </p>
+      )
+    }
+
+    <CtaBand lang={lang} title={t.footer.contactText} cta={t.common.discuss} />
+  </div>
+</article>
+
+<style>
+  .prose-content :global(h2) {
+    margin-top: 1.75rem;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--c-text);
+  }
+  .prose-content :global(ul) {
+    margin: 0.75rem 0 1rem;
+    padding-left: 1.15rem;
+    list-style: disc;
+  }
+  .prose-content :global(li + li) {
+    margin-top: 0.35rem;
+  }
+  .prose-content :global(a) {
+    color: var(--c-accent);
+    font-weight: 600;
+  }
+</style>

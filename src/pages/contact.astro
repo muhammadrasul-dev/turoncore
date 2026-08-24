@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactView from '../views/ContactView.astro';
+import { getTranslations } from '../i18n/ui';
+import { localePath } from '../lib/routes';
+
+const lang = 'uz';
+const t = getTranslations(lang);
+const site = Astro.site ?? new URL('https://turoncore.uz');
+---
+
+<BaseLayout
+  lang={lang}
+  t={t}
+  path="/contact"
+  title={t.pages.contactSeoTitle}
+  description={t.pages.contactSeoDescription}
+  breadcrumbs={[
+    { name: t.common.home, url: new URL(localePath('/', lang), site).toString() },
+    { name: t.nav.contact, url: new URL(localePath('/contact', lang), site).toString() },
+  ]}
+>
+  <ContactView lang={lang} t={t} />
+</BaseLayout>

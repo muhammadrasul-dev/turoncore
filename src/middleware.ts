@@ -16,9 +16,16 @@ function withoutUzPrefix(pathname: string) {
   return null;
 }
 
-// Keep /api outside locale prefix rules so the contact endpoint stays reachable.
+function isPassthrough(pathname: string) {
+  return (
+    pathname.startsWith('/api/') ||
+    pathname === '/sitemap.xml' ||
+    pathname === '/robots.txt'
+  );
+}
+
 export const onRequest = defineMiddleware((context, next) => {
-  if (context.url.pathname.startsWith('/api/')) {
+  if (isPassthrough(context.url.pathname)) {
     return next();
   }
 

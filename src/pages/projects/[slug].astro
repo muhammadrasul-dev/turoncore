@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectDetailView from '../../views/ProjectDetailView.astro';
+import { getTranslations } from '../../i18n/ui';
+import { PROJECT_SLUGS, localePath } from '../../lib/routes';
+import { getProject, getProjects } from '../../lib/content';
+import { softwareSchema } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return PROJECT_SLUGS.map((slug) => ({ params: { slug } }));
+}
+
+const lang = 'uz';
+const t = getTranslations(lang);
+const slug = Astro.params.slug as string;
+const project = await getProject(lang, slug);
+if (!project) throw new Error(`Missing project ${slug}`);
+const all = await getProjects(lang);
+const index = all.findIndex((item) => item.data.pageSlug === slug);
+
+const site = Astro.site ?? new URL('https://turoncore.uz');
+const path = `/projects/${slug}`;
+const pageUrl = new URL(localePath(path, lang), site).toString();
+---
+
+<BaseLayout
+  lang={lang}
+  t={t}
+  path={path}
+  title={project.data.seoTitle}
+  description={project.data.seoDescription}
+  breadcrumbs={[
+    { name: t.common.home, url: new URL(localePath('/', lang), site).toString() },
+    { name: t.pages.projectsTitle, url: new URL(localePath('/projects', lang), site).toString() },
+    { name: project.data.title, url: pageUrl },
+  ]}
+  extraSchema={[
+    softwareSchema({
+      id: `${pageUrl}#app`,
+      name: project.data.title,
+      description: project.data.description,
+      url: pageUrl,
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: project.data.platform,
+    }),
+  ]}
+>
+  <ProjectDetailView lang={lang} t={t} project={project} index={index} />
+</BaseLayout>

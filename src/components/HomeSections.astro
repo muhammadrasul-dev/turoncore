@@ -8,6 +8,7 @@ import ForITCompanies from './ForITCompanies.astro';
 import WhyTuronCore from './WhyTuronCore.astro';
 import Process from './Process.astro';
 import Portfolio from './Portfolio.astro';
+import Testimonials from './Testimonials.astro';
 import TechStack from './TechStack.astro';
 import FAQ from './FAQ.astro';
 import Contact from './Contact.astro';
@@ -21,15 +22,16 @@ interface Props {
 const { lang, t } = Astro.props;
 ---
 
-<Hero t={t} />
+<Hero lang={lang} t={t} />
 <ClientLogos t={t} />
-<WhatWeDo t={t} />
+<WhatWeDo lang={lang} t={t} />
 <MobileExpertise t={t} />
 <ForBusinesses t={t} />
 <ForITCompanies t={t} />
 <WhyTuronCore t={t} />
 <Process t={t} />
 <Portfolio lang={lang} t={t} />
+<Testimonials lang={lang} t={t} />
 <TechStack t={t} />
-<FAQ t={t} />
+<FAQ lang={lang} t={t} />
 <Contact t={t} />

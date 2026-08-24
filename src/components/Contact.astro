@@ -5,9 +5,10 @@ import Button from './ui/Button.astro';
 
 interface Props {
   t: Translations;
+  asPage?: boolean;
 }
 
-const { t } = Astro.props;
+const { t, asPage = false } = Astro.props;
 
 const contactItems = [
   {
@@ -50,11 +51,17 @@ const contactItems = [
     <div class="surface reveal overflow-hidden p-7 md:p-12 lg:p-16">
       <div class="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
         <div>
-          <span class="eyebrow">{t.contact.eyebrow}</span>
-          <h2 class="headline mt-5 text-ink">{t.contact.title}</h2>
-          <p class="lede mt-5 max-w-md">{t.contact.subtitle}</p>
+          {
+            !asPage && (
+              <>
+                <span class="eyebrow">{t.contact.eyebrow}</span>
+                <h2 class="headline mt-5 text-ink">{t.contact.title}</h2>
+                <p class="lede mt-5 max-w-md">{t.contact.subtitle}</p>
+              </>
+            )
+          }
 
-          <ul class="mt-10 space-y-2">
+          <ul class:list={['space-y-2', asPage ? 'mt-0' : 'mt-10']}>
             {
               contactItems.map((item) => (
                 <li>
