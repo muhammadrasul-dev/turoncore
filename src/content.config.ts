@@ -41,6 +41,20 @@ const portfolio = defineCollection({
     playStore: z.string().optional(),
     icon: z.string().optional(),
     screenshots: z.array(z.string()).default([]),
+    // Products made of several store apps (e.g. a customer app and a business app)
+    apps: z
+      .array(
+        z.object({
+          name: z.string(),
+          role: z.string(),
+          description: z.string(),
+          icon: z.string(),
+          appStore: z.string().optional(),
+          playStore: z.string().optional(),
+          screenshots: z.array(z.string()).default([]),
+        }),
+      )
+      .default([]),
     image: z.string().optional(),
     imageAlt: z.string(),
     inProcess: z.boolean().default(false),

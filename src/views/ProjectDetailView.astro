@@ -36,7 +36,46 @@ const servicePath = getLocalizedPath(`/services/${project.data.relatedService}`,
     </div>
 
     {
-      project.data.screenshots.length > 0 ? (
+      project.data.apps.length > 0 ? (
+        <div class="apps mt-8">
+          {project.data.apps.map((app, a) => (
+            <article class="app-card">
+              <header class="flex items-center gap-3">
+                <img src={app.icon} alt="" width="48" height="48" class="app-icon" />
+                <div class="min-w-0">
+                  <h2 class="text-lg font-semibold text-ink">{app.name}</h2>
+                  <p class="text-sm font-medium text-accent-deep">{app.role}</p>
+                </div>
+              </header>
+              <p class="mt-4 text-[0.95rem] leading-relaxed text-muted">{app.description}</p>
+              <div class="shots mt-5" aria-label={`${app.name} — ${t.common.screenshots}`} role="group">
+                {app.screenshots.map((src, i) => (
+                  <img
+                    src={src}
+                    alt={`${app.name} — ${i + 1}`}
+                    width="690"
+                    height="1500"
+                    loading={a === 0 && i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                ))}
+              </div>
+              <div class="mt-5 flex flex-wrap gap-2">
+                {app.appStore && (
+                  <a href={app.appStore} target="_blank" rel="noopener noreferrer" class="btn btn-soft px-4 py-2 text-sm">
+                    {t.common.appStore}
+                  </a>
+                )}
+                {app.playStore && (
+                  <a href={app.playStore} target="_blank" rel="noopener noreferrer" class="btn btn-soft px-4 py-2 text-sm">
+                    {t.common.playStore}
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : project.data.screenshots.length > 0 ? (
         <div class="shots mt-8" aria-label={t.common.screenshots} role="group">
           {project.data.screenshots.map((src, i) => (
             <img
@@ -56,22 +95,28 @@ const servicePath = getLocalizedPath(`/services/${project.data.relatedService}`,
       )
     }
 
-    <div class="mt-6 flex flex-wrap items-center gap-3">
-      {project.data.icon && (
-        <img src={project.data.icon} alt="" width="40" height="40" class="h-10 w-10 rounded-[0.7rem] shadow-[0_0_0_1px_var(--c-hairline)]" />
-      )}
-      <p class="mr-auto text-sm font-semibold text-faint">{project.data.platform}</p>
-      {project.data.appStore && (
-        <a href={project.data.appStore} target="_blank" rel="noopener noreferrer" class="btn btn-soft px-4 py-2 text-sm">
-          {t.common.appStore}
-        </a>
-      )}
-      {project.data.playStore && (
-        <a href={project.data.playStore} target="_blank" rel="noopener noreferrer" class="btn btn-soft px-4 py-2 text-sm">
-          {t.common.playStore}
-        </a>
-      )}
-    </div>
+    {
+      project.data.apps.length > 0 ? (
+        <p class="mt-6 text-sm font-semibold text-faint">{project.data.platform}</p>
+      ) : (
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          {project.data.icon && (
+            <img src={project.data.icon} alt="" width="40" height="40" class="h-10 w-10 rounded-[0.7rem] shadow-[0_0_0_1px_var(--c-hairline)]" />
+          )}
+          <p class="mr-auto text-sm font-semibold text-faint">{project.data.platform}</p>
+          {project.data.appStore && (
+            <a href={project.data.appStore} target="_blank" rel="noopener noreferrer" class="btn btn-soft px-4 py-2 text-sm">
+              {t.common.appStore}
+            </a>
+          )}
+          {project.data.playStore && (
+            <a href={project.data.playStore} target="_blank" rel="noopener noreferrer" class="btn btn-soft px-4 py-2 text-sm">
+              {t.common.playStore}
+            </a>
+          )}
+        </div>
+      )
+    }
 
     <div class="prose-content reveal mt-8 space-y-4 text-[0.98rem] leading-relaxed text-muted">
       <Content />
@@ -118,6 +163,37 @@ const servicePath = getLocalizedPath(`/services/${project.data.relatedService}`,
 </section>
 
 <style>
+  .apps {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .apps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .app-card .shots {
+      grid-auto-columns: minmax(8.5rem, 1fr);
+    }
+  }
+
+  .app-card {
+    min-width: 0;
+    padding: 1.25rem;
+    border-radius: var(--r-lg);
+    background: var(--c-bg-soft);
+  }
+
+  .app-icon {
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+    border-radius: 0.85rem;
+    background: #fff;
+    box-shadow: 0 0 0 1px var(--c-hairline);
+  }
+
   .shots {
     display: grid;
     grid-auto-flow: column;
