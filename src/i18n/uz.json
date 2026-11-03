@@ -33,6 +33,10 @@
     "blog": "Maqolalar"
   },
   "common": {
+    "downloads": "yuklab olishlar",
+    "appStore": "App Store'da ochish",
+    "playStore": "Google Play'da ochish",
+    "screenshots": "Ilova ekranlari",
     "learnMore": "Batafsil",
     "viewProject": "Loyihani ko'rish",
     "verified": "Tasdiqlangan",
@@ -66,18 +70,18 @@
     ]
   },
   "hero": {
-    "badge": "TuronCore — Mobil dasturlash",
-    "title": "Mobil ilova ishlab chiqish",
-    "titleHighlight": "Toshkentda ishonchli hamkor",
+    "badge": "TuronCore — Mobile Development Partner",
+    "title": "Mobil mahsulotingizni",
+    "titleHighlight": "ishonchli jamoaga topshiring.",
     "typewriterPhrases": [
       "dasturlash hamkoringiz",
       "bizneslar va startaplar uchun",
       "IT kompaniyalar va agentliklar uchun",
       "o'sadigan mahsulotlar yaratamiz"
     ],
-    "subtitle": "Bizneslar uchun ishonchli mobil mahsulotlar yaratamiz va IT kompaniyalarga mobil dasturlash imkoniyatlarini kengaytirishda yordam beramiz.",
-    "ctaPrimary": "Mahsulot yaratish",
-    "ctaSecondary": "Hamkor bo'lish",
+    "subtitle": "Bizneslar uchun mobil ilovalar yaratamiz. IT kompaniyalarga esa loyihalarini ishonchli mobile development jamoasi bilan kengaytirishga yordam beramiz.",
+    "ctaPrimary": "Loyihani muhokama qilish",
+    "ctaSecondary": "IT kompaniyamisiz? Hamkorlik",
     "assemble": {
       "labels": {
         "payment": "To'lov tizimi",
@@ -391,15 +395,13 @@
   },
   "why": {
     "eyebrow": "Nega biz?",
-    "title": "Nega aynan TuronCore?",
-    "subtitle": "Mobil ekspertiza, tajribali muhandislar va ishonchli jarayon.",
+    "title": "Nima uchun TuronCore?",
+    "subtitle": "Sizda mobil loyiha bor — biz uni ishonchli jamoa bilan olib ketamiz.",
     "items": [
-      { "num": "01", "title": "Mobilga yo'naltirilgan ekspertiza", "desc": "Mobil dasturlash bizning asosiy yo'nalishlarimizdan biri." },
-      { "num": "02", "title": "Tajribali jamoa", "desc": "Jamoamiz real mahsulotlar ustida ishlash va murakkab dasturlash muammolarini hal qilish tajribasiga ega." },
-      { "num": "03", "title": "Ishonchli jarayon", "desc": "Har bir loyiha tuzilgan va boshqariladigan ishlab chiqish jarayonidan o'tadi." },
-      { "num": "04", "title": "Shaffof muloqot", "desc": "Mijozlar va hamkorlar loyiha davomida xabardor bo'lib turadilar." },
-      { "num": "05", "title": "Sifat standartlari", "desc": "Arxitektura, code review, test va sifat nazorati kabi professional muhandislik amaliyotlariga amal qilamiz." },
-      { "num": "06", "title": "Uzoq muddatli hamkorlik", "desc": "Faqat loyihani topshirib ketmaymiz — uzoq muddatli munosabatlar qurishni maqsad qilamiz." }
+      { "num": "01", "title": "Mobile-first ekspertiza", "desc": "Mobil development — bizning asosiy kompetensiyamiz." },
+      { "num": "02", "title": "Ishonchli hamkorlik", "desc": "Loyihani topshirib qo'ymaymiz — development jarayonini birga olib boramiz." },
+      { "num": "03", "title": "Tajribali jamoa", "desc": "Tajribali mobile developerlar bilan ishlaymiz." },
+      { "num": "04", "title": "Biznes va IT kompaniyalar uchun", "desc": "Bizneslar va IT kompaniyalar uchun moslashuvchan development modeli." }
     ]
   },
   "faq": {

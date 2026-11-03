@@ -1,7 +1,7 @@
 ---
 import type { Lang, Translations } from '../i18n/ui';
 import { getLocalizedPath } from '../i18n/ui';
-import GeometricBg from './GeometricBg.astro';
+import { getProjects } from '../lib/content';
 import Button from './ui/Button.astro';
 
 interface Props {
@@ -10,18 +10,20 @@ interface Props {
 }
 
 const { lang, t } = Astro.props;
+const projects = await getProjects(lang);
+const featured = projects.find((p) => p.data.pageSlug === 'fasgo') ?? projects[0];
+const bySlug = (slug: string) => projects.find((p) => p.data.pageSlug === slug);
+// Store screenshots fanned behind the glass cards: centre, left, right
+const shots = [bySlug('yubomarket'), bySlug('tmschool'), bySlug('onefin')]
+  .filter((p) => p && p.data.screenshots.length)
+  .map((p) => ({ src: p!.data.screenshots[0], title: p!.data.title }));
 ---
 
-<section
-  id="hero"
-  class="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20 md:pt-32 lg:pt-36"
->
-  <GeometricBg grid={false} />
-
-  <div class="shell relative z-10 w-full">
-    <div class="mx-auto flex max-w-4xl flex-col items-center text-center">
+<section id="hero" class="relative overflow-hidden pt-28 pb-16 md:pt-36 lg:flex lg:min-h-[88svh] lg:items-center lg:pb-20">
+  <div class="shell relative z-10 grid w-full items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+    <div class="flex flex-col items-start">
       <span
-        class="reveal inline-flex items-center gap-2 rounded-full bg-accent-soft px-3.5 py-1.5 text-xs font-semibold tracking-wide text-accent"
+        class="inline-flex items-center gap-2 rounded-full bg-accent-soft px-3.5 py-1.5 text-[0.75rem] font-semibold text-accent-deep"
       >
         <span class="relative flex h-1.5 w-1.5">
           <span
@@ -32,20 +34,17 @@ const { lang, t } = Astro.props;
         {t.hero.badge}
       </span>
 
-      <h1
-        class="display reveal mt-7 text-[clamp(2.35rem,1.05rem+4.2vw,4.25rem)] leading-[1.1] text-ink"
-        style="--rd:80ms"
-      >
-        {t.hero.title}
-        <span class="accent-text block">{t.hero.titleHighlight}</span>
+      <h1 class="display mt-6 text-[clamp(2.3rem,1.3rem+3vw,3.7rem)] leading-[1.06] text-ink">
+        {t.hero.title}{' '}
+        <span class="accent-text">{t.hero.titleHighlight}</span>
       </h1>
 
-      <p class="lede reveal mt-6 max-w-2xl" style="--rd:160ms">
+      <p class="lede mt-6 max-w-xl">
         {t.hero.subtitle}
       </p>
 
-      <div class="reveal mt-9 flex flex-wrap items-center justify-center gap-4.5" style="--rd:240ms">
-        <Button href={getLocalizedPath('/services/mobile-apps', lang)} variant="primary" size="lg" class="group">
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <Button href="#contact" variant="primary" size="lg" class="group max-sm:!whitespace-normal">
           {t.hero.ctaPrimary}
           <svg
             class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -59,34 +58,137 @@ const { lang, t } = Astro.props;
             <path d="M5 12h13M13 6l6 6-6 6"></path>
           </svg>
         </Button>
-        <Button href={getLocalizedPath('/services/partnership', lang)} variant="soft" size="lg">
+        <Button href={getLocalizedPath('/services/partnership', lang)} variant="soft" size="lg" class="max-sm:!whitespace-normal">
           {t.hero.ctaSecondary}
         </Button>
       </div>
+
+      <ul class="mt-12 flex flex-wrap gap-x-7 gap-y-2 text-sm font-semibold text-faint" aria-label={t.trust.title}>
+        {projects.slice(0, 5).map((p) => <li>{p.data.title}</li>)}
+      </ul>
+    </div>
+
+    <div class="hero-visual relative mx-auto h-[26rem] w-full max-w-[34rem] sm:h-[30rem] lg:h-[34rem]" aria-hidden="true">
+      <span class="blob blob-green" style="width:85%;aspect-ratio:1;left:8%;top:-6%"></span>
+      <span class="blob blob-lime" style="width:60%;aspect-ratio:1;right:-12%;top:40%"></span>
+      <span class="blob blob-mint" style="width:55%;aspect-ratio:1;left:-10%;top:45%"></span>
+
+      {
+        shots.map((shot, i) => (
+          <img
+            class:list={['hero-shot', `hero-shot-${i}`]}
+            src={shot.src}
+            alt=""
+            width="690"
+            height="1496"
+            decoding="async"
+            fetchpriority={i === 0 ? 'high' : 'low'}
+            loading={i === 0 ? 'eager' : 'lazy'}
+          />
+        ))
+      }
+
+      <div class="glass hero-card hero-card-project">
+        <span class="hero-card-kicker">{featured.data.title}</span>
+        <b>{featured.data.highlight}</b>
+        <span class="hero-card-line"></span>
+        <span class="hero-card-line" style="width:70%"></span>
+      </div>
+
+      <div class="glass hero-card hero-card-stat">
+        <b class="tabular">30K+</b>
+        <span>{t.common.downloads}</span>
+      </div>
     </div>
   </div>
-
-  <a
-    href="#trust"
-    class="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-faint transition-colors duration-300 hover:text-accent md:flex"
-    aria-label={t.common.scroll}
-  >
-    <span class="text-[0.65rem] font-semibold uppercase tracking-[0.22em]">{t.common.scroll}</span>
-    <span class="relative h-9 w-px overflow-hidden bg-hairline">
-      <span class="absolute inset-x-0 top-0 h-3 bg-accent" style="animation: scroll-hint 2s ease-in-out infinite"
-      ></span>
-    </span>
-  </a>
 </section>
 
 <style>
-  @keyframes scroll-hint {
-    0% {
-      transform: translateY(-100%);
-    }
-    60%,
-    100% {
-      transform: translateY(300%);
-    }
+  .hero-shot {
+    position: absolute;
+    top: 3%;
+    width: 42%;
+    max-width: 14rem;
+    aspect-ratio: 690 / 1496;
+    object-fit: cover;
+    border-radius: 1.6rem;
+    box-shadow: 0 34px 60px -30px rgba(0, 0, 0, 0.45);
+  }
+
+  .hero-shot-0 {
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+  }
+
+  .hero-shot-1 {
+    left: 6%;
+    top: 10%;
+    transform: rotate(-7deg) scale(0.88);
+    opacity: 0.95;
+  }
+
+  .hero-shot-2 {
+    right: 6%;
+    top: 10%;
+    transform: rotate(7deg) scale(0.88);
+    opacity: 0.95;
+  }
+
+  .hero-card {
+    z-index: 3;
+    position: absolute;
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.1rem 1.2rem;
+    border-radius: 1.4rem;
+    color: var(--c-muted);
+    font-size: 0.85rem;
+  }
+
+  .hero-card b {
+    color: var(--c-text);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-card-project {
+    left: 0;
+    bottom: 10%;
+    width: min(15rem, 55%);
+  }
+
+  .hero-card-project b {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .hero-card-kicker {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-accent-deep);
+  }
+
+  .hero-card-line {
+    height: 0.4rem;
+    border-radius: 1rem;
+    background: rgba(29, 29, 31, 0.12);
+  }
+
+  .hero-card-stat {
+    right: 0;
+    bottom: 4%;
+    background: rgba(255, 255, 255, 0.72);
+    gap: 0.25rem;
+    min-width: 9rem;
+  }
+
+  .hero-card-stat b {
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--c-accent);
   }
 </style>

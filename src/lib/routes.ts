@@ -28,6 +28,9 @@ export const PROJECT_SLUGS = [
   'autoteacher',
   'fasgo',
   'yangitv',
+  'tmschool',
+  'barakatop',
+  'lingolab',
 ] as const;
 
 export const BLOG_SLUGS = [

@@ -35,11 +35,43 @@ const servicePath = getLocalizedPath(`/services/${project.data.relatedService}`,
       <PageHero title={project.data.title} lead={project.data.description} />
     </div>
 
-    <div class="reveal mt-8 overflow-hidden rounded-[var(--r-lg)]">
-      <ProjectCover title={project.data.title} highlight={project.data.highlight} index={index} />
-    </div>
+    {
+      project.data.screenshots.length > 0 ? (
+        <div class="shots mt-8" aria-label={t.common.screenshots} role="group">
+          {project.data.screenshots.map((src, i) => (
+            <img
+              src={src}
+              alt={`${project.data.imageAlt} — ${i + 1}`}
+              width="690"
+              height="1496"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="reveal mt-8 overflow-hidden rounded-[var(--r-lg)]">
+          <ProjectCover title={project.data.title} highlight={project.data.highlight} index={index} />
+        </div>
+      )
+    }
 
-    <p class="reveal mt-6 text-sm font-semibold text-faint">{project.data.platform}</p>
+    <div class="mt-6 flex flex-wrap items-center gap-3">
+      {project.data.icon && (
+        <img src={project.data.icon} alt="" width="40" height="40" class="h-10 w-10 rounded-[0.7rem] shadow-[0_0_0_1px_var(--c-hairline)]" />
+      )}
+      <p class="mr-auto text-sm font-semibold text-faint">{project.data.platform}</p>
+      {project.data.appStore && (
+        <a href={project.data.appStore} target="_blank" rel="noopener noreferrer" class="btn btn-soft px-4 py-2 text-sm">
+          {t.common.appStore}
+        </a>
+      )}
+      {project.data.playStore && (
+        <a href={project.data.playStore} target="_blank" rel="noopener noreferrer" class="btn btn-soft px-4 py-2 text-sm">
+          {t.common.playStore}
+        </a>
+      )}
+    </div>
 
     <div class="prose-content reveal mt-8 space-y-4 text-[0.98rem] leading-relaxed text-muted">
       <Content />
@@ -86,6 +118,26 @@ const servicePath = getLocalizedPath(`/services/${project.data.relatedService}`,
 </section>
 
 <style>
+  .shots {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(10rem, 1fr);
+    gap: 0.9rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+  }
+
+  .shots img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 690 / 1496;
+    object-fit: cover;
+    border-radius: 1.2rem;
+    scroll-snap-align: start;
+    box-shadow: 0 0 0 1px var(--c-hairline);
+  }
+
   .prose-content :global(h2) {
     margin-top: 1.5rem;
     font-size: 1.15rem;

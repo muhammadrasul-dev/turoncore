@@ -153,6 +153,11 @@ const messagesEvening = t.floating.messagesEvening;
     animation: tc-stage-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
+  /* The rotating hint bubble covered page content; the dock alone is enough */
+  #floating-contact #contact-bubble-stage {
+    display: none;
+  }
+
   #floating-contact .contact-bubble {
     grid-area: 1 / 1;
     position: relative;
@@ -260,14 +265,16 @@ const messagesEvening = t.floating.messagesEvening;
     font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.18) inset,
-      0 10px 22px -10px rgba(13, 155, 112, 0.55);
+    transition: background-color 0.15s ease, transform 0.15s ease;
   }
 
   #floating-contact .contact-dock-cta:hover {
-    background: var(--c-accent-bright);
+    background: var(--c-accent-deep);
     color: var(--c-accent-ink);
+  }
+
+  #floating-contact .contact-dock-cta:active {
+    transform: scale(0.96);
   }
 
   #floating-contact .contact-dock-social {
@@ -276,10 +283,10 @@ const messagesEvening = t.floating.messagesEvening;
     align-items: center;
     padding: 0 6px;
     border: 1px solid var(--c-hairline);
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    box-shadow: var(--shadow-sm);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: 0 10px 26px -14px rgba(0, 0, 0, 0.25);
   }
 
   #floating-contact .contact-dock-social > a,

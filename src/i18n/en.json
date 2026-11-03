@@ -33,6 +33,10 @@
     "blog": "Blog"
   },
   "common": {
+    "downloads": "downloads",
+    "appStore": "Open in App Store",
+    "playStore": "Open in Google Play",
+    "screenshots": "App screens",
     "learnMore": "Learn more",
     "viewProject": "View project",
     "verified": "Verified",
@@ -66,18 +70,18 @@
     ]
   },
   "hero": {
-    "badge": "TuronCore — Mobile Development",
-    "title": "Mobile app development",
-    "titleHighlight": "a trusted partner in Tashkent",
+    "badge": "TuronCore — Mobile Development Partner",
+    "title": "Entrust your mobile product",
+    "titleHighlight": "to a team you can trust.",
     "typewriterPhrases": [
       "Development Partner",
       "for Businesses & Startups",
       "for IT Companies & Agencies",
       "Building Products That Scale"
     ],
-    "subtitle": "We build reliable mobile products for businesses and help IT companies scale their mobile development capabilities.",
-    "ctaPrimary": "Build a Product",
-    "ctaSecondary": "Partner With Us",
+    "subtitle": "We build mobile apps for businesses. For IT companies, we help scale their projects with a reliable mobile development team.",
+    "ctaPrimary": "Discuss the project",
+    "ctaSecondary": "IT company? Let's partner",
     "assemble": {
       "labels": {
         "payment": "Payment system",
@@ -401,14 +405,12 @@
   "why": {
     "eyebrow": "Why Us?",
     "title": "Why TuronCore?",
-    "subtitle": "Mobile expertise, experienced engineers, and a process you can trust.",
+    "subtitle": "You have a mobile project — we take it forward with a team you can trust.",
     "items": [
-      { "num": "01", "title": "Mobile-Focused Expertise", "desc": "Mobile development is one of our core areas of expertise." },
-      { "num": "02", "title": "Experienced Team", "desc": "Our team has experience working on real-world products and solving complex development challenges." },
-      { "num": "03", "title": "Reliable Process", "desc": "Every project follows a structured and manageable development process." },
-      { "num": "04", "title": "Transparent Communication", "desc": "Clients and partners stay informed throughout the project." },
-      { "num": "05", "title": "Quality Standards", "desc": "We follow professional engineering practices, including architecture, code review, testing, and quality assurance." },
-      { "num": "06", "title": "Long-Term Partnership", "desc": "We aim to build long-term relationships, not simply deliver a project and disappear." }
+      { "num": "01", "title": "Mobile-first expertise", "desc": "Mobile development is our core competence." },
+      { "num": "02", "title": "Reliable partnership", "desc": "We don't take the project and disappear — we run development together." },
+      { "num": "03", "title": "Experienced team", "desc": "You work with experienced mobile developers." },
+      { "num": "04", "title": "Built for businesses & IT companies", "desc": "A flexible development model for businesses and IT companies." }
     ]
   },
   "faq": {
