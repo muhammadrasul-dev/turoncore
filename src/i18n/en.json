@@ -266,11 +266,11 @@
       },
       {
         "title": "Backend & APIs",
-        "items": ["Node.js", "NestJS", "PostgreSQL", "Redis"]
+        "items": ["Node.js", "NestJS", "TypeScript", "Python", "FastAPI", "REST API", "PostgreSQL", "Redis"]
       },
       {
         "title": "Integrations",
-        "items": ["Payment Systems", "Maps & Location", "Push Notifications", "Analytics", "Authentication", "Cloud Services"]
+        "items": ["Payment Systems", "Maps & Location", "Push Notifications", "Analytics", "Authentication", "Cloud Services", "Click", "Payme", "MyID", "SAP", "Government services"]
       }
     ]
   },

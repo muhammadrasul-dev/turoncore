@@ -261,8 +261,8 @@
     "subtitle": "Фокус на том, что мы можем создать и решить — а не просто на инструментах.",
     "categories": [
       { "title": "Мобильные", "items": ["Flutter", "Android", "iOS"] },
-      { "title": "Backend и API", "items": ["Node.js", "NestJS", "PostgreSQL", "Redis"] },
-      { "title": "Интеграции", "items": ["Платёжные системы", "Карты и геолокация", "Push-уведомления", "Аналитика", "Аутентификация", "Облачные сервисы"] }
+      { "title": "Backend и API", "items": ["Node.js", "NestJS", "TypeScript", "Python", "FastAPI", "REST API", "PostgreSQL", "Redis"] },
+      { "title": "Интеграции", "items": ["Платёжные системы", "Карты и геолокация", "Push-уведомления", "Аналитика", "Аутентификация", "Облачные сервисы", "Click", "Payme", "MyID", "SAP", "Госуслуги"] }
     ]
   },
   "certificates": {

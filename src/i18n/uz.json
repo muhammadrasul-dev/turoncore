@@ -261,8 +261,8 @@
     "subtitle": "Nima yaratishimiz va hal qilishimiz muhim — faqat qaysi vositalarni bilishimiz emas.",
     "categories": [
       { "title": "Mobil", "items": ["Flutter", "Android", "iOS"] },
-      { "title": "Backend va API", "items": ["Node.js", "NestJS", "PostgreSQL", "Redis"] },
-      { "title": "Integratsiyalar", "items": ["To'lov tizimlari", "Xarita va lokatsiya", "Push bildirishnomalar", "Analitika", "Autentifikatsiya", "Cloud xizmatlar"] }
+      { "title": "Backend va API", "items": ["Node.js", "NestJS", "TypeScript", "Python", "FastAPI", "REST API", "PostgreSQL", "Redis"] },
+      { "title": "Integratsiyalar", "items": ["To'lov tizimlari", "Xarita va lokatsiya", "Push bildirishnomalar", "Analitika", "Autentifikatsiya", "Cloud xizmatlar", "Click", "Payme", "MyID", "SAP", "Davlat xizmatlari"] }
     ]
   },
   "certificates": {
