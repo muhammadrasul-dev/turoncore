@@ -30,7 +30,7 @@ export const PROJECT_SLUGS = [
   'yangitv',
   'tmschool',
   'barakatop',
-  'lingolab',
+  'pitgo',
 ] as const;
 
 export const BLOG_SLUGS = [
