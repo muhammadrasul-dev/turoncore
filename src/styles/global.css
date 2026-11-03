@@ -1,46 +1,52 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/manrope";
+@import "@fontsource-variable/onest";
+@import "@fontsource-variable/geologica";
 
 /* ==========================================================================
-   Design tokens — single light palette
+   Design tokens — Cupertino Green: white base, Apple greys, brand green as the only accent
    ========================================================================== */
 
 :root {
   color-scheme: light;
 
-  --c-bg: #f3f5f7;
-  --c-bg-soft: #ffffff;
-  --c-surface: rgba(255, 255, 255, 0.9);
+  --c-bg: #ffffff;
+  --c-bg-soft: #f5f5f7;
+  --c-surface: #ffffff;
   --c-surface-2: #ffffff;
-  --c-inset: #e9edf1;
-  --c-inset-2: #dfe5ea;
-  --c-text: #08131f;
-  --c-muted: #4c5d6e;
-  --c-faint: #8695a3;
+  --c-inset: #f2f2f5;
+  --c-inset-2: #e8e8ed;
+  --c-text: #1d1d1f;
+  --c-muted: #6e6e73;
+  --c-faint: #86868b;
   --c-accent: #0d9b70;
   --c-accent-bright: #12b884;
+  --c-accent-deep: #0b8a63;
   --c-accent-ink: #ffffff;
-  --c-accent-soft: rgba(13, 155, 112, 0.09);
-  --c-glow: rgba(13, 155, 112, 0.16);
-  --c-hairline: rgba(8, 19, 31, 0.07);
+  --c-accent-soft: rgba(13, 155, 112, 0.1);
+  --c-glow: rgba(13, 155, 112, 0.14);
+  --c-hairline: rgba(0, 0, 0, 0.07);
+
+  /* Liquid glass — use on at most 2-3 elements per screen */
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-blur: blur(18px) saturate(180%);
 
   --sheen: rgba(255, 255, 255, 0);
-  --shadow-sm: 0 1px 2px rgba(8, 19, 31, 0.04), 0 10px 26px -14px rgba(8, 19, 31, 0.16);
-  --shadow-md: 0 2px 4px rgba(8, 19, 31, 0.04), 0 28px 54px -22px rgba(8, 19, 31, 0.22);
-  --shadow-lg: 0 48px 96px -36px rgba(8, 19, 31, 0.3);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -14px rgba(0, 0, 0, 0.14);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.04), 0 24px 48px -24px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 40px 80px -36px rgba(0, 0, 0, 0.26);
 
   --r-sm: 12px;
   --r-md: 18px;
-  --r-lg: 26px;
-  --r-xl: 34px;
+  --r-lg: 24px;
+  --r-xl: 32px;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Manrope Variable", "Inter Variable", ui-sans-serif, sans-serif;
+  --font-sans: "Onest Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Geologica Variable", "Onest Variable", ui-sans-serif, sans-serif;
 
   --color-bg: var(--c-bg);
   --color-bg-soft: var(--c-bg-soft);
@@ -53,6 +59,7 @@
   --color-faint: var(--c-faint);
   --color-accent: var(--c-accent);
   --color-accent-bright: var(--c-accent-bright);
+  --color-accent-deep: var(--c-accent-deep);
   --color-accent-ink: var(--c-accent-ink);
   --color-accent-soft: var(--c-accent-soft);
   --color-hairline: var(--c-hairline);
@@ -103,7 +110,6 @@
 
 body {
   font-family: var(--font-sans);
-  font-feature-settings: "cv11", "ss01";
   font-optical-sizing: auto;
   background: var(--c-bg);
   color: var(--c-text);
@@ -117,8 +123,8 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-weight: 650;
+  letter-spacing: -0.035em;
   line-height: 1.05;
   text-wrap: balance;
 }
@@ -210,7 +216,7 @@ p {
 
 .display {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.045em;
   line-height: 1.12;
   font-size: clamp(2.15rem, 1.15rem + 3.5vw, 3.9rem);
@@ -246,24 +252,7 @@ p {
 }
 
 .accent-text {
-  background: linear-gradient(100deg, var(--c-accent) 0%, var(--c-accent-bright) 55%, var(--c-accent) 100%);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: hue-drift 9s ease-in-out infinite;
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
-}
-
-@keyframes hue-drift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  color: var(--c-accent);
 }
 
 .tabular {
@@ -279,11 +268,7 @@ p {
   position: relative;
   background: var(--c-surface);
   border-radius: var(--r-lg);
-  box-shadow:
-    inset 0 1px 0 var(--sheen),
-    var(--shadow-sm);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 0 0 1px var(--c-hairline);
   transition:
     transform 0.55s var(--ease),
     background 0.55s var(--ease),
@@ -298,11 +283,58 @@ p {
 }
 
 .lift:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   background: var(--c-surface-2);
   box-shadow:
-    inset 0 1px 0 var(--sheen),
+    0 0 0 1px var(--c-hairline),
     var(--shadow-md);
+}
+
+/* Liquid glass panel */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 30px -14px rgba(16, 48, 36, 0.3);
+}
+
+@media (max-width: 767px) {
+  .glass {
+    --glass-blur: blur(10px) saturate(160%);
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgba(255, 255, 255, 0.92);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Soft colour blobs behind glass — plain gradients, no filter: blur */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.blob-green {
+  background: radial-gradient(closest-side, rgba(18, 184, 132, 0.5), rgba(18, 184, 132, 0));
+}
+.blob-mint {
+  background: radial-gradient(closest-side, rgba(120, 220, 200, 0.5), rgba(120, 220, 200, 0));
+}
+.blob-lime {
+  background: radial-gradient(closest-side, rgba(205, 240, 140, 0.55), rgba(205, 240, 140, 0));
 }
 
 /* Cursor-tracked glow — set --mx/--my from JS */
@@ -359,10 +391,13 @@ p {
   white-space: nowrap;
   cursor: pointer;
   transition:
-    transform 0.35s var(--ease),
-    background 0.35s var(--ease),
-    box-shadow 0.35s var(--ease),
-    color 0.35s var(--ease);
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.btn:active {
+  transform: scale(0.96);
 }
 
 .btn:disabled {
@@ -383,25 +418,19 @@ p {
 .btn-primary {
   background: var(--c-accent);
   color: var(--c-accent-ink);
-  box-shadow: 0 12px 30px -12px var(--c-accent);
 }
 
 .btn-primary:hover {
-  background: var(--c-accent-bright);
-  box-shadow: 0 18px 44px -14px var(--c-accent);
-  transform: translateY(-2px);
+  background: var(--c-accent-deep);
 }
 
 .btn-soft {
-  background: var(--c-inset);
-  color: var(--c-text);
-  box-shadow: inset 0 1px 0 var(--sheen);
+  background: var(--c-accent-soft);
+  color: var(--c-accent-deep);
 }
 
 .btn-soft:hover {
-  background: color-mix(in oklab, var(--c-accent) 12%, transparent);
-  color: var(--c-accent);
-  transform: translateY(-2px);
+  background: rgba(13, 155, 112, 0.16);
 }
 
 .btn-ghost {

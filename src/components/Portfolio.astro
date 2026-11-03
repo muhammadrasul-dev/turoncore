@@ -3,7 +3,6 @@ import type { Lang, Translations } from '../i18n/ui';
 import { getLocalizedPath } from '../i18n/ui';
 import { getProjects } from '../lib/content';
 import SectionHeading from './ui/SectionHeading.astro';
-import ProjectCover from './ProjectCover.astro';
 
 interface Props {
   lang: Lang;
@@ -12,9 +11,21 @@ interface Props {
 
 const { lang, t } = Astro.props;
 const projects = await getProjects(lang);
+
+// Fallback icons for projects without a store listing
+const icons: Record<string, string> = {
+  yangitv: '/images/portfolio/yaqintv.png',
+};
+
+// The featured tile plus 8 others fill a 4-column grid exactly; the full list lives on /projects
+const featuredIndex = Math.max(
+  0,
+  projects.findIndex((p) => p.data.pageSlug === 'yubomarket'),
+);
+const ordered = [projects[featuredIndex], ...projects.filter((_, i) => i !== featuredIndex)].slice(0, 9);
 ---
 
-<section id="portfolio" class="section band feather-top feather-bottom relative overflow-hidden">
+<section id="portfolio" class="section relative overflow-hidden bg-bg-soft">
   <div class="shell relative">
     <SectionHeading
       eyebrow={t.portfolio.eyebrow}
@@ -23,38 +34,230 @@ const projects = await getProjects(lang);
       class="mb-12 md:mb-16"
     />
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
+    <div class="bento grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
       {
-        projects.map((project, i) => (
-          <a
-            href={getLocalizedPath(`/projects/${project.data.pageSlug}`, lang)}
-            class="group surface spot js-spot lift reveal overflow-hidden p-3 flex flex-col justify-between"
-            style={`--rd:${(i % 3) * 90}ms`}
-          >
-            <div>
-              <ProjectCover title={project.data.title} highlight={project.data.highlight} index={i} />
-              <div class="px-4 pt-6">
-                <h3 class="text-xl font-bold text-ink transition-colors duration-300 group-hover:text-accent md:text-[1.35rem]">
-                  {project.data.title}
-                </h3>
-                <p class="mt-2 text-[0.925rem] leading-relaxed text-muted">{project.data.description}</p>
+        ordered.map((project, i) => {
+          const big = i === 0;
+          const icon = project.data.icon ?? icons[project.data.pageSlug];
+          return (
+            <a
+              href={getLocalizedPath(`/projects/${project.data.pageSlug}`, lang)}
+              class:list={[
+                'bento-tile group',
+                big && 'bento-big md:col-span-2 lg:row-span-2',
+              ]}
+            >
+              <div class="flex items-start justify-between gap-4">
+                <span class="bento-label">{project.data.category}</span>
+                {icon ? (
+                  <img
+                    src={icon}
+                    alt=""
+                    width="48"
+                    height="48"
+                    loading="lazy"
+                    decoding="async"
+                    class="bento-icon"
+                  />
+                ) : (
+                  <span class="bento-icon bento-icon-blank" aria-hidden="true">
+                    {project.data.title.charAt(0)}
+                  </span>
+                )}
               </div>
-            </div>
-            <div class="px-4 pb-3 pt-6 flex items-center justify-between border-t border-hairline/20 mt-6">
-              <span class="inline-flex items-center gap-2 text-sm font-semibold text-accent">
-                {t.common.viewProject}
-              </span>
-              <span class="text-xs font-semibold text-faint uppercase font-mono tracking-wider">
-                {project.data.stack.slice(0, 2).join(' + ')}
-              </span>
-            </div>
-          </a>
-        ))
+
+              {big && project.data.screenshots.length > 0 && (
+                <div class="bento-shots" aria-hidden="true">
+                  {project.data.screenshots.slice(0, 1).map((src) => (
+                    <img src={src} alt="" width="690" height="1496" loading="lazy" decoding="async" />
+                  ))}
+                </div>
+              )}
+
+              <div class="mt-auto pt-10">
+                <h3 class="bento-title">{project.data.title}</h3>
+                <p class="bento-desc">{project.data.description}</p>
+                <div class="mt-5 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                  <span class="bento-link">{t.common.viewProject} →</span>
+                  <span class="bento-stack">{project.data.stack.slice(0, 2).join(' + ')}</span>
+                </div>
+              </div>
+            </a>
+          );
+        })
       }
     </div>
 
-    <p class="reveal mt-10 text-center text-sm leading-relaxed text-faint max-w-2xl mx-auto" style="--rd:300ms">
+    <p class="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-faint">
       {t.portfolio.confidentiality}
     </p>
   </div>
 </section>
+
+<style>
+  .bento-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 15rem;
+    padding: 1.5rem;
+    border-radius: var(--r-lg);
+    background: #fff;
+    box-shadow: 0 0 0 1px var(--c-hairline);
+    transition:
+      transform 0.25s var(--ease),
+      box-shadow 0.25s var(--ease);
+  }
+
+  .bento-tile:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 0 0 1px var(--c-hairline),
+      var(--shadow-md);
+  }
+
+  .bento-big {
+    min-height: 22rem;
+    padding: 2rem;
+    background: linear-gradient(165deg, #0fa877, #0a7656);
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .bento-shots {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    pointer-events: none;
+  }
+
+  .bento-shots img {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 690 / 1496;
+    object-fit: cover;
+    border-radius: 1.1rem;
+    box-shadow: 0 24px 44px -20px rgba(0, 0, 0, 0.45);
+  }
+
+  /* text sits beside the screenshots on wide tiles, under a scrim on narrow ones */
+  .bento-big > div:not(.bento-shots) {
+    position: relative;
+    z-index: 1;
+    max-width: 50%;
+  }
+
+  /* the screenshot already carries the app's branding */
+  .bento-big:has(.bento-shots) .bento-icon {
+    display: none;
+  }
+
+  @media (max-width: 639px) {
+    .bento-big > div:not(.bento-shots) {
+      max-width: 56%;
+    }
+  }
+
+  .bento-label {
+    align-self: flex-start;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: var(--c-accent-soft);
+    color: var(--c-accent-deep);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .bento-big .bento-label {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+
+  .bento-icon {
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+    border-radius: 0.85rem;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px var(--c-hairline);
+  }
+
+  .bento-big .bento-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 16px 30px -14px rgba(0, 0, 0, 0.4);
+  }
+
+  .bento-icon-blank {
+    display: grid;
+    place-items: center;
+    background: var(--c-inset);
+    color: var(--c-accent-deep);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  .bento-title {
+    font-size: 1.35rem;
+    color: var(--c-text);
+  }
+
+  .bento-big .bento-title {
+    font-size: clamp(1.7rem, 1.2rem + 1.4vw, 2.3rem);
+    color: #fff;
+  }
+
+  .bento-desc {
+    margin-top: 0.5rem;
+    max-width: 34rem;
+    font-size: 0.93rem;
+    line-height: 1.55;
+    color: var(--c-muted);
+  }
+
+  .bento-big .bento-desc {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .bento-link,
+  .bento-stack {
+    white-space: nowrap;
+  }
+
+  .bento-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--c-accent-deep);
+  }
+
+  .bento-big .bento-link {
+    color: #fff;
+  }
+
+  .bento-stack {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-faint);
+  }
+
+  .bento-big .bento-stack {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bento-tile,
+    .bento-tile:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>
