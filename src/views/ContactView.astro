@@ -14,7 +14,7 @@ const { lang, t } = Astro.props;
 const home = getLocalizedPath('/', lang);
 ---
 
-<section class="section relative overflow-hidden pt-32 md:pt-36 pb-0">
+<section class="section relative isolate overflow-hidden pt-32 md:pt-36 pb-0">
   <div class="shell">
     <Breadcrumbs
       items={[

@@ -9,7 +9,9 @@ const { eyebrow, title, lead } = Astro.props;
 ---
 
 <header class="max-w-3xl">
-  {eyebrow && <span class="eyebrow reveal">{eyebrow}</span>}
-  <h1 class="headline reveal mt-5 text-ink">{title}</h1>
-  {lead && <p class="lede reveal mt-5 text-muted">{lead}</p>}
+  <span class="blob blob-green -z-10" style="width:44rem;aspect-ratio:1;top:-24rem;right:-16rem" aria-hidden="true"></span>
+  <span class="blob blob-lime -z-10" style="width:24rem;aspect-ratio:1;top:-6rem;right:14%;opacity:0.7" aria-hidden="true"></span>
+  {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+  <h1 class="display mt-4 text-[clamp(2.2rem,1.3rem+3vw,3.6rem)] leading-[1.05] text-ink">{title}</h1>
+  {lead && <p class="lede mt-5 max-w-2xl">{lead}</p>}
 </header>

@@ -12,9 +12,10 @@ const { lang, title, cta } = Astro.props;
 const href = getLocalizedPath('/contact', lang);
 ---
 
-<div class="reveal mt-12 rounded-3xl border border-hairline/40 bg-accent-soft/40 p-6 md:flex md:items-center md:justify-between md:gap-6 md:p-8">
-  <p class="max-w-xl text-base font-semibold text-ink">{title}</p>
-  <a href={href} class="btn btn-primary mt-4 shrink-0 px-5 py-2.5 text-sm md:mt-0">
+<div class="relative isolate mt-14 overflow-hidden rounded-[var(--r-xl)] bg-bg-soft p-7 md:flex md:items-center md:justify-between md:gap-8 md:p-10">
+  <span class="blob blob-green -z-10" style="width:28rem;aspect-ratio:1;right:-8rem;top:-14rem" aria-hidden="true"></span>
+  <p class="max-w-xl font-display text-xl font-semibold leading-snug tracking-tight text-ink md:text-2xl">{title}</p>
+  <a href={href} class="btn btn-primary mt-5 shrink-0 px-6 py-3 text-[0.95rem] md:mt-0">
     {cta}
   </a>
 </div>

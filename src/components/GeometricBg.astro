@@ -1,32 +1,17 @@
 ---
 interface Props {
   class?: string;
+  /** kept for existing callers; the Cupertino backdrop has no grid */
   grid?: boolean;
   intensity?: 'soft' | 'normal';
 }
 
-const { class: className = '', grid = true, intensity = 'normal' } = Astro.props;
-const scale = intensity === 'soft' ? 0.55 : 1;
+const { class: className = '', intensity = 'normal' } = Astro.props;
+const soft = intensity === 'soft';
 ---
 
-<div class:list={['mesh', className]} data-mesh-intensity={intensity} aria-hidden="true">
-  <div
-    class="orb anim-drift-a"
-    style={`top:-18%;left:-10%;width:60vw;height:60vw;max-width:760px;max-height:760px;background:radial-gradient(circle at 40% 40%, color-mix(in oklab, var(--c-accent) ${28 * scale}%, transparent), transparent 68%)`}
-  >
-  </div>
-  <div
-    class="orb anim-drift-b"
-    style={`bottom:-24%;right:-12%;width:55vw;height:55vw;max-width:700px;max-height:700px;background:radial-gradient(circle at 60% 60%, color-mix(in oklab, var(--c-accent) ${18 * scale}%, transparent), transparent 70%)`}
-  >
-  </div>
-  <div
-    class="orb anim-drift-a"
-    style={`top:38%;right:18%;width:32vw;height:32vw;max-width:420px;max-height:420px;animation-delay:-9s;background:radial-gradient(circle, color-mix(in oklab, var(--c-accent-bright) ${16 * scale}%, transparent), transparent 70%)`}
-  >
-  </div>
-
-  <div class="cursor-spot" data-cursor-spot></div>
-  {grid && <div class="dotgrid"></div>}
-  <div class="noise"></div>
+<div class:list={['mesh', className]} aria-hidden="true" style={soft ? 'opacity:0.6' : undefined}>
+  <span class="blob blob-green" style="width:46rem;aspect-ratio:1;top:-22rem;right:-14rem"></span>
+  <span class="blob blob-mint" style="width:34rem;aspect-ratio:1;bottom:-18rem;left:-12rem"></span>
+  <span class="blob blob-lime" style="width:22rem;aspect-ratio:1;top:30%;right:10%;opacity:0.6"></span>
 </div>

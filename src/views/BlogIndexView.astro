@@ -16,7 +16,7 @@ const articles = await getArticles(lang);
 const home = getLocalizedPath('/', lang);
 ---
 
-<section class="section relative overflow-hidden pt-32 md:pt-36">
+<section class="section relative isolate overflow-hidden pt-32 md:pt-36">
   <div class="shell max-w-3xl">
     <Breadcrumbs
       items={[
@@ -34,14 +34,14 @@ const home = getLocalizedPath('/', lang);
           <li>
             <a
               href={getLocalizedPath(`/blog/${article.data.pageSlug}`, lang)}
-              class="surface reveal block border border-hairline/30 p-6 transition-colors hover:border-accent/30"
+              class="surface lift block p-6"
             >
               <span class="text-xs font-semibold uppercase tracking-wider text-faint">
                 {article.data.datePublished}
               </span>
-              <h2 class="mt-2 text-xl font-bold text-ink">{article.data.title}</h2>
+              <h2 class="mt-2 text-xl font-semibold text-ink">{article.data.title}</h2>
               <p class="mt-2 text-sm leading-relaxed text-muted">{article.data.description}</p>
-              <span class="mt-4 inline-block text-sm font-semibold text-accent">{t.common.readArticle}</span>
+              <span class="mt-4 inline-block text-sm font-semibold text-accent-deep">{t.common.readArticle} →</span>
             </a>
           </li>
         ))
