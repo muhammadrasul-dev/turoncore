@@ -196,7 +196,7 @@ p {
 /* Feathered separator — replaces hard 1px rules */
 .feather-top::before,
 .feather-bottom::after {
-  content: "";
+  content: none;
   position: absolute;
   left: 10%;
   right: 10%;
@@ -223,26 +223,18 @@ p {
 }
 
 .headline {
-  font-size: clamp(1.85rem, 1.25rem + 1.8vw, 2.85rem);
+  font-size: clamp(1.9rem, 1.25rem + 2vw, 3rem);
+  letter-spacing: -0.04em;
 }
 
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--c-accent);
-}
-
-.eyebrow::before {
-  content: "";
-  width: 1.75rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.55;
+  letter-spacing: 0.02em;
+  color: var(--c-accent-deep);
 }
 
 .lede {
@@ -339,7 +331,7 @@ p {
 
 /* Cursor-tracked glow — set --mx/--my from JS */
 .spot::after {
-  content: "";
+  content: none;
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -536,8 +528,6 @@ p {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
-  will-change: transform;
 }
 
 .dotgrid {
@@ -597,13 +587,10 @@ p {
    Motion
    ========================================================================== */
 
+/* Content is never hidden while waiting for scroll; sections render complete */
 .reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition:
-    opacity 0.85s var(--ease),
-    transform 0.85s var(--ease);
-  transition-delay: var(--rd, 0ms);
+  opacity: 1;
+  transform: none;
 }
 
 .reveal.visible {
@@ -623,12 +610,8 @@ html.lang-swapping .reveal-scale {
 }
 
 .reveal-scale {
-  opacity: 0;
-  transform: scale(0.96);
-  transition:
-    opacity 0.9s var(--ease),
-    transform 0.9s var(--ease);
-  transition-delay: var(--rd, 0ms);
+  opacity: 1;
+  transform: none;
 }
 
 .reveal-scale.visible {

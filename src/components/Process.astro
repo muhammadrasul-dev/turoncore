@@ -31,7 +31,7 @@ const { t } = Astro.props;
           t.process.steps.map((step, i) => (
             <li class="group relative reveal" style={`--rd:${i * 80}ms`}>
               <div class="flex items-center gap-4 lg:block">
-                <span class="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-bg-soft text-lg font-extrabold text-accent shadow-[inset_0_1px_0_var(--sheen),var(--shadow-sm)] transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-accent group-hover:text-accent-ink">
+                <span class="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-bg-soft text-lg font-bold text-accent shadow-[inset_0_1px_0_var(--sheen),var(--shadow-sm)] transition-all duration-500 group-hover:-translate-y-1 group-hover:bg-accent group-hover:text-accent-ink">
                   <span class="tabular font-display">{String(i + 1).padStart(2, '0')}</span>
                 </span>
                 <h3 class="text-base font-bold text-ink lg:mt-6">{step.title}</h3>

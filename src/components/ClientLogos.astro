@@ -28,7 +28,7 @@ const clients = [
       {
         t.trust.metrics.map((metric) => (
           <div class="text-center">
-            <dt class="tabular font-display text-3xl font-extrabold text-ink md:text-4xl">
+            <dt class="tabular font-display text-3xl font-bold text-ink md:text-4xl">
               {metric.value}
             </dt>
             <dd class="mt-1 text-xs font-medium tracking-wide text-faint uppercase">{metric.label}</dd>
@@ -50,7 +50,7 @@ const clients = [
             {clients.map((name) => (
               <span class="group flex shrink-0 items-center gap-3 px-8 md:px-12">
                 <span class="h-1.5 w-1.5 rotate-45 bg-accent/50 transition-colors duration-300 group-hover:bg-accent" />
-                <span class="font-display text-xl font-extrabold tracking-tight text-faint transition-colors duration-300 group-hover:text-ink md:text-2xl">
+                <span class="font-display text-xl font-bold tracking-tight text-faint transition-colors duration-300 group-hover:text-ink md:text-2xl">
                   {name}
                 </span>
               </span>
