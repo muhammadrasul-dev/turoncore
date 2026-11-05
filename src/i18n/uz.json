@@ -70,7 +70,7 @@
     ]
   },
   "hero": {
-    "badge": "TuronCore — Mobile Development Partner",
+    "badge": "TuronCore — mobil dasturlash hamkori",
     "title": "Mobil mahsulotingizni",
     "titleHighlight": "ishonchli jamoaga topshiring.",
     "typewriterPhrases": [
@@ -95,9 +95,9 @@
     "eyebrow": "Ishonch",
     "title": "Bizga ishongan kompaniyalar",
     "metrics": [
-      { "value": "7+", "label": "Yetkazilgan loyihalar" },
-      { "value": "7+", "label": "Mijozlar" },
-      { "value": "2+", "label": "Yillik tajriba" }
+      { "value": "10", "label": "Do'konda chiqqan ilova" },
+      { "value": "30K+", "label": "Yuklab olish" },
+      { "value": "4.7★", "label": "App Store o'rtacha reytingi" }
     ]
   },
   "whatWeDo": {
@@ -106,21 +106,21 @@
     "subtitle": "Mahsulot kerak bo'lsa, hamkor kerak bo'lsa yoki jamoa kerak bo'lsa — to'g'ri model bizda bor.",
     "items": [
       {
-        "label": "BUILD",
+        "label": "Mahsulot",
         "title": "Mobil mahsulot ishlab chiqish",
         "description": "Bizneslar va startaplarga g'oyalarni ishonchli mobil mahsulotlarga aylantirishda yordam beramiz.",
         "cta": "Batafsil",
         "slug": "mobile-apps"
       },
       {
-        "label": "PARTNER",
+        "label": "Hamkorlik",
         "title": "Mobil dasturlash hamkorligi",
         "description": "IT kompaniyalar uchun ishonchli mobil dasturlash hamkori bo'lamiz.",
         "cta": "Hamkorlikni o'rganish",
         "slug": "partnership"
       },
       {
-        "label": "SCALE",
+        "label": "Jamoa",
         "title": "Dedicated mobil jamoa",
         "description": "Biznesingiz kengayganda tajribali mobil dasturlash jamoasini taqdim etamiz.",
         "cta": "Jamoangizni tuzing",
@@ -147,15 +147,15 @@
   "forBusinesses": {
     "eyebrow": "Bizneslar uchun",
     "title": "G'oya bormi? Keling, mahsulotga aylantiramiz.",
-    "subtitle": "G'oyadan boshlayotgan bo'lsangiz yoki mavjud biznesni yaxshilayotgan bo'lsangiz — discoverydan launchgacha to'g'ri texnik yechim bilan yordam beramiz.",
+    "subtitle": "G'oyadan boshlayotgan bo'lsangiz yoki mavjud biznesni yaxshilayotgan bo'lsangiz — tahlildan ishga tushirishgacha to'g'ri texnik yechim bilan yordam beramiz.",
     "processLabel": "Biz bilan yo'lingiz",
     "steps": [
       "G'oya",
-      "Discovery",
+      "Tahlil",
       "Rejalashtirish",
       "Dizayn",
       "Ishlab chiqish",
-      "Launch",
+      "Ishga tushirish",
       "O'sish"
     ],
     "cta": "Loyihani muhokama qilish"
@@ -233,13 +233,13 @@
     "title": "Qanday ishlaymiz",
     "subtitle": "Boshlang'ichdan o'sishgacha aniq va shaffof ishlab chiqish jarayoni",
     "steps": [
-      { "title": "Discover", "description": "Biznesingiz, maqsadlar, foydalanuvchilar va loyiha talablarini tushunamiz." },
-      { "title": "Plan", "description": "Scope, roadmap, timeline va texnik yondashuvni belgilaymiz." },
-      { "title": "Design", "description": "Kerak bo'lganda foydalanuvchi tajribasi va interfeysni yaratamiz." },
-      { "title": "Build", "description": "Rejalashtirish, implementatsiya va code review orqali ishlab chiqamiz." },
+      { "title": "Tahlil", "description": "Biznesingiz, maqsadlar, foydalanuvchilar va loyiha talablarini tushunamiz." },
+      { "title": "Reja", "description": "Ish hajmi, yo'l xaritasi, muddatlar va texnik yondashuvni belgilaymiz." },
+      { "title": "Dizayn", "description": "Kerak bo'lganda foydalanuvchi tajribasi va interfeysni yaratamiz." },
+      { "title": "Ishlab chiqish", "description": "Kodni yozamiz va har bir o'zgarishni tekshiruvdan o'tkazamiz." },
       { "title": "Test", "description": "Mahsulot sifat nazorati va testdan o'tkaziladi." },
-      { "title": "Launch", "description": "Mahsulotni production va release uchun tayyorlaymiz." },
-      { "title": "Grow", "description": "Launchdan keyin qo'llab-quvvatlash, yaxshilash va yangi funksiyalar bilan davom etamiz." }
+      { "title": "Ishga tushirish", "description": "Ilovani App Store va Google Play'ga chiqarishga tayyorlaymiz." },
+      { "title": "O'sish", "description": "Ishga tushgandan keyin qo'llab-quvvatlash, yaxshilash va yangi funksiyalar bilan davom etamiz." }
     ]
   },
   "portfolio": {

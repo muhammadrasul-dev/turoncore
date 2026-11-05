@@ -63,9 +63,12 @@ const contactItems = [
 
           <ul class:list={['space-y-2', asPage ? 'mt-0' : 'mt-10']}>
             {
-              contactItems.map((item) => (
+              contactItems.map((item) => {
+                // The address has nowhere to link to, so it renders as plain text
+                const Tag = item.href ? 'a' : 'div';
+                return (
                 <li>
-                  <a
+                  <Tag
                     href={item.href ?? undefined}
                     class="group flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors duration-300 hover:bg-accent-soft"
                     target={item.href?.startsWith('http') ? '_blank' : undefined}
@@ -92,15 +95,16 @@ const contactItems = [
                         {item.value}
                       </span>
                     </span>
-                  </a>
+                  </Tag>
                 </li>
-              ))
+                );
+              })
             }
           </ul>
         </div>
 
         <form id="contact-form" class="relative flex flex-col gap-4" novalidate>
-          <input type="text" name="hp" class="hp-field" tabindex="-1" autocomplete="off" />
+          <input type="text" name="hp" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave empty" />
           <div class="grid gap-4 sm:grid-cols-2">
             <div>
               <label for="name" class="mb-2 block text-sm font-medium text-muted">

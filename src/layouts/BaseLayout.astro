@@ -204,9 +204,11 @@ const jsonLd = {
       import { bindPage } from '../scripts/page.ts';
       import { initLangSwitchers } from '../scripts/lang.ts';
       import { initSmoothScroll } from '../scripts/scroll.ts';
+      import { initClickTracking } from '../scripts/track.ts';
       import { inject } from '@vercel/analytics';
 
       initSmoothScroll();
+      initClickTracking();
       bindPage();
       initLangSwitchers();
       inject();
