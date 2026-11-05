@@ -16,11 +16,12 @@
   --c-inset: #f2f2f5;
   --c-inset-2: #e8e8ed;
   --c-text: #1d1d1f;
-  --c-muted: #6e6e73;
-  --c-faint: #86868b;
-  --c-accent: #0d9b70;
-  --c-accent-bright: #12b884;
-  --c-accent-deep: #0b8a63;
+  /* every text colour here keeps at least 4.5:1 on white and on --c-bg-soft */
+  --c-muted: #5f5f64;
+  --c-faint: #6e6e73;
+  --c-accent: #087a57;
+  --c-accent-bright: #0d9b70;
+  --c-accent-deep: #06694b;
   --c-accent-ink: #ffffff;
   --c-accent-soft: rgba(13, 155, 112, 0.1);
   --c-glow: rgba(13, 155, 112, 0.14);

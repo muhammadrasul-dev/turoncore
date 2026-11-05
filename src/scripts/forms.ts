@@ -1,3 +1,4 @@
+import { track } from '@vercel/analytics';
 import type { LeadPayload, LeadSource } from '../lib/lead';
 
 const LEAD_SUBMITTED_KEY = 'tc-lead-submitted';
@@ -67,6 +68,8 @@ export async function submitLead(payload: LeadPayload) {
   if (!response.ok) {
     throw new Error('Send failed');
   }
+
+  track('Lead submitted', { source: payload.source, page: window.location.pathname });
 }
 
 export function bindLeadForm(

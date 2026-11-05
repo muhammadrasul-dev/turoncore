@@ -3,12 +3,9 @@ import { hasSubmittedLead, markLeadSubmitted, readLeadForm, submitLead } from '.
 const SESSION_KEY = 'tc-modal-shown';
 const LAST_SHOWN_KEY = 'tc-modal-last-shown';
 const COOLDOWN_MS = 5 * 24 * 60 * 60 * 1000;
-const DELAY_MS = 40000;
-const SCROLL_RATIO = 0.55;
+// The modal only opens on desktop exit intent; timers, scroll depth and taps interrupted reading
 const EXIT_MIN_MS = 12000;
 const OTHER_MODAL_GAP_MS = 8000;
-const MOBILE_INTERACT_MS = 20000;
-const MOBILE_INTERACT_COUNT = 2;
 
 let cleanupModal: (() => void) | undefined;
 
@@ -30,12 +27,6 @@ function storageSet(storage: Storage, key: string, value: string) {
 
 function isDesktopPointer() {
   return window.matchMedia('(pointer: fine) and (hover: hover)').matches && window.innerWidth >= 768;
-}
-
-function scrollRatio() {
-  const max = document.documentElement.scrollHeight - window.innerHeight;
-  if (max <= 0) return 0;
-  return window.scrollY / max;
 }
 
 function isContactInView() {
@@ -76,7 +67,6 @@ function bindContactModal() {
   let opened = false;
   let otherModalWasOpen = false;
   let otherModalClosedAt = 0;
-  let mobileInteractions = 0;
   let successTimer: number | undefined;
 
   function lockPage() {
@@ -121,6 +111,7 @@ function bindContactModal() {
     opened = true;
     backdrop.classList.add('open');
     backdrop.setAttribute('aria-hidden', 'false');
+    backdrop.inert = false;
     document.getElementById('floating-contact')?.setAttribute('hidden', '');
     lockPage();
     storageSet(sessionStorage, SESSION_KEY, '1');
@@ -146,6 +137,7 @@ function bindContactModal() {
   function closeModal() {
     backdrop.classList.remove('open');
     backdrop.setAttribute('aria-hidden', 'true');
+    backdrop.inert = true;
     document.getElementById('floating-contact')?.removeAttribute('hidden');
     unlockPage();
     storageSet(sessionStorage, SESSION_KEY, '1');
@@ -227,23 +219,6 @@ function bindContactModal() {
     );
   }
 
-  const delayTimer = window.setTimeout(arm, DELAY_MS);
-
-  const onScroll = () => {
-    if (scrollRatio() >= SCROLL_RATIO) arm();
-    else if (armed) tryShow();
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true, signal });
-
-  const lenis = (
-    window as unknown as {
-      lenis?: { on?: (event: string, cb: () => void) => void; off?: (event: string, cb: () => void) => void };
-    }
-  ).lenis;
-  lenis?.on?.('scroll', onScroll);
-  signal.addEventListener('abort', () => lenis?.off?.('scroll', onScroll));
-
   window.addEventListener(
     'hashchange',
     () => {
@@ -263,28 +238,12 @@ function bindContactModal() {
     { signal }
   );
 
-  window.addEventListener(
-    'pointerdown',
-    (e) => {
-      if (isDesktopPointer()) return;
-      if (opened) return;
-      const target = e.target as Node | null;
-      if (target && backdrop.contains(target)) return;
-      mobileInteractions += 1;
-      if (mobileInteractions >= MOBILE_INTERACT_COUNT && Date.now() - startedAt >= MOBILE_INTERACT_MS) {
-        arm();
-      }
-    },
-    { signal }
-  );
-
   const retryTimer = window.setInterval(() => {
     if (armed) tryShow();
   }, 2000);
 
   return () => {
     abort.abort();
-    window.clearTimeout(delayTimer);
     window.clearInterval(retryTimer);
     if (successTimer) window.clearTimeout(successTimer);
     if (backdrop.classList.contains('open')) {

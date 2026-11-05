@@ -95,9 +95,9 @@
     "eyebrow": "Trusted by",
     "title": "Companies that trust us",
     "metrics": [
-      { "value": "7+", "label": "Projects Delivered" },
-      { "value": "7+", "label": "Clients" },
-      { "value": "2+", "label": "Years of Experience" }
+      { "value": "10", "label": "Apps in the stores" },
+      { "value": "30K+", "label": "Downloads" },
+      { "value": "4.7★", "label": "Average App Store rating" }
     ]
   },
   "whatWeDo": {

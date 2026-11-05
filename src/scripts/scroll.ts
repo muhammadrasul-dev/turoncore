@@ -1,12 +1,9 @@
-import Lenis from 'lenis';
+import type Lenis from 'lenis';
 
-let lenis: Lenis | null = null;
+// Native scrolling only; Lenis made wheel and trackpad scrolling feel sticky
+const lenis: Lenis | null = null;
 let anchorsBound = false;
 let navLock = false;
-
-function easeOutExpo(t: number) {
-  return Math.min(1, 1.001 - Math.pow(2, -10 * t));
-}
 
 function easeOutCubic(t: number) {
   return 1 - Math.pow(1 - t, 3);
@@ -121,27 +118,6 @@ function bindHeaderNav() {
 }
 
 export function initSmoothScroll() {
-  if (!lenis) {
-    lenis = new Lenis({
-      duration: 1.1,
-      easing: easeOutExpo,
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.1,
-      infinite: false,
-    });
-
-    const raf = (time: number) => {
-      lenis?.raf(time);
-      requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
-
-    (window as unknown as { lenis: Lenis }).lenis = lenis;
-  }
-
   if (anchorsBound) return;
   anchorsBound = true;
 
